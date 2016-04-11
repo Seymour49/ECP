@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/etudiant/projects/ECP/graphe.h
+vector
+-
+string
+-
+algorithm
+-
+iostream
+-
+fstream
+-
+sstream
+-
+boost/iterator/iterator_concepts.hpp
+-
+
+/home/etudiant/projects/ECP/main.cpp
+graphe.h
+/home/etudiant/projects/ECP/graphe.h
+
