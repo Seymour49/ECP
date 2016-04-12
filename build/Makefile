@@ -153,6 +153,21 @@ ecp/fast:
 .PHONY : ecp/fast
 
 # target to build an object file
+coloration.o:
+	$(MAKE) -f CMakeFiles/ecp.dir/build.make CMakeFiles/ecp.dir/coloration.o
+.PHONY : coloration.o
+
+# target to preprocess a source file
+coloration.i:
+	$(MAKE) -f CMakeFiles/ecp.dir/build.make CMakeFiles/ecp.dir/coloration.i
+.PHONY : coloration.i
+
+# target to generate assembly for a file
+coloration.s:
+	$(MAKE) -f CMakeFiles/ecp.dir/build.make CMakeFiles/ecp.dir/coloration.s
+.PHONY : coloration.s
+
+# target to build an object file
 graphe.o:
 	$(MAKE) -f CMakeFiles/ecp.dir/build.make CMakeFiles/ecp.dir/graphe.o
 .PHONY : graphe.o
@@ -195,6 +210,9 @@ help:
 	@echo "... install/strip"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
+	@echo "... coloration.o"
+	@echo "... coloration.i"
+	@echo "... coloration.s"
 	@echo "... graphe.o"
 	@echo "... graphe.i"
 	@echo "... graphe.s"

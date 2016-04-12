@@ -9,7 +9,7 @@ Build Type=Debug
 CMake Binary=file:///usr/bin/cmake
 Environment Profile=
 Extra Arguments=-O2
-Install Directory=
+Install Directory=file:///usr/local
 
 [Launch]
 Launch Configurations=Launch Configuration 0
@@ -21,7 +21,7 @@ Name=New Application Launcher
 Type=Native Application
 
 [Launch][Launch Configuration 0][Data]
-Arguments=
+Arguments=../testGraphe25.txt
 Dependencies=@Variant(\x00\x00\x00\t\x00\x00\x00\x00\x00)
 Dependency Action=Nothing
 EnvironmentGroup=default

@@ -1,4 +1,5 @@
 FILE(REMOVE_RECURSE
+  "CMakeFiles/ecp.dir/coloration.o"
   "CMakeFiles/ecp.dir/graphe.o"
   "CMakeFiles/ecp.dir/main.o"
   "ecp.pdb"

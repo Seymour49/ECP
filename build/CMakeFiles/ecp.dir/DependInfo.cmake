@@ -4,6 +4,7 @@ SET(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 SET(CMAKE_DEPENDS_CHECK_CXX
+  "/home/etudiant/projects/ECP/coloration.cpp" "/home/etudiant/projects/ECP/build/CMakeFiles/ecp.dir/coloration.o"
   "/home/etudiant/projects/ECP/graphe.cpp" "/home/etudiant/projects/ECP/build/CMakeFiles/ecp.dir/graphe.o"
   "/home/etudiant/projects/ECP/main.cpp" "/home/etudiant/projects/ECP/build/CMakeFiles/ecp.dir/main.o"
   )

@@ -27,9 +27,19 @@
 #include <fstream>
 #include <sstream>
 #include <boost/iterator/iterator_concepts.hpp>
+#include <cstdlib>
+#include <cmath>
+
+
 
 class Graphe
 {
+private:
+  int nbVertices;
+  int nbEdges;
+  std::string namefile;
+  std::vector< std::vector<bool> >grapheMatrice;
+  
 public:
     
   Graphe();
@@ -38,7 +48,9 @@ public:
   ~Graphe();
   Graphe& operator=(const Graphe& other);
   
-  std::string getNamefile() const { return namefile; };
+  std::string getNamefile() const { return namefile; }
+  int getNbVertices() const { return nbVertices; }
+  int getMatriceValue(int x, int y) const { return (int)(grapheMatrice[x][y]); }
   
   std::ostream& print(std::ostream& out);      
   friend std::ostream& operator<<(std::ostream& out, Graphe& r){
@@ -48,11 +60,6 @@ public:
   void initMatrice();
   bool tryLoadFile();
 
-private:
-  int nbEdges;
-  int nbVertices;
-  std::string namefile;
-  std::vector< std::vector<bool> >grapheMatrice;
   
 };
 

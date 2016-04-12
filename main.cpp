@@ -1,7 +1,10 @@
 
 #include "graphe.h"
+#include "coloration.h"
 
 using namespace std;
+
+
 
 int main(int argc, char **argv) {
   ///*
@@ -12,16 +15,17 @@ int main(int argc, char **argv) {
   }
   else{
     //*/
-    Graphe G(argv[1]);
+    Graphe *G = new Graphe(argv[1]);
   
-    if ( G.tryLoadFile() ){
-      cout << G;
+    if ( G->tryLoadFile() ){
+      //cout << *G;
+      Coloration C(G,5);
       
-      Graphe *G2 = new Graphe(G);
-      
-      cout << *G2;
+      cout << C;
+     
     
-      delete(G2);
+      
+
       
     }else{
       exit(EXIT_FAILURE);

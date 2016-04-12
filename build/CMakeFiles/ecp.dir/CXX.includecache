@@ -6,6 +6,18 @@
 
 #IncludeRegexTransform: 
 
+/home/etudiant/projects/ECP/coloration.cpp
+coloration.h
+/home/etudiant/projects/ECP/coloration.h
+random
+-
+chrono
+-
+
+/home/etudiant/projects/ECP/coloration.h
+graphe.h
+/home/etudiant/projects/ECP/graphe.h
+
 /home/etudiant/projects/ECP/graphe.h
 vector
 -
@@ -21,8 +33,14 @@ sstream
 -
 boost/iterator/iterator_concepts.hpp
 -
+cstdlib
+-
+cmath
+-
 
 /home/etudiant/projects/ECP/main.cpp
 graphe.h
 /home/etudiant/projects/ECP/graphe.h
+coloration.h
+/home/etudiant/projects/ECP/coloration.h
 

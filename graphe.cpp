@@ -79,9 +79,9 @@ bool Graphe::tryLoadFile()
 	      line = line.substr(6,line.size()-6);
 	      string tmp = line.substr(0,line.find_first_of(" "));
 	      nbVertices = atoi(tmp.c_str());
-	      cout << "Nombre de sommets : " << nbVertices  << endl;
+	      
 	      initMatrice();
-	      cout << "test";
+	      
 	  }else{
 	      vector<string>& tokens = explode(line);
 	      /* tokens[0] : caractère de controle
@@ -129,5 +129,5 @@ Graphe& Graphe::operator=(const Graphe& other)
   nbEdges = other.nbEdges;
   grapheMatrice.resize(nbVertices);
   grapheMatrice = other.grapheMatrice;
-
+  return *this;
 }

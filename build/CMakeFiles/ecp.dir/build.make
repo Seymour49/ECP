@@ -49,9 +49,32 @@ include CMakeFiles/ecp.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/ecp.dir/flags.make
 
+CMakeFiles/ecp.dir/coloration.o: CMakeFiles/ecp.dir/flags.make
+CMakeFiles/ecp.dir/coloration.o: ../coloration.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/etudiant/projects/ECP/build/CMakeFiles $(CMAKE_PROGRESS_1)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/ecp.dir/coloration.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/ecp.dir/coloration.o -c /home/etudiant/projects/ECP/coloration.cpp
+
+CMakeFiles/ecp.dir/coloration.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ecp.dir/coloration.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/etudiant/projects/ECP/coloration.cpp > CMakeFiles/ecp.dir/coloration.i
+
+CMakeFiles/ecp.dir/coloration.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ecp.dir/coloration.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/etudiant/projects/ECP/coloration.cpp -o CMakeFiles/ecp.dir/coloration.s
+
+CMakeFiles/ecp.dir/coloration.o.requires:
+.PHONY : CMakeFiles/ecp.dir/coloration.o.requires
+
+CMakeFiles/ecp.dir/coloration.o.provides: CMakeFiles/ecp.dir/coloration.o.requires
+	$(MAKE) -f CMakeFiles/ecp.dir/build.make CMakeFiles/ecp.dir/coloration.o.provides.build
+.PHONY : CMakeFiles/ecp.dir/coloration.o.provides
+
+CMakeFiles/ecp.dir/coloration.o.provides.build: CMakeFiles/ecp.dir/coloration.o
+
 CMakeFiles/ecp.dir/graphe.o: CMakeFiles/ecp.dir/flags.make
 CMakeFiles/ecp.dir/graphe.o: ../graphe.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/etudiant/projects/ECP/build/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/etudiant/projects/ECP/build/CMakeFiles $(CMAKE_PROGRESS_2)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/ecp.dir/graphe.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/ecp.dir/graphe.o -c /home/etudiant/projects/ECP/graphe.cpp
 
@@ -74,7 +97,7 @@ CMakeFiles/ecp.dir/graphe.o.provides.build: CMakeFiles/ecp.dir/graphe.o
 
 CMakeFiles/ecp.dir/main.o: CMakeFiles/ecp.dir/flags.make
 CMakeFiles/ecp.dir/main.o: ../main.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/etudiant/projects/ECP/build/CMakeFiles $(CMAKE_PROGRESS_2)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/etudiant/projects/ECP/build/CMakeFiles $(CMAKE_PROGRESS_3)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/ecp.dir/main.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/ecp.dir/main.o -c /home/etudiant/projects/ECP/main.cpp
 
@@ -97,12 +120,14 @@ CMakeFiles/ecp.dir/main.o.provides.build: CMakeFiles/ecp.dir/main.o
 
 # Object files for target ecp
 ecp_OBJECTS = \
+"CMakeFiles/ecp.dir/coloration.o" \
 "CMakeFiles/ecp.dir/graphe.o" \
 "CMakeFiles/ecp.dir/main.o"
 
 # External object files for target ecp
 ecp_EXTERNAL_OBJECTS =
 
+ecp: CMakeFiles/ecp.dir/coloration.o
 ecp: CMakeFiles/ecp.dir/graphe.o
 ecp: CMakeFiles/ecp.dir/main.o
 ecp: CMakeFiles/ecp.dir/build.make
@@ -114,6 +139,7 @@ ecp: CMakeFiles/ecp.dir/link.txt
 CMakeFiles/ecp.dir/build: ecp
 .PHONY : CMakeFiles/ecp.dir/build
 
+CMakeFiles/ecp.dir/requires: CMakeFiles/ecp.dir/coloration.o.requires
 CMakeFiles/ecp.dir/requires: CMakeFiles/ecp.dir/graphe.o.requires
 CMakeFiles/ecp.dir/requires: CMakeFiles/ecp.dir/main.o.requires
 .PHONY : CMakeFiles/ecp.dir/requires
