@@ -33,9 +33,9 @@ ostream& Graphe::print(ostream& out){
   out << "Graphe : " << namefile << endl;
 
   for(int i = 0; i < nbVertices ; ++ i){
-    out << "Sommet " << i << " : ";
+    out << "Sommet " << i << " :";
     for(int j = 0; j < nbVertices ; ++j){
-	out << grapheMatrice[i][j] ;
+	out << " " <<grapheMatrice[i][j] ;
     }
     
     out << endl;	  

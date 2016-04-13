@@ -35,9 +35,9 @@
 class Graphe
 {
 private:
+  std::string namefile;
   int nbVertices;
   int nbEdges;
-  std::string namefile;
   std::vector< std::vector<bool> >grapheMatrice;
   
 public:

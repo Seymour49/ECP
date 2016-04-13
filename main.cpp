@@ -18,10 +18,11 @@ int main(int argc, char **argv) {
     Graphe *G = new Graphe(argv[1]);
   
     if ( G->tryLoadFile() ){
-      //cout << *G;
-      Coloration C(G,5);
+      cout << *G;
+      Coloration C(G,4);
+      C.initialisation();
       
-      cout << C;
+      //cout << C;
      
     
       
