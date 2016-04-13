@@ -17,21 +17,18 @@ c
 c           Graph Stats
 c number of vertices  : 10
 c nonisolated vertices: 10
-c number of edges     : 29
+c number of edges     : 25
 c edge density        : 0.898452
 c max degree          : 119
 c avg degree          : 111.41
 c min degree          : 102
 p col 10 29
 e 2 1
-e 3 1
 e 4 1
 e 4 2
 e 4 3
-e 5 1
 e 5 2
 e 5 3
-e 6 1
 e 6 2
 e 6 5
 e 7 1
@@ -42,7 +39,6 @@ e 8 2
 e 8 4
 e 8 5
 e 8 7
-e 9 1
 e 9 3
 e 9 4
 e 9 7

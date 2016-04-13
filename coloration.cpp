@@ -127,7 +127,6 @@ void Coloration::initialisation()
   vector<int> U;
   // initialisation U = V
   // initialisation de la structure de donnée M
-  //M.resize(G->getNbVertices());
   for(i=0; i < G->getNbVertices() ; ++i){
     vector<int> v;
     //v.resize(nbColor);
@@ -146,40 +145,10 @@ void Coloration::initialisation()
   for(i=0 ; i < nbColor; ++i){
     int s = U.back();
     U.pop_back();
-    //cout << s << endl;
+    
     Vk[i].push_back(s); 
     updateMafterInsert(s,i);	// f(vertex,color)
   }
-  
-  /*
-  cout << "Le nombre de tours de boucles jusqu'ici est bon" << endl;
-  
-  cout << "taille de U : " << U.size() << endl;
-  int total = 0;
-  for(unsigned i=0; i < Vk.size(); ++i){
-      cout << "taille de Vk["<<i<< "] : " << Vk[i].size() << "=";
-      for(unsigned j=0; j < Vk[i].size(); ++j){
-	cout << " " << Vk[i][j];
-      }
-      cout << endl;
-      total += Vk[i].size();
-  }
-  
-  cout << "taille totale de Vk : " << total << endl;
-  */
-  /*
-  cout << "M : " << endl;
-  for(unsigned i = 0 ; i < M.size(); ++i){
-      cout << "M[" <<i<<"] :" ;
-      for(unsigned j=0; j < M[i].size(); ++j){
-	cout << " " << M[i][j];
-      }
-      cout << endl;
-  }
-  cout << "fin Affichage M" << endl;
-  */
-  
-  
   i = 0;
   
   while(!U.empty()){
@@ -208,14 +177,18 @@ void Coloration::initialisation()
     }
     cout << endl;
     
-   
-    cout<< "suppression du sommet de valeur : " << v << endl;
-    
     U.erase( remove(U.begin(),U.end(), v), U.end());
     i = (i+1)  % nbColor;
-    cout << "couleur suivante = " << i << endl;
-    
   }
   
+    cout << "M : " << endl;
+    for(unsigned i = 0 ; i < M.size(); ++i){
+	cout << "M[" <<i<<"] :" ;
+	for(unsigned j=0; j < M[i].size(); ++j){
+	  cout << " " << M[i][j];
+	}
+	cout << endl;
+    }
+    cout << "fin Affichage M" << endl;
   
 }
