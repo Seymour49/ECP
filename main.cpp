@@ -19,8 +19,8 @@ int main(int argc, char **argv) {
   
     if ( G->tryLoadFile() ){
       
-      Coloration C(G,4);
-      C.initialisation();
+      Coloration C(G);
+      C.initialisation(floor(G->getNbVertices()/2));
       
       cout << C;
       

@@ -23,7 +23,7 @@
 using namespace std;
 
 
-Coloration::Coloration(Graphe* graphe, int k):G(graphe), nbColor(k){
+Coloration::Coloration(Graphe* graphe):G(graphe){
 
 }
 
@@ -91,9 +91,10 @@ int Coloration::selectVertex(vector<int> U,int color){
 }
 
 
-void Coloration::initialisation()
+void Coloration::initialisation(int nbc)
 {
   int i;
+  nbColor = nbc;
   
   for(i=0; i < nbColor; ++i){
       vector<int> k;

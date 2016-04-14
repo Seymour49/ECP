@@ -73,7 +73,7 @@ Coloration équitable d'un graphe
 	Evaluation d'une coloration
 	---------------------------
 	La fonction évalue le nombre de sommets en conflit. Un sommet est en conflit si
-	un de voisins possède la meme couleur. Pour ce faire, nous utilisons l'algo-
+	un de voisins possède la même couleur. Pour ce faire, nous utilisons l'algo-
 	rithme suivant :
 	
 	total = 0.
@@ -84,6 +84,29 @@ Coloration équitable d'un graphe
 	}
 	
 	
+	Définition du voisinage
+	-----------------------
+	Le voisinage d'une solution s est l'union de deux voisinages décrits comme suit :
+	
+	N(s) = N1(s) U N2(s) où :
+	  - N1(s) = 
+	  
+	  - N2(s) =
+	  
+	Mise à jour de M après un mouvement
+	-----------------------------------
+	Après avoir effectuer une opération de voisinage, la matrice M a besoin d'être mise à
+	jour. Deux fonctions sont donc définies :
+	
+	UpdateMafterOneMove(int Sj, int Ci, int Cj){
+	  
+	  
+	}
+	
+	UpdateMafterSwap(int Si, int Sj){
+	
+	
+	}
 	
 	
 		

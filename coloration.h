@@ -25,7 +25,7 @@
 class Coloration
 {
 public:
-  Coloration(Graphe* graphe, int k);
+  Coloration(Graphe* graphe);
   Coloration(const Coloration& other);
   ~Coloration();
   //Coloration& operator=(const Coloration& other);
@@ -48,7 +48,7 @@ public:
   /**
    * Méthode d'initialisation respectant la contrainte d'équité des capacités.
    */
-  void initialisation();
+  void initialisation(int nbc);
   
   /**
    * Fonction retournant le nombre de sommets en conflits
