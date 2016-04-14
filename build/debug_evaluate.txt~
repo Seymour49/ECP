@@ -10,6 +10,26 @@ Sommet 7 : 1 1 0 1 1 0 1 0 1 0
 Sommet 8 : 0 0 1 1 0 0 1 1 0 1
 Sommet 9 : 1 0 1 1 1 0 0 0 1 0
 
+Coloration
+ Partitions  : 
+Vk[0] : 2 1 8 -->  3 éléments.
+Vk[1] : 7 5 3 -->  3 éléments.
+Vk[2] : 9 6 -->  2 éléments.
+Vk[3] : 4 0 -->  2 éléments.
+Matrice M
+M[0] : 1 2 2 0
+M[1] : 0 3 0 2
+M[2] : 1 1 1 1
+M[3] : 3 1 1 1
+M[4] : 2 2 2 0
+M[5] : 1 0 1 1
+M[6] : 1 2 0 2
+M[7] : 2 1 1 2
+M[8] : 1 2 2 0
+M[9] : 2 1 0 2
+
+Nombre de sommets en conflits : 4
+Goood Jooob Guy !
 Graphe : ../testGraphe10.txt
 Sommet 0 : 0 1 0 1 0 0 1 1 0 1
 Sommet 1 : 1 0 0 1 1 1 0 1 0 0
@@ -24,21 +44,21 @@ Sommet 9 : 1 0 1 1 1 0 0 0 1 0
 
 Coloration
  Partitions  : 
-Vk[0] : 9 7 6 -->  3 éléments.
-Vk[1] : 8 4 1 -->  3 éléments.
-Vk[2] : 0 2 -->  2 éléments.
-Vk[3] : 5 3 -->  2 éléments.
+Vk[0] : 8 4 0 -->  3 éléments.
+Vk[1] : 3 5 1 -->  3 éléments.
+Vk[2] : 9 6 -->  2 éléments.
+Vk[3] : 7 2 -->  2 éléments.
 Matrice M
-M[0] : 3 1 0 1
-M[1] : 1 1 1 2
-M[2] : 1 2 0 1
-M[3] : 2 2 2 0
-M[4] : 3 1 1 1
-M[5] : 1 2 0 0
-M[6] : 1 2 1 1
-M[7] : 1 3 1 1
-M[8] : 3 0 1 1
-M[9] : 0 2 2 1
+M[0] : 0 2 2 1
+M[1] : 2 2 0 1
+M[2] : 2 1 1 0
+M[3] : 2 1 1 2
+M[4] : 0 2 2 2
+M[5] : 1 1 1 0
+M[6] : 3 1 0 1
+M[7] : 3 2 1 0
+M[8] : 0 1 2 2
+M[9] : 3 1 0 1
 
-Nombre de sommets en conflits : 4
+Nombre de sommets en conflits : 3
 Goood Jooob Guy !

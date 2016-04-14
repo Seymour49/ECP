@@ -6,6 +6,14 @@
 
 #IncludeRegexTransform: 
 
+/home/etudiant/projects/ECP/coloration.cpp
+coloration.h
+/home/etudiant/projects/ECP/coloration.h
+random
+-
+chrono
+-
+
 /home/etudiant/projects/ECP/coloration.h
 graphe.h
 /home/etudiant/projects/ECP/graphe.h
