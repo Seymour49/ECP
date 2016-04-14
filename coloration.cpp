@@ -39,18 +39,28 @@ Coloration::~Coloration()
 
 ostream& Coloration::print(ostream& out)
 {
+  unsigned i,j;
   out << *G ;
   out << "Coloration" << endl;
   out << " Partitions  : " << endl;
-  for(unsigned i = 0; i < Vk.size(); ++i){
-    out << "Vk[" << i << "] : " << Vk[i].size() << " éléments " << endl;
-    for(unsigned j = 0; j < Vk[i].size(); ++j){
+  for(i = 0; i < Vk.size(); ++i){
+    out << "Vk[" << i << "] :";
+    for(j = 0; j < Vk[i].size(); ++j){
 	out << " " << Vk[i][j] ;
     }
+    out << " -->  " << Vk[i].size() << " éléments." << endl;
     
-    out << endl;
   }  
   
+  out << "Matrice M" << endl;
+  for(i = 0 ; i < M.size(); ++i){
+	out << "M[" <<i<<"] :" ;
+	for(j=0; j < M[i].size(); ++j){
+	  out << " " << M[i][j];
+	}
+	out << endl;
+  }
+  out << endl;
   return out;
   
 }
@@ -78,40 +88,6 @@ int Coloration::selectVertex(vector<int> U,int color){
   }
   
   return min;
-  /*
-  int min = 0;
-  unsigned j = 1;
-  bool found = false;
-  if( U.size() == 1 ){
-    cout << "return selected vertex 0 cause size 1" << endl;
-    return 0;
-  }else if( U.size() == 2 ){
-      if( M[U.at(0)][color] > M[U.at(1)][color] ){
-	cout << "return selected vertex 1 cause size 2 and 1 < 0" << endl;
-	return 1;
-      }else{
-	cout << "return selected vertex 0 cause size 2 and 1 > 0" << endl;
-	return 0;
-      }
-  }
-  else{
-    
-    while( (found != true && j < U.size()) ){
-	
-	if( M[U.at(min)][color] == 0 ){
-	  found = true; 
-	}
-	else if( M[U.at(min)][color] > M[U.at(j)][color] ){
-	  min = j;
-	}
-	    
-      ++j;
-    }
-    cout << "return selected vertex " << min <<  endl;
-    return min;
-    
-  }
-  */
 }
 
 
@@ -152,43 +128,32 @@ void Coloration::initialisation()
   i = 0;
   
   while(!U.empty()){
-    
-    cout << "M : " << endl;
-    for(unsigned i = 0 ; i < M.size(); ++i){
-	cout << "M[" <<i<<"] :" ;
-	for(unsigned j=0; j < M[i].size(); ++j){
-	  cout << " " << M[i][j];
-	}
-	cout << endl;
-    }
-    cout << "fin Affichage M" << endl;
-    
-    
+        
     int v = selectVertex(U,i); // f(vector<int>U, color i)
     
-    cout << "Sommet sélectionné : " << v  << " dans G"<< endl;
     Vk[i].push_back(v);
     
     updateMafterInsert(v, i);	// f(vertex,color)
-    
-    cout << "Vk["<<i<<"] :";
-    for(unsigned j = 0; j < Vk[i].size(); ++j){
-	cout << " " << Vk[i][j];
-    }
-    cout << endl;
     
     U.erase( remove(U.begin(),U.end(), v), U.end());
     i = (i+1)  % nbColor;
   }
   
-    cout << "M : " << endl;
-    for(unsigned i = 0 ; i < M.size(); ++i){
-	cout << "M[" <<i<<"] :" ;
-	for(unsigned j=0; j < M[i].size(); ++j){
-	  cout << " " << M[i][j];
-	}
-	cout << endl;
+}
+
+int Coloration::evaluate(){
+
+  int total = 0;
+  
+  for(unsigned i=0; i < Vk.size(); ++i){
+    
+    for(unsigned j=0; j < Vk[i].size(); ++j){
+      
+      total += (int)(M[Vk[i][j]][i] != 0);
     }
-    cout << "fin Affichage M" << endl;
+  }
+    
+  return total;
   
 }
+

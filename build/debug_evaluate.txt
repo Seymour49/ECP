@@ -1,0 +1,32 @@
+Graphe : ../testGraphe10.txt
+Sommet 0 : 0 1 0 1 0 0 1 1 0 1
+Sommet 1 : 1 0 0 1 1 1 0 1 0 0
+Sommet 2 : 0 0 0 1 1 0 0 0 1 1
+Sommet 3 : 1 1 1 0 0 0 0 1 1 1
+Sommet 4 : 0 1 1 0 0 1 1 1 0 1
+Sommet 5 : 0 1 0 0 1 0 1 0 0 0
+Sommet 6 : 1 0 0 0 1 1 0 1 1 0
+Sommet 7 : 1 1 0 1 1 0 1 0 1 0
+Sommet 8 : 0 0 1 1 0 0 1 1 0 1
+Sommet 9 : 1 0 1 1 1 0 0 0 1 0
+
+Coloration
+ Partitions  : 
+Vk[0] : 2 1 8 -->  3 éléments.
+Vk[1] : 7 5 3 -->  3 éléments.
+Vk[2] : 9 6 -->  2 éléments.
+Vk[3] : 4 0 -->  2 éléments.
+Matrice M
+M[0] : 1 2 2 0
+M[1] : 0 3 0 2
+M[2] : 1 1 1 1
+M[3] : 3 1 1 1
+M[4] : 2 2 2 0
+M[5] : 1 0 1 1
+M[6] : 1 2 0 2
+M[7] : 2 1 1 2
+M[8] : 1 2 2 0
+M[9] : 2 1 0 2
+
+Nombre de sommets en conflits : 4
+Goood Jooob Guy !

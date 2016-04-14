@@ -50,6 +50,10 @@ public:
    */
   void initialisation();
   
+  /**
+   * Fonction retournant le nombre de sommets en conflits
+   */
+  int evaluate();
 private:
     Graphe* G;
     int nbColor;
