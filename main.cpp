@@ -19,14 +19,14 @@ int main(int argc, char **argv) {
   
     if ( G->tryLoadFile() ){
       
-      Coloration C(G);
-      C.initialisation(floor(G->getNbVertices()/2));
+      Coloration *C = new Coloration(G);
+      C->initialisation(floor(G->getNbVertices()/2));
       
-      cout << C;
+      cout << *C;
       
-      cout << "Nombre de sommets en conflits : " << C.evaluate() << endl;
+      cout << "Nombre de sommets en conflits : " << C->evaluate() << endl;
 
-      
+      delete(C);
     }else{
       exit(EXIT_FAILURE);
     }    

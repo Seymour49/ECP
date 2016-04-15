@@ -89,13 +89,48 @@ Coloration équitable d'un graphe
 	Le voisinage d'une solution s est l'union de deux voisinages décrits comme suit :
 	
 	N(s) = N1(s) U N2(s) où :
-	  - N1(s) = 
+	  - N1(s) = { <Sj, Vi,Vj> | Sj ¤ Vi n C(s), i != j, |Vk[i]| > floor(|V|/nbColor),
+	    |Vk[j]| < top(|V|/nbColor) } où C(s) représente l'ensemble des sommets en 
+	    conflits de la solution courante s.
 	  
-	  - N2(s) =
+	  - N2(s) = { (Si,Sj) | Si ¤ Vk[i], Sj ¤ Vk[j], i != j, {Si,Sj} n C(s) != {}  }
+	  
+	Plusieurs choix s'offrent à nous pour la représentation de ces deux voisinages. 
+	En effet, nous pouvons à la fois définir une classe abstraite N puis deux sous-classes
+	N1 et N2 implémentant chacun un voisinage puis travailler sur un ensemble d'objets de 
+	type N. 
+	Nous pourrions également travailleur sur deux vecteurs différents représentant chacun
+	un voisinage.
+	De nombreuses autres implémentations sont possibles et nous reviendrons dessus si le 
+	temps nous le permet.
+	Nous choisirons dans un premier temps de travailler sur deux vecteurs différents afin
+	d'anticiper la création de la méthode de perturbation.
+	
+	De plus, la recherche tabou présentée utilisant une stratégie de sélection du meilleur
+	améliorant,nous ajouterons à chacun des voisins le score de gain qui lui est associé.
+	Nous présenterons le calcul de ce gain dans la prochaine section.
+	Enfin, nous implémentons deux structures de données que nous stockerons dans deux
+	vecteurs :
+	
+	    - typedef struct oneMove {
+		int gain;
+		int Sj;
+		int Vi;
+		int Vj;
+	      } oneMove;
+	      
+	    - typedef struct swap {
+		int gain;
+		int Si;
+		int Sj;
+	      } swap;
+	      
+	    vector< oneMove *> N1;
+	    vector< swap *> N2;
 	  
 	Mise à jour de M après un mouvement
 	-----------------------------------
-	Après avoir effectuer une opération de voisinage, la matrice M a besoin d'être mise à
+	Après avoir effectué une opération de voisinage, la matrice M a besoin d'être mise à
 	jour. Deux fonctions sont donc définies :
 	
 	UpdateMafterOneMove(int Sj, int Ci, int Cj){
