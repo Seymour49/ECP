@@ -22,11 +22,13 @@ int main(int argc, char **argv) {
     if ( G->tryLoadFile() ){
       
       Coloration *C = new Coloration(G);
-      C->initialisation(floor(G->getNbVertices()/2));
+      C->initialisation(floor((float)G->getNbVertices()/2));
+      C->initNeighboor();
       
       cout << *C;
       
       cout << "Nombre de sommets en conflits : " << C->evaluate() << endl;
+      
 
       delete(C);
     

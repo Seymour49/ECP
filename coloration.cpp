@@ -65,6 +65,20 @@ ostream& Coloration::print(ostream& out)
 	out << endl;
   }
   out << endl;
+  
+  out << "Sommets en conflit :";
+  for(i=0; i < Vk.size(); ++i){
+      for(j = 0; j < Vk[i].size(); ++j){
+	  if(inConflict(i,j))
+	    out << " " << Vk[i][j];
+      }
+  }
+  out << endl;
+  
+  out << "Voisins dans N" << endl;
+  for(i=0; i < N.size(); ++i){
+      out << *N[i];
+  }
   return out;
   
 }
@@ -154,7 +168,7 @@ int Coloration::evaluate(){
     
     for(unsigned j=0; j < Vk[i].size(); ++j){
       
-      total += (int)(M[Vk[i][j]][i] != 0);
+      total += (int)(inConflict(i,j));
     }
   }
     
@@ -174,12 +188,29 @@ void Coloration::initNeighboor(){
 	for(unsigned j=0; j< Vk[i].size(); ++j){
 	    
 	    if( inConflict(i,j) == true ){
-		// Calcul des différents oneMove possibles
-		
-		
-		// Calcul des différents swap possibles
-		
+		// Calcul des différents voisins
+		for(unsigned k=0; k < Vk.size(); ++k){
+		    
+		    // OneMove
+		    if( Vk[i].size() == ceil( ((float)G->getNbVertices()/nbColor) ) ){
+			if( Vk[k].size() == floor( ((float)G->getNbVertices()/nbColor) ) ){
+			    OneMove* om = new OneMove(Vk[i][j],i,k);
+			    N.push_back(om);
+			}
+		    }
+		    
+		    // Swap
+		    if( k != i ){
+			
+			for(unsigned l=0; l < Vk[k].size(); ++l){
+			    
+			    Swap* s = new Swap(Vk[i][j], Vk[k][l]);
+			    N.push_back(s);
+			}
+		    }
+		}    
 	    }
 	}
     }
+
 }
