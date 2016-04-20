@@ -20,6 +20,7 @@
 #include "coloration.h"
 #include <random>
 #include <chrono>
+
 using namespace std;
 
 
@@ -35,6 +36,9 @@ Coloration::Coloration(const Coloration& other):G(other.G), nbColor(other.nbColo
 Coloration::~Coloration()
 {
   delete(G);
+  for(unsigned i=0; i < N.size(); ++i){
+	delete(N[i]);
+  }
 }
 
 ostream& Coloration::print(ostream& out)
@@ -158,3 +162,24 @@ int Coloration::evaluate(){
   
 }
 
+bool Coloration::inConflict(int i, int j){
+    return ( M[Vk[i][j]][i]  != 0 ) ;
+}
+
+
+void Coloration::initNeighboor(){
+    
+    for(unsigned i=0; i< Vk.size(); ++i){
+	
+	for(unsigned j=0; j< Vk[i].size(); ++j){
+	    
+	    if( inConflict(i,j) == true ){
+		// Calcul des différents oneMove possibles
+		
+		
+		// Calcul des différents swap possibles
+		
+	    }
+	}
+    }
+}

@@ -1,4 +1,7 @@
 FILE(REMOVE_RECURSE
+  "CMakeFiles/ecp.dir/voisin.o"
+  "CMakeFiles/ecp.dir/swap.o"
+  "CMakeFiles/ecp.dir/onemove.o"
   "CMakeFiles/ecp.dir/coloration.o"
   "CMakeFiles/ecp.dir/graphe.o"
   "CMakeFiles/ecp.dir/main.o"

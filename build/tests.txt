@@ -1,0 +1,21 @@
+####################################
+    Test mémoire voisin
+    
+    vector<Voisin*> N;
+    
+    for(unsigned i=0; i < 20 ; i++){
+	OneMove * om = new OneMove(i,i+1,i+2);
+	Swap* s = new Swap(i,i+1);
+	N.push_back(om);
+	N.push_back(s);
+    }
+    
+    for(unsigned j=0; j < N.size(); ++j){
+	cout << *N[j];
+	delete N[j];
+    }
+    
+    
+  }  
+  
+####################################

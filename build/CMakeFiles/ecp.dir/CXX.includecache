@@ -6,7 +6,21 @@
 
 #IncludeRegexTransform: 
 
+/home/etudiant/projects/ECP/coloration.cpp
+coloration.h
 /home/etudiant/projects/ECP/coloration.h
+random
+-
+chrono
+-
+
+/home/etudiant/projects/ECP/coloration.h
+voisin.h
+/home/etudiant/projects/ECP/voisin.h
+onemove.h
+/home/etudiant/projects/ECP/onemove.h
+swap.h
+/home/etudiant/projects/ECP/swap.h
 graphe.h
 /home/etudiant/projects/ECP/graphe.h
 
@@ -31,8 +45,26 @@ cmath
 -
 
 /home/etudiant/projects/ECP/main.cpp
+voisin.h
+/home/etudiant/projects/ECP/voisin.h
+onemove.h
+/home/etudiant/projects/ECP/onemove.h
+swap.h
+/home/etudiant/projects/ECP/swap.h
 graphe.h
 /home/etudiant/projects/ECP/graphe.h
 coloration.h
 /home/etudiant/projects/ECP/coloration.h
+
+/home/etudiant/projects/ECP/onemove.h
+voisin.h
+/home/etudiant/projects/ECP/voisin.h
+
+/home/etudiant/projects/ECP/swap.h
+voisin.h
+/home/etudiant/projects/ECP/voisin.h
+
+/home/etudiant/projects/ECP/voisin.h
+iostream
+-
 

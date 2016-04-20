@@ -5,6 +5,9 @@ CMakeFiles/ecp.dir/coloration.o
  /home/etudiant/projects/ECP/coloration.cpp
  /home/etudiant/projects/ECP/coloration.h
  /home/etudiant/projects/ECP/graphe.h
+ /home/etudiant/projects/ECP/onemove.h
+ /home/etudiant/projects/ECP/swap.h
+ /home/etudiant/projects/ECP/voisin.h
 CMakeFiles/ecp.dir/graphe.o
  /home/etudiant/projects/ECP/graphe.cpp
  /home/etudiant/projects/ECP/graphe.h
@@ -12,3 +15,17 @@ CMakeFiles/ecp.dir/main.o
  /home/etudiant/projects/ECP/coloration.h
  /home/etudiant/projects/ECP/graphe.h
  /home/etudiant/projects/ECP/main.cpp
+ /home/etudiant/projects/ECP/onemove.h
+ /home/etudiant/projects/ECP/swap.h
+ /home/etudiant/projects/ECP/voisin.h
+CMakeFiles/ecp.dir/onemove.o
+ /home/etudiant/projects/ECP/onemove.cpp
+ /home/etudiant/projects/ECP/onemove.h
+ /home/etudiant/projects/ECP/voisin.h
+CMakeFiles/ecp.dir/swap.o
+ /home/etudiant/projects/ECP/swap.cpp
+ /home/etudiant/projects/ECP/swap.h
+ /home/etudiant/projects/ECP/voisin.h
+CMakeFiles/ecp.dir/voisin.o
+ /home/etudiant/projects/ECP/voisin.cpp
+ /home/etudiant/projects/ECP/voisin.h

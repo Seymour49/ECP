@@ -20,6 +20,9 @@
 #ifndef COLORATION_H
 #define COLORATION_H
 
+#include "voisin.h"
+#include "onemove.h"
+#include "swap.h"
 #include "graphe.h"
 
 class Coloration
@@ -54,11 +57,25 @@ public:
    * Fonction retournant le nombre de sommets en conflits
    */
   int evaluate();
+  
+  /** Fonction retournant vrai si le sommet j de couleur i testé est en conflit, i.e 
+   * M[Vk[i][j]][i] != 0
+   */
+  bool inConflict(int i, int j);
+  
+  /**
+   * Fonction inialisant le vecteur de voisins
+   */
+  void initNeighboor();
 private:
     Graphe* G;
     int nbColor;
     std::vector<std::vector<int> > Vk; /* Vk[i][j] = indice dans V du j_ième sommet de couleur i */
     std::vector<std::vector<int> > M; /* M[i][j] = nombre de voisins du sommet i de couleur j */
+    
+    std::vector<Voisin*> N; /* représente l'ensemble des voisins de la solution courante */
+    
+    
 };
 
 #endif // COLORATION_H

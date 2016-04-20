@@ -197,6 +197,51 @@ main.s:
 	$(MAKE) -f CMakeFiles/ecp.dir/build.make CMakeFiles/ecp.dir/main.s
 .PHONY : main.s
 
+# target to build an object file
+onemove.o:
+	$(MAKE) -f CMakeFiles/ecp.dir/build.make CMakeFiles/ecp.dir/onemove.o
+.PHONY : onemove.o
+
+# target to preprocess a source file
+onemove.i:
+	$(MAKE) -f CMakeFiles/ecp.dir/build.make CMakeFiles/ecp.dir/onemove.i
+.PHONY : onemove.i
+
+# target to generate assembly for a file
+onemove.s:
+	$(MAKE) -f CMakeFiles/ecp.dir/build.make CMakeFiles/ecp.dir/onemove.s
+.PHONY : onemove.s
+
+# target to build an object file
+swap.o:
+	$(MAKE) -f CMakeFiles/ecp.dir/build.make CMakeFiles/ecp.dir/swap.o
+.PHONY : swap.o
+
+# target to preprocess a source file
+swap.i:
+	$(MAKE) -f CMakeFiles/ecp.dir/build.make CMakeFiles/ecp.dir/swap.i
+.PHONY : swap.i
+
+# target to generate assembly for a file
+swap.s:
+	$(MAKE) -f CMakeFiles/ecp.dir/build.make CMakeFiles/ecp.dir/swap.s
+.PHONY : swap.s
+
+# target to build an object file
+voisin.o:
+	$(MAKE) -f CMakeFiles/ecp.dir/build.make CMakeFiles/ecp.dir/voisin.o
+.PHONY : voisin.o
+
+# target to preprocess a source file
+voisin.i:
+	$(MAKE) -f CMakeFiles/ecp.dir/build.make CMakeFiles/ecp.dir/voisin.i
+.PHONY : voisin.i
+
+# target to generate assembly for a file
+voisin.s:
+	$(MAKE) -f CMakeFiles/ecp.dir/build.make CMakeFiles/ecp.dir/voisin.s
+.PHONY : voisin.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -219,6 +264,15 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... onemove.o"
+	@echo "... onemove.i"
+	@echo "... onemove.s"
+	@echo "... swap.o"
+	@echo "... swap.i"
+	@echo "... swap.s"
+	@echo "... voisin.o"
+	@echo "... voisin.i"
+	@echo "... voisin.s"
 .PHONY : help
 
 

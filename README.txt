@@ -109,21 +109,22 @@ Coloration équitable d'un graphe
 	De plus, la recherche tabou présentée utilisant une stratégie de sélection du meilleur
 	améliorant,nous ajouterons à chacun des voisins le score de gain qui lui est associé.
 	Nous présenterons le calcul de ce gain dans la prochaine section.
-	Enfin, nous implémentons deux structures de données que nous stockerons dans deux
-	vecteurs :
+	Enfin, nous implémentons deux classes que nous utiliserons via deux vecteurs :
 	
-	    - typedef struct oneMove {
+	    - class OneMove {
+		private:
 		int gain;
 		int Sj;
 		int Vi;
 		int Vj;
-	      } oneMove;
+	      };
 	      
-	    - typedef struct swap {
+	    - class Swap {
+		private:
 		int gain;
 		int Si;
 		int Sj;
-	      } swap;
+	      };
 	      
 	    vector< oneMove *> N1;
 	    vector< swap *> N2;
