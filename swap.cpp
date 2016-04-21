@@ -21,11 +21,11 @@
 
 using namespace std;
 
-Swap::Swap(int i, int j):Voisin(),si(i), sj(j){
+Swap::Swap(int i, int j, int k, int l):Voisin(),si(i), sj(j), ki(k), kj(l){
 }
 
 ostream& Swap::print(ostream& out){
     
-    out << "<" << si << ","<< sj << "> : " << gain << endl;
+    out << "<" << si << "(" << ki << "), "<< sj << "(" << kj << ") > : " << gain << endl;
     return out;
 }

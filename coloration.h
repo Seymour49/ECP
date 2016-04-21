@@ -24,6 +24,7 @@
 #include "onemove.h"
 #include "swap.h"
 #include "graphe.h"
+#include <exception>
 
 class Coloration
 {
@@ -67,6 +68,21 @@ public:
    * Fonction inialisant le vecteur de voisins
    */
   void initNeighboor();
+  
+  /**
+   * Fonction calculant le delta de l'ensemble des voisins
+   */
+  void calculDelta();
+  
+  /**
+   * Fonction calculant le delta d'un voisin OneMove
+   */
+  int calculDeltaOM(OneMove* om);
+  
+  /**
+   * Fonction calcultant le delta d'un voisin Swap
+   */
+  int calculDeltaS(Swap * s);
 private:
     Graphe* G;
     int nbColor;

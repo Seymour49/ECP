@@ -190,12 +190,14 @@ void Coloration::initNeighboor(){
 	    if( inConflict(i,j) == true ){
 		// Calcul des différents voisins
 		for(unsigned k=0; k < Vk.size(); ++k){
-		    
 		    // OneMove
-		    if( Vk[i].size() == ceil( ((float)G->getNbVertices()/nbColor) ) ){
-			if( Vk[k].size() == floor( ((float)G->getNbVertices()/nbColor) ) ){
-			    OneMove* om = new OneMove(Vk[i][j],i,k);
-			    N.push_back(om);
+		    if( ceil( (float)G->getNbVertices()/nbColor ) != floor( (float)G->getNbVertices()/nbColor ) ){
+		
+			if( Vk[i].size() == ceil( (float)G->getNbVertices()/nbColor ) ){
+			    if( Vk[k].size() == floor( ((float)G->getNbVertices()/nbColor) ) ){
+				Voisin* om = new OneMove(Vk[i][j],i,k);
+				N.push_back(om);
+			    }
 			}
 		    }
 		    
@@ -204,13 +206,55 @@ void Coloration::initNeighboor(){
 			
 			for(unsigned l=0; l < Vk[k].size(); ++l){
 			    
-			    Swap* s = new Swap(Vk[i][j], Vk[k][l]);
+			    Voisin* s = new Swap(Vk[i][j], Vk[k][l],i,k);
 			    N.push_back(s);
 			}
 		    }
+		    
 		}    
 	    }
 	}
     }
 
+}
+
+
+void Coloration::calculDelta(){
+    int gain = 0;
+    for(unsigned i=0; i < N.size(); ++i){
+	try{
+	    // Dynamic cast
+	    if( dynamic_cast<OneMove*>(N[i]) == 0 ){
+		gain = calculDeltaS(dynamic_cast<Swap*>(N[i]));
+	    }else{
+		gain = calculDeltaOM(dynamic_cast<OneMove*>(N[i]));
+	    }
+	    
+	    N[i]->setGain(gain);
+	    
+	}catch(exception &e){
+	    cout << "Exception: " << e.what();
+	}
+    }
+
+    sort(N.begin(), N.end(), Voisin::compareGain);
+}
+
+/**
+ * Retourne M[s][Vk[j]] - M[s][Vk[i]]
+ */
+int Coloration::calculDeltaOM(OneMove* om){
+    
+    int result = M[om->getS()][om->getVkj()] - M[om->getS()][om->getVki()];
+    return result;
+}
+
+/**
+ * Soit swap(u,v), retourne M[v][K(u)] - M[v][K(v)] + (M[u][K(v)] - M[u][K(u)] - 2*G[u][v])
+ */
+int Coloration::calculDeltaS(Swap* s){
+    
+    int result = M[s->getSj()][s->getKi()] - M[s->getSj()][s->getKj()];
+    result += (M[s->getSi()][s->getKj()] - M[s->getSi()][s->getKi()] - 2*G->getMatriceValue(s->getSi(),s->getSj()) );
+    return result;
 }

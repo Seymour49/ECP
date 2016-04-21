@@ -18,12 +18,13 @@ int main(int argc, char **argv) {
   else{
     
     Graphe *G = new Graphe(argv[1]);
-  
+    
     if ( G->tryLoadFile() ){
-      
+    
       Coloration *C = new Coloration(G);
-      C->initialisation(floor((float)G->getNbVertices()/2));
+      C->initialisation(/*floor((float)G->getNbVertices()/2)*/3);
       C->initNeighboor();
+      C->calculDelta();
       
       cout << *C;
       

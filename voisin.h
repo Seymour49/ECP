@@ -36,6 +36,13 @@ public:
     friend std::ostream& operator<<(std::ostream& out, Voisin& v){
 	return v.print(out);
     }
+
+    /**
+     * Méthode de comparaison pour tri par ordre décroissant
+     */
+    static bool compareGain(const Voisin* a, const Voisin* b){
+      return const_cast<Voisin *>(a)->getGain() > const_cast<Voisin *>(b)->getGain();
+    }
     
 protected:
     int gain;

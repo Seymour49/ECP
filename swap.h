@@ -21,14 +21,17 @@
 #define SWAP_H
 
 #include "voisin.h"
+#include <boost/concept_check.hpp>
 
 class Swap : public Voisin
 {
 public:
-    Swap(int i, int j);
+    Swap(int i, int j, int k, int l);
     /** Getters and setter */
     int getSi() const { return si; }
     int getSj() const { return sj; }
+    int getKi() const { return ki; }
+    int getKj() const { return kj; }
     
     /** Display */
     std::ostream& print(std::ostream& out);
@@ -36,6 +39,8 @@ public:
 private:
     int si;
     int sj;
+    int ki;
+    int kj;
 };
 
 #endif // SWAP_H

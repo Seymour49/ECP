@@ -6,6 +6,14 @@
 
 #IncludeRegexTransform: 
 
+/home/etudiant/projects/ECP/coloration.cpp
+coloration.h
+/home/etudiant/projects/ECP/coloration.h
+random
+-
+chrono
+-
+
 /home/etudiant/projects/ECP/coloration.h
 voisin.h
 /home/etudiant/projects/ECP/voisin.h
@@ -15,6 +23,8 @@ swap.h
 /home/etudiant/projects/ECP/swap.h
 graphe.h
 /home/etudiant/projects/ECP/graphe.h
+exception
+-
 
 /home/etudiant/projects/ECP/graphe.h
 vector
@@ -48,11 +58,25 @@ graphe.h
 coloration.h
 /home/etudiant/projects/ECP/coloration.h
 
+/home/etudiant/projects/ECP/onemove.cpp
+onemove.h
+/home/etudiant/projects/ECP/onemove.h
+
 /home/etudiant/projects/ECP/onemove.h
 voisin.h
 /home/etudiant/projects/ECP/voisin.h
 
+/home/etudiant/projects/ECP/swap.cpp
+swap.h
 /home/etudiant/projects/ECP/swap.h
+
+/home/etudiant/projects/ECP/swap.h
+voisin.h
+/home/etudiant/projects/ECP/voisin.h
+boost/concept_check.hpp
+-
+
+/home/etudiant/projects/ECP/voisin.cpp
 voisin.h
 /home/etudiant/projects/ECP/voisin.h
 
