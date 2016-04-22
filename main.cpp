@@ -24,7 +24,7 @@ int main(int argc, char **argv) {
       Coloration *C = new Coloration(G);
       C->initialisation(/*floor((float)G->getNbVertices()/2)*/3);
       C->initNeighboor();
-      C->calculDelta();
+      //C->calculDelta();
       
       cout << *C;
       

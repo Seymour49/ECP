@@ -187,10 +187,11 @@ void Coloration::initNeighboor(){
 	
 	for(unsigned j=0; j< Vk[i].size(); ++j){
 	    
+	    // Calcul des OneMoves
 	    if( inConflict(i,j) == true ){
-		// Calcul des différents voisins
+		
 		for(unsigned k=0; k < Vk.size(); ++k){
-		    // OneMove
+		    
 		    if( ceil( (float)G->getNbVertices()/nbColor ) != floor( (float)G->getNbVertices()/nbColor ) ){
 		
 			if( Vk[i].size() == ceil( (float)G->getNbVertices()/nbColor ) ){
@@ -199,23 +200,30 @@ void Coloration::initNeighboor(){
 				N.push_back(om);
 			    }
 			}
-		    }
-		    
-		    // Swap
-		    if( k != i ){
-			
-			for(unsigned l=0; l < Vk[k].size(); ++l){
-			    
-			    Voisin* s = new Swap(Vk[i][j], Vk[k][l],i,k);
-			    N.push_back(s);
-			}
-		    }
-		    
+		    }    
 		}    
-	    }
+	    } 
 	}
     }
-
+    
+    for(unsigned i=0; i < Vk.size(); ++i){
+	for(unsigned j = 0; j < Vk[i].size(); ++j) {
+	    
+	    for(unsigned k=i+1; k < Vk.size(); ++k){
+		for(unsigned l= 0; l < Vk[k].size(); ++l){
+		    
+		    if( ( inConflict(k,l) == true || inConflict(i,j) == true ) ){
+			Voisin* s = new Swap(Vk[i][j],Vk[k][l], i, k);
+			N.push_back(s);
+		    }
+		
+		}		
+	    }
+	    
+	}
+	
+    }
+    
 }
 
 
