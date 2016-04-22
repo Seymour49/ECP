@@ -158,11 +158,44 @@ Coloration équitable d'un graphe
 	  
 	}
 	
-	UpdateMafterSwap(int Si, int Sj){
+	UpdateMafterSwap(int Si, int Sj, int Ki, int Kj){
 	
 	
 	}
 	
+	Gestion de la liste tabou
+	-------------------------
+	Une fois un mouvement de voisinage effectué et la matrice M mise à jour, il convient
+	d'interdire au(x) sommet(s) ayant changé de classe de couleur d'y revenir avant un 
+	certain nombre d'itérations, ce via la mise en place d'une matrice tabou.
+	De fait, si un voisin OneMove <S,Vi,Vj> est sélectionné, le mouvement suivant est 
+	interdits :
+		- (S,Vi)
+	Si le voisin appliqué est un Swap <Si,Sj,Ki,Kj>, les mouvements suivants sont interdits :
+		- (Si,Ki)
+		- (Sj,Kj)
+		
+	Ainsi, cette matrice tabou de taille |V|*k est telle que MT[u][k] représente l'itération
+	jusqu'à laquelle le mouvement consistant à déplacer le sommet u vers la couleur k a été
+	ou sera interdit. Nous devons donc définir une fonction pour vérifier qu'un mouvement 
+	n'est pas interdit et une fonction pour mettre à jour l'itération jusqu'à laquelle
+	sera interdit un mouvement après son application. Soit ß le nombre d'itérations pendant
+	lequel un mouvement est interdit après application.
+	Bien entendu, chaque fonction possèdera deux définitions selo le type de voisin choisi.
 	
+	isForbiddenOneMove(int S,int Kj, int iter){
+		return MT[S][Kj] > iter;
+	}
+	
+	isForbiddenSwap(int Si, int Sj, int Ki, int Kj, int iter){
+		return ( MT[Si][Kj] > iter || MT[Sj][Ki] > iter );
+	}
 		
-		
+	updateMTafterOneMove(int S, int Ki, int iter){
+		MT[s][Ki] = iter + ß;
+	}
+	
+	udateMTafterSwap(int Si, int Sj, int Ki, int Kj, int iter){
+		MT[Si][Ki] = iter + ß;
+		MT[Sj][Kj] = iter + ß;
+	}
