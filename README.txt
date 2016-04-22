@@ -1,57 +1,57 @@
 #################################################################################
-#	ECP est un algorithme de recherche locale ayant	pour but de rÈsoudre le #
-#	problËme de coloration Èquitable sur diffÈrents graphes prÈsents dans   #
-#	la littÈrature.								#
-#	Dans un premier temps, nous implÈmenterons l'algorithme dÈcrit dans	#
+#	ECP est un algorithme de recherche locale ayant	pour but de r√©soudre le #
+#	probl√®me de coloration √©quitable sur diff√©rents graphes pr√©sents dans   #
+#	la litt√©rature.								#
+#	Dans un premier temps, nous impl√©menterons l'algorithme d√©crit dans	#
 #	l'article "Backtracking Based Iterated Tabu Search for Equitable 	#
-#	Coloring" disponible ‡ l'adresse :					#
+#	Coloring" disponible √† l'adresse :					#
 #	http://www.info.univ-angers.fr/pub/hao/papers/LaiHaoGloverEAAI2015.pdf  #
 #################################################################################
 
 
-ReprÈsentation d'un graphe
+Repr√©sentation d'un graphe
 --------------------------
 
-	Une classe a ÈtÈ reservÈe ‡ la reprÈsentation d'un graphe G=(V,E). Cette 
-	classe dispose des ÈlÈments suivants :
-		- int nbVertices, nbEdges : entier reprÈsentant |V| et |E|
-		- string namefile : string reprÈsentant le path du fichier source au 
-		  format DIMACS du graphe ÈtudiÈ
-		- vector< vector<bool> > G : matrice de boolÈen de taille |V|*|V| 
-		  correspondant ‡ la fonction f :
-			f(i,j) = 1 si (i,j) § E, i,j § V
+	Une classe a √©t√© reserv√©e √† la repr√©sentation d'un graphe G=(V,E). Cette 
+	classe dispose des √©l√©ments suivants :
+		- int nbVertices, nbEdges : entier repr√©sentant |V| et |E|
+		- string namefile : string repr√©sentant le path du fichier source au 
+		  format DIMACS du graphe √©tudi√©
+		- vector< vector<bool> > G : matrice de bool√©en de taille |V|*|V| 
+		  correspondant √† la fonction f :
+			f(i,j) = 1 si (i,j) ¬§ E, i,j ¬§ V
 					 0 sinon.
 		
-		- un getter spÈcifique getMatriceValue(int x, int y) retournant la val-
+		- un getter sp√©cifique getMatriceValue(int x, int y) retournant la val-
 		  eur de M[x][y]
 		  
-Coloration Èquitable d'un graphe
+Coloration √©quitable d'un graphe
 --------------------------------
 
-	Soit le graphe G=(V,E). Une coloration Èquitable de ce graphe est un en-
+	Soit le graphe G=(V,E). Une coloration √©quitable de ce graphe est un en-
 	semble Vk de k partitions de V tel :
-		- qu'aucun des sommets appartenant ‡ une partition Vk[i] ne soit 
-		  adjacent ‡ un autre sommet de cette partition dans G. [1]
-		- que la taille de chaque partition ne diffËre au plus que de 1. [2]
+		- qu'aucun des sommets appartenant √† une partition Vk[i] ne soit 
+		  adjacent √† un autre sommet de cette partition dans G. [1]
+		- que la taille de chaque partition ne diff√®re au plus que de 1. [2]
 		
-	Une telle coloration Ètant le but de notre recherhe locale, nous nous
-	attacherons ‡ toujours respecter la contrainte [2] et ‡ effectuer notre
+	Une telle coloration √©tant le but de notre recherhe locale, nous nous
+	attacherons √† toujours respecter la contrainte [2] et √† effectuer notre
 	recherche via la contrainte [1].
 	
-	Pour reprÈsenter cette coloration, nous disposons d'une classe avec les 
+	Pour repr√©senter cette coloration, nous disposons d'une classe avec les 
 	attributs suivants :
-		- Graphe* G : pointeur sur le graphe ‡ colorer
-		- int nbColor : reprÈsente le nombre de couleurs utilisÈes.
+		- Graphe* G : pointeur sur le graphe √† colorer
+		- int nbColor : repr√©sente le nombre de couleurs utilis√©es.
 		- vector< vector<int> > Vk : ensemble des partitions des sommets de G. 
-		- vector< vector<int> > M : matrice |V|*nbColor o˘ M[i][j] reprÈsente 
+		- vector< vector<int> > M : matrice |V|*nbColor o√π M[i][j] repr√©sente 
 		  le nombre de sommmets adjacents au sommet i de couleur j.
 		  
 	Initialisation d'une coloration
 	-------------------------------
-	L'algorithme suivant est utilisÈ pour crÈer une coloration Èquitable initiale.
+	L'algorithme suivant est utilis√© pour cr√©er une coloration √©quitable initiale.
 	
 	Pour(i=0; i < nbColor; ++i){
-	  selectionner un sommet Sj alÈatoire dans U.
+	  selectionner un sommet Sj al√©atoire dans U.
 	  Vk[i] = Vk[i] + Sj.
 	  U = U \ Sj.
 	}
@@ -72,8 +72,8 @@ Coloration Èquitable d'un graphe
 	
 	Evaluation d'une coloration
 	---------------------------
-	La fonction Èvalue le nombre de sommets en conflit. Un sommet est en conflit si
-	un de voisins possËde la mÍme couleur. Pour ce faire, nous utilisons l'algo-
+	La fonction √©value le nombre de sommets en conflit. Un sommet est en conflit si
+	un de voisins poss√®de la m√™me couleur. Pour ce faire, nous utilisons l'algo-
 	rithme suivant :
 	
 	total = 0.
@@ -84,55 +84,74 @@ Coloration Èquitable d'un graphe
 	}
 	
 	
-	DÈfinition du voisinage
+	D√©finition du voisinage
 	-----------------------
-	Le voisinage d'une solution s est l'union de deux voisinages dÈcrits comme suit :
+	Le voisinage d'une solution s est l'union de deux voisinages d√©crits comme suit :
 	
-	N(s) = N1(s) U N2(s) o˘ :
-	  - N1(s) = { <Sj, Vi,Vj> | Sj § Vi n C(s), i != j, |Vk[i]| > floor(|V|/nbColor),
-	    |Vk[j]| < top(|V|/nbColor) } o˘ C(s) reprÈsente l'ensemble des sommets en 
+	N(s) = N1(s) U N2(s) o√π :
+	  - N1(s) = { <Sj, Vi,Vj> | Sj ¬§ Vi n C(s), i != j, |Vk[i]| > floor(|V|/nbColor),
+	    |Vk[j]| < top(|V|/nbColor) } o√π C(s) repr√©sente l'ensemble des sommets en 
 	    conflits de la solution courante s.
 	  
-	  - N2(s) = { (Si,Sj) | Si § Vk[i], Sj § Vk[j], i != j, {Si,Sj} n C(s) != {}  }
+	  - N2(s) = { (Si,Sj) | Si ¬§ Vk[i], Sj ¬§ Vk[j], i != j, {Si,Sj} n C(s) != {}  }
 	  
-	Plusieurs choix s'offrent ‡ nous pour la reprÈsentation de ces deux voisinages. 
-	En effet, nous pouvons ‡ la fois dÈfinir une classe abstraite N puis deux sous-classes
-	N1 et N2 implÈmentant chacun un voisinage puis travailler sur un ensemble d'objets de 
+	Plusieurs choix s'offrent √† nous pour la repr√©sentation de ces deux voisinages. 
+	En effet, nous pouvons √† la fois d√©finir une classe abstraite N puis deux sous-classes
+	N1 et N2 impl√©mentant chacun un voisinage puis travailler sur un ensemble d'objets de 
 	type N. 
-	Nous pourrions Ègalement travailleur sur deux vecteurs diffÈrents reprÈsentant chacun
+	Nous pourrions √©galement travailleur sur deux vecteurs diff√©rents repr√©sentant chacun
 	un voisinage.
-	De nombreuses autres implÈmentations sont possibles et nous reviendrons dessus si le 
+	De nombreuses autres impl√©mentations sont possibles et nous reviendrons dessus si le 
 	temps nous le permet.
-	Nous choisirons dans un premier temps de travailler sur deux vecteurs diffÈrents afin
-	d'anticiper la crÈation de la mÈthode de perturbation.
+	Nous choisirons dans un premier temps de travailler sur un seul vecteur d'√©l√©ments voisins.
 	
-	De plus, la recherche tabou prÈsentÈe utilisant une stratÈgie de sÈlection du meilleur
-	amÈliorant,nous ajouterons ‡ chacun des voisins le score de gain qui lui est associÈ.
-	Nous prÈsenterons le calcul de ce gain dans la prochaine section.
-	Enfin, nous implÈmentons deux classes que nous utiliserons via deux vecteurs :
+	De plus, la recherche tabou pr√©sent√©e utilisant une strat√©gie de s√©lection du meilleur
+	am√©liorant,nous ajouterons √† chacun des voisins le score de gain qui lui est associ√©.
+	Nous pr√©senterons le calcul de ce gain dans la prochaine section.
+	Ainsi, nous disposons d'une classe "m√®re" Voisin, disposant d'un gain et de deux classes
+	"filles" impl√©mentant les voisinages OneMove et Swap. Nous n'utiliserons donc qu'un
+	seul vecteur.
 	
-	    - class OneMove†{
+	    - class Voisin {
+	    	[...]
+	    	private:
+	    	   int gain;
+	    }
+	    
+	    - class OneMove : public Voisin{
+	        [...]
 		private:
-		int gain;
-		int Sj;
-		int Vi;
-		int Vj;
+	          int Sj;
+		  int Vi;
+		  int Vj;
 	      };
 	      
-	    - class Swap {
+	    - class Swap :public Voisin {
+	    	[...]
 		private:
-		int gain;
-		int Si;
-		int Sj;
+		  int Si;
+		  int Sj;
+		  int Ki;
+		  int Kj;
 	      };
 	      
 	    vector< oneMove *> N1;
 	    vector< swap *> N2;
 	  
-	Mise ‡ jour de M aprËs un mouvement
+	Calcul du gain
+	--------------
+	Afin de s√©lectionner le meilleur am√©liorant, nous avons mis en place une proc√©dure 
+	d'√©valuation d'un voisin v d√©pendant du type de mouvement choisi. Cette proc√©dure
+	est bas√©e sur la matrice  M d√©finie pr√©cedemment.
+	
+	- OneMove : delta(<s,i,j>) : M[s][Vk[j]] - M[s][Vk[i]]
+	
+	- Swap : delta(<u,v,ku,kv>) : M[v][ku] - M[v][kv] + (M[u][kv] - M[u][ku] - 2*G[u][v])
+		
+	Mise √† jour de M apr√®s un mouvement
 	-----------------------------------
-	AprËs avoir effectuÈ une opÈration de voisinage, la matrice M a besoin d'Ítre mise ‡
-	jour. Deux fonctions sont donc dÈfinies :
+	Apr√®s avoir effectu√© une op√©ration de voisinage, la matrice M a besoin d'√™tre mise √†
+	jour. Deux fonctions sont donc d√©finies :
 	
 	UpdateMafterOneMove(int Sj, int Ci, int Cj){
 	  
