@@ -49,9 +49,32 @@ include CMakeFiles/ecp.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/ecp.dir/flags.make
 
+CMakeFiles/ecp.dir/basictabusearch.o: CMakeFiles/ecp.dir/flags.make
+CMakeFiles/ecp.dir/basictabusearch.o: ../basictabusearch.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/etudiant/projects/ECP/build/CMakeFiles $(CMAKE_PROGRESS_1)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/ecp.dir/basictabusearch.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/ecp.dir/basictabusearch.o -c /home/etudiant/projects/ECP/basictabusearch.cpp
+
+CMakeFiles/ecp.dir/basictabusearch.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ecp.dir/basictabusearch.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/etudiant/projects/ECP/basictabusearch.cpp > CMakeFiles/ecp.dir/basictabusearch.i
+
+CMakeFiles/ecp.dir/basictabusearch.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ecp.dir/basictabusearch.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/etudiant/projects/ECP/basictabusearch.cpp -o CMakeFiles/ecp.dir/basictabusearch.s
+
+CMakeFiles/ecp.dir/basictabusearch.o.requires:
+.PHONY : CMakeFiles/ecp.dir/basictabusearch.o.requires
+
+CMakeFiles/ecp.dir/basictabusearch.o.provides: CMakeFiles/ecp.dir/basictabusearch.o.requires
+	$(MAKE) -f CMakeFiles/ecp.dir/build.make CMakeFiles/ecp.dir/basictabusearch.o.provides.build
+.PHONY : CMakeFiles/ecp.dir/basictabusearch.o.provides
+
+CMakeFiles/ecp.dir/basictabusearch.o.provides.build: CMakeFiles/ecp.dir/basictabusearch.o
+
 CMakeFiles/ecp.dir/voisin.o: CMakeFiles/ecp.dir/flags.make
 CMakeFiles/ecp.dir/voisin.o: ../voisin.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/etudiant/projects/ECP/build/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/etudiant/projects/ECP/build/CMakeFiles $(CMAKE_PROGRESS_2)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/ecp.dir/voisin.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/ecp.dir/voisin.o -c /home/etudiant/projects/ECP/voisin.cpp
 
@@ -74,7 +97,7 @@ CMakeFiles/ecp.dir/voisin.o.provides.build: CMakeFiles/ecp.dir/voisin.o
 
 CMakeFiles/ecp.dir/swap.o: CMakeFiles/ecp.dir/flags.make
 CMakeFiles/ecp.dir/swap.o: ../swap.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/etudiant/projects/ECP/build/CMakeFiles $(CMAKE_PROGRESS_2)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/etudiant/projects/ECP/build/CMakeFiles $(CMAKE_PROGRESS_3)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/ecp.dir/swap.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/ecp.dir/swap.o -c /home/etudiant/projects/ECP/swap.cpp
 
@@ -97,7 +120,7 @@ CMakeFiles/ecp.dir/swap.o.provides.build: CMakeFiles/ecp.dir/swap.o
 
 CMakeFiles/ecp.dir/onemove.o: CMakeFiles/ecp.dir/flags.make
 CMakeFiles/ecp.dir/onemove.o: ../onemove.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/etudiant/projects/ECP/build/CMakeFiles $(CMAKE_PROGRESS_3)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/etudiant/projects/ECP/build/CMakeFiles $(CMAKE_PROGRESS_4)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/ecp.dir/onemove.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/ecp.dir/onemove.o -c /home/etudiant/projects/ECP/onemove.cpp
 
@@ -120,7 +143,7 @@ CMakeFiles/ecp.dir/onemove.o.provides.build: CMakeFiles/ecp.dir/onemove.o
 
 CMakeFiles/ecp.dir/coloration.o: CMakeFiles/ecp.dir/flags.make
 CMakeFiles/ecp.dir/coloration.o: ../coloration.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/etudiant/projects/ECP/build/CMakeFiles $(CMAKE_PROGRESS_4)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/etudiant/projects/ECP/build/CMakeFiles $(CMAKE_PROGRESS_5)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/ecp.dir/coloration.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/ecp.dir/coloration.o -c /home/etudiant/projects/ECP/coloration.cpp
 
@@ -143,7 +166,7 @@ CMakeFiles/ecp.dir/coloration.o.provides.build: CMakeFiles/ecp.dir/coloration.o
 
 CMakeFiles/ecp.dir/graphe.o: CMakeFiles/ecp.dir/flags.make
 CMakeFiles/ecp.dir/graphe.o: ../graphe.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/etudiant/projects/ECP/build/CMakeFiles $(CMAKE_PROGRESS_5)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/etudiant/projects/ECP/build/CMakeFiles $(CMAKE_PROGRESS_6)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/ecp.dir/graphe.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/ecp.dir/graphe.o -c /home/etudiant/projects/ECP/graphe.cpp
 
@@ -166,7 +189,7 @@ CMakeFiles/ecp.dir/graphe.o.provides.build: CMakeFiles/ecp.dir/graphe.o
 
 CMakeFiles/ecp.dir/main.o: CMakeFiles/ecp.dir/flags.make
 CMakeFiles/ecp.dir/main.o: ../main.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/etudiant/projects/ECP/build/CMakeFiles $(CMAKE_PROGRESS_6)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/etudiant/projects/ECP/build/CMakeFiles $(CMAKE_PROGRESS_7)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/ecp.dir/main.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/ecp.dir/main.o -c /home/etudiant/projects/ECP/main.cpp
 
@@ -189,6 +212,7 @@ CMakeFiles/ecp.dir/main.o.provides.build: CMakeFiles/ecp.dir/main.o
 
 # Object files for target ecp
 ecp_OBJECTS = \
+"CMakeFiles/ecp.dir/basictabusearch.o" \
 "CMakeFiles/ecp.dir/voisin.o" \
 "CMakeFiles/ecp.dir/swap.o" \
 "CMakeFiles/ecp.dir/onemove.o" \
@@ -199,6 +223,7 @@ ecp_OBJECTS = \
 # External object files for target ecp
 ecp_EXTERNAL_OBJECTS =
 
+ecp: CMakeFiles/ecp.dir/basictabusearch.o
 ecp: CMakeFiles/ecp.dir/voisin.o
 ecp: CMakeFiles/ecp.dir/swap.o
 ecp: CMakeFiles/ecp.dir/onemove.o
@@ -214,6 +239,7 @@ ecp: CMakeFiles/ecp.dir/link.txt
 CMakeFiles/ecp.dir/build: ecp
 .PHONY : CMakeFiles/ecp.dir/build
 
+CMakeFiles/ecp.dir/requires: CMakeFiles/ecp.dir/basictabusearch.o.requires
 CMakeFiles/ecp.dir/requires: CMakeFiles/ecp.dir/voisin.o.requires
 CMakeFiles/ecp.dir/requires: CMakeFiles/ecp.dir/swap.o.requires
 CMakeFiles/ecp.dir/requires: CMakeFiles/ecp.dir/onemove.o.requires

@@ -153,6 +153,21 @@ ecp/fast:
 .PHONY : ecp/fast
 
 # target to build an object file
+basictabusearch.o:
+	$(MAKE) -f CMakeFiles/ecp.dir/build.make CMakeFiles/ecp.dir/basictabusearch.o
+.PHONY : basictabusearch.o
+
+# target to preprocess a source file
+basictabusearch.i:
+	$(MAKE) -f CMakeFiles/ecp.dir/build.make CMakeFiles/ecp.dir/basictabusearch.i
+.PHONY : basictabusearch.i
+
+# target to generate assembly for a file
+basictabusearch.s:
+	$(MAKE) -f CMakeFiles/ecp.dir/build.make CMakeFiles/ecp.dir/basictabusearch.s
+.PHONY : basictabusearch.s
+
+# target to build an object file
 coloration.o:
 	$(MAKE) -f CMakeFiles/ecp.dir/build.make CMakeFiles/ecp.dir/coloration.o
 .PHONY : coloration.o
@@ -255,6 +270,9 @@ help:
 	@echo "... install/strip"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
+	@echo "... basictabusearch.o"
+	@echo "... basictabusearch.i"
+	@echo "... basictabusearch.s"
 	@echo "... coloration.o"
 	@echo "... coloration.i"
 	@echo "... coloration.s"

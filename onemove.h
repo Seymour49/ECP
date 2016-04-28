@@ -22,9 +22,18 @@
 
 #include "voisin.h"
 
+/**
+ * Cette classe représente le premier voisinage décrit dans l'article
+ * lié à ce programme. Sa signature est la suivante :
+ * OneMove om(s,i,j) où s est le sommet à déplacer de sa couleur courante
+ * i vers la couleur j.
+ * 
+ */
+
 class OneMove : public Voisin
 {
 public:
+    /** Constructeur */
     OneMove(int vertex, int ci, int cj);
     
     /** Getters and setter */

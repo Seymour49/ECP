@@ -20,6 +20,12 @@
 #include "graphe.h"
 using namespace std;
 
+/**
+ * Fonction utile à la lecture du fichier source. Utilise le séparateur 
+ * ' '
+ * @param str : chaîne de caractères à découper
+ * @return un pointeur sur un vecteur contenant chaque mot de str
+ */
 vector< string >& explode(const string& str){
   istringstream split(str);
   vector< string >* tokens = new vector<string>;
@@ -28,6 +34,7 @@ vector< string >& explode(const string& str){
 
   return *tokens;
 }
+
 
 ostream& Graphe::print(ostream& out){
   out << "Graphe : " << namefile << endl;

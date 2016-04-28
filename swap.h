@@ -21,12 +21,22 @@
 #define SWAP_H
 
 #include "voisin.h"
-#include <boost/concept_check.hpp>
+
+/**
+ * Cette classe implément le second voisinage décrit dans l'article
+ * lié à ce programme. Sa signature est la suivante :
+ * Swap s(i,j,k,l) où i est coloré en k, j est coloré en l et le 
+ * mouvement correspond à déplacer i vers la couleur l et le
+ * sommet j vers la couleur k.
+ * 
+ */
 
 class Swap : public Voisin
 {
 public:
+    /** Constructeur */
     Swap(int i, int j, int k, int l);
+    
     /** Getters and setter */
     int getSi() const { return si; }
     int getSj() const { return sj; }

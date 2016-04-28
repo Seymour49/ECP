@@ -30,36 +30,55 @@
 #include <cstdlib>
 #include <cmath>
 
-
+/**
+ * Cette classe représente un graphe dont le fichier source 
+ * (format DIMACS) est passé en paramètre au constructeur.
+ * Une matrice de booléens taille N*N (où N est le nombre de 
+ * sommets est créée pour représenter ce graphe.
+ * Ainsi M[u][v] = 1 ssi (u,v) € E (ensemble d'arcs)
+ * 		   0 sinon.
+ * 
+ */
 
 class Graphe
 {
-private:
-  std::string namefile;
-  int nbVertices;
-  int nbEdges;
-  std::vector< std::vector<bool> >grapheMatrice;
   
 public:
-    
+  /* Constructeurs et destructeur */
   Graphe();
   Graphe(std::string s);
   Graphe(const Graphe& other);
   ~Graphe();
+  
+  /* Opérateur = */
   Graphe& operator=(const Graphe& other);
   
+  /* Getters */
   std::string getNamefile() const { return namefile; }
   int getNbVertices() const { return nbVertices; }
   int getMatriceValue(int x, int y) const { return (int)(grapheMatrice[x][y]); }
   
+  /* Display */
   std::ostream& print(std::ostream& out);      
   friend std::ostream& operator<<(std::ostream& out, Graphe& r){
       return r.print(out);
   }
   
+  /** Fonction initialisant grapheMatrice selon le nombre
+   * de sommets du graphe.
+   */
   void initMatrice();
+  
+  /** Fonction de chargement du fichier source.
+   * @return true si le chargement s'est bien passé, false sinon
+   */
   bool tryLoadFile();
 
+private:
+  std::string namefile;
+  int nbVertices;
+  int nbEdges;
+  std::vector< std::vector<bool> >grapheMatrice;
   
 };
 

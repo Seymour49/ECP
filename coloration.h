@@ -20,26 +20,47 @@
 #ifndef COLORATION_H
 #define COLORATION_H
 
-#include "voisin.h"
 #include "onemove.h"
 #include "swap.h"
 #include "graphe.h"
+#include <cassert>
 #include <exception>
+
+/**
+ * Classe représentant une coloration équitable. Afin d'y parvenir
+ * nous utilisons un vecteur de vecteurs de sommets représentant 
+ * chacun un ensemble de sommets colorés de la même couleur.
+ * Afin d'évaluer les opérations de voisinages, cette classe
+ * dispose également d'une matrice M de taille N*k (où N est le 
+ * nombre de sommets et k le nombre de couleur de la coloration)
+ * représentant le nombre de sommets adjacents au sommet u de couleur
+ * j (0<j<k).
+ * 
+ */
 
 class Coloration
 {
 public:
+  /** Constructeurs et destructeur */
   Coloration(Graphe* graphe);
   Coloration(const Coloration& other);
   ~Coloration();
-  //Coloration& operator=(const Coloration& other);
   
+  /** Opérateur = */
+  Coloration& operator=(const Coloration& other);
+  
+  /** Getters */
   int getNbColor() const { return nbColor; }
+  int getNbVertices() const { return G->getNbVertices(); }
+  int getVkiSize(int i){ return Vk[i].size(); }
+  int getValueVk(int i, int j){ assert((unsigned) i< Vk.size()); assert((unsigned) j < Vk[i].size()); return Vk[i][j]; }
   
+  /** Display */
   std::ostream& print(std::ostream& out);      
   friend std::ostream& operator<<(std::ostream& out, Coloration& r){
       return r.print(out);
   }
+  
   /**
    * Procédure de mise à jour de M après insertion d'un sommet vertex dans une partition color
    */
@@ -65,14 +86,18 @@ public:
   bool inConflict(int i, int j);
   
   /**
-   * Fonction inialisant le vecteur de voisins
+   * Fonction simulant l'évaluation sur la coloration courante à laquelle
+   * on applique le voisin OneMove passé en paramètre.
+   * Utilisée pour bruiter le caractère tabou d'un voisin
    */
-  void initNeighboor();
+  int simulEvalOM(OneMove* om);
   
   /**
-   * Fonction calculant le delta de l'ensemble des voisins
+   * Fonction simulant l'évaluation sur la coloration courante à laquelle
+   * on applique le voisin Swap passé en paramètre.
+   * Utilisée pour bruiter le caractère tabou d'un voisin
    */
-  void calculDelta();
+  int simulEvalS(Swap* s);
   
   /**
    * Fonction calculant le delta d'un voisin OneMove
@@ -83,15 +108,23 @@ public:
    * Fonction calcultant le delta d'un voisin Swap
    */
   int calculDeltaS(Swap * s);
+  
+  /**
+   * Procédures de validation d'un mouvement voisin passé en paramètre
+   */
+  void validMovement(Voisin* N);
+  
+  void validOneMove(OneMove* om);
+  void validSwap(Swap* s);
+  
+  
+  
 private:
     Graphe* G;
     int nbColor;
     std::vector<std::vector<int> > Vk; /* Vk[i][j] = indice dans V du j_ième sommet de couleur i */
     std::vector<std::vector<int> > M; /* M[i][j] = nombre de voisins du sommet i de couleur j */
-    
-    std::vector<Voisin*> N; /* représente l'ensemble des voisins de la solution courante */
-    
-    
+        
 };
 
 #endif // COLORATION_H

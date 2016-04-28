@@ -28,23 +28,35 @@ Coloration::Coloration(Graphe* graphe):G(graphe){
 
 }
 
-Coloration::Coloration(const Coloration& other):G(other.G), nbColor(other.nbColor)
-{
+Coloration::Coloration(const Coloration& other){
 
+    G = other.G;
+    nbColor = other.nbColor;
+    Vk = other.Vk; 
+    M = other.M;
 }
+
+Coloration& Coloration::operator=(const Coloration& other)
+{
+    if( &other != this){
+	G = other.G;
+	nbColor = other.nbColor;
+	Vk = other.Vk; 
+	M = other.M;
+	//N.clear();
+    }
+    return *this;
+}
+
 
 Coloration::~Coloration()
 {
-  delete(G);
-  for(unsigned i=0; i < N.size(); ++i){
-	delete(N[i]);
-  }
 }
 
 ostream& Coloration::print(ostream& out)
 {
   unsigned i,j;
-  out << *G ;
+//   out << *G ;
   out << "Coloration" << endl;
   out << " Partitions  : " << endl;
   for(i = 0; i < Vk.size(); ++i){
@@ -74,11 +86,6 @@ ostream& Coloration::print(ostream& out)
       }
   }
   out << endl;
-  
-  out << "Voisins dans N" << endl;
-  for(i=0; i < N.size(); ++i){
-      out << *N[i];
-  }
   return out;
   
 }
@@ -180,74 +187,6 @@ bool Coloration::inConflict(int i, int j){
     return ( M[Vk[i][j]][i]  != 0 ) ;
 }
 
-
-void Coloration::initNeighboor(){
-    
-    for(unsigned i=0; i< Vk.size(); ++i){
-	
-	for(unsigned j=0; j< Vk[i].size(); ++j){
-	    
-	    // Calcul des OneMoves
-	    if( inConflict(i,j) == true ){
-		
-		for(unsigned k=0; k < Vk.size(); ++k){
-		    
-		    if( ceil( (float)G->getNbVertices()/nbColor ) != floor( (float)G->getNbVertices()/nbColor ) ){
-		
-			if( Vk[i].size() == ceil( (float)G->getNbVertices()/nbColor ) ){
-			    if( Vk[k].size() == floor( ((float)G->getNbVertices()/nbColor) ) ){
-				Voisin* om = new OneMove(Vk[i][j],i,k);
-				N.push_back(om);
-			    }
-			}
-		    }    
-		}    
-	    } 
-	}
-    }
-    
-    for(unsigned i=0; i < Vk.size(); ++i){
-	for(unsigned j = 0; j < Vk[i].size(); ++j) {
-	    
-	    for(unsigned k=i+1; k < Vk.size(); ++k){
-		for(unsigned l= 0; l < Vk[k].size(); ++l){
-		    
-		    if( ( inConflict(k,l) == true || inConflict(i,j) == true ) ){
-			Voisin* s = new Swap(Vk[i][j],Vk[k][l], i, k);
-			N.push_back(s);
-		    }
-		
-		}		
-	    }
-	    
-	}
-	
-    }
-    
-}
-
-
-void Coloration::calculDelta(){
-    int gain = 0;
-    for(unsigned i=0; i < N.size(); ++i){
-	try{
-	    // Dynamic cast
-	    if( dynamic_cast<OneMove*>(N[i]) == 0 ){
-		gain = calculDeltaS(dynamic_cast<Swap*>(N[i]));
-	    }else{
-		gain = calculDeltaOM(dynamic_cast<OneMove*>(N[i]));
-	    }
-	    
-	    N[i]->setGain(gain);
-	    
-	}catch(exception &e){
-	    cout << "Exception: " << e.what();
-	}
-    }
-
-    sort(N.begin(), N.end(), Voisin::compareGain);
-}
-
 /**
  * Retourne M[s][Vk[j]] - M[s][Vk[i]]
  */
@@ -265,4 +204,115 @@ int Coloration::calculDeltaS(Swap* s){
     int result = M[s->getSj()][s->getKi()] - M[s->getSj()][s->getKj()];
     result += (M[s->getSi()][s->getKj()] - M[s->getSi()][s->getKi()] - 2*G->getMatriceValue(s->getSi(),s->getSj()) );
     return result;
+}
+
+int Coloration::simulEvalOM(OneMove* om){
+    vector< vector<int> >M_ = M;
+    vector< vector<int> > Vk_ = Vk;
+    
+    // Application du voisin
+    for(int i=0; i < G->getNbVertices(); ++i){
+	// Les sommets s et i sont voisins
+	if( G->getMatriceValue(om->getS(), i) == 1){
+	    M_[i][om->getVki()] -= 1;
+	    M_[i][om->getVkj()] += 1;
+	}
+    }
+    
+    // Mise à jour de Vk_
+    Vk_[om->getVki()].erase( remove(Vk_[om->getVki()].begin(), Vk_[om->getVki()].end(), om->getS()), Vk_[om->getVki()].end() );
+    Vk_[om->getVkj()].push_back(om->getS());
+    
+    // Evaluation de Vk_ vis à vis de M_
+    int result = 0;
+    
+    for(unsigned i=0; i < Vk_.size(); ++i){
+    
+	for(unsigned j=0; j < Vk_[i].size(); ++j){
+	
+	    result += (int)(M_[Vk_[i][j]][i]  != 0);
+	}
+    }
+    
+    return result;
+}
+
+int Coloration::simulEvalS(Swap* s){
+    vector< vector<int> >M_ = M;
+    vector< vector<int> > Vk_ = Vk;
+    
+    
+    // Application du voisin --> correspond à deux OneMove consécutifs
+    for(int i=0; i < G->getNbVertices(); ++i){
+	// Les sommets s et i sont voisins
+	if( G->getMatriceValue(s->getSi(), i) == 1){
+	    M_[i][s->getKi()] -= 1;
+	    M_[i][s->getKj()] += 1;
+	}
+	
+	if(G->getMatriceValue(s->getSj(),i) == 1){
+	    M_[i][s->getKj()] -= 1;
+	    M_[i][s->getKi()] += 1;
+	}
+    }
+    
+    // Mise à jour de Vk_
+    Vk_[s->getKi()].erase( remove(Vk_[s->getKi()].begin(), Vk_[s->getKi()].end(), s->getSi()), Vk_[s->getKi()].end() );
+    Vk_[s->getKj()].push_back(s->getSi());
+    
+    Vk_[s->getKj()].erase( remove(Vk_[s->getKj()].begin(), Vk_[s->getKj()].end(), s->getSj()), Vk_[s->getKj()].end() );
+    Vk_[s->getKi()].push_back(s->getSj());
+    
+    // Evaluation de Vk_ vis à de M_
+    int result = 0;
+    
+    for(unsigned i=0; i < Vk_.size(); ++i){
+    
+	for(unsigned j=0; j < Vk_[i].size(); ++j){
+	
+	    result += (int)(M_[Vk_[i][j]][i]  != 0);
+	}
+    }
+    
+    return result;
+}
+
+void Coloration::validOneMove(OneMove* om){
+    
+    // MàJ de M
+    for(int i = 0; i < G->getNbVertices(); ++i){
+	
+	if(G->getMatriceValue(om->getS(),i) == 1){
+	    M[i][om->getVki()] -= 1;
+	    M[i][om->getVkj()] += 1;
+	}
+    }
+    
+    // MàJ de Vk
+    Vk[om->getVki()].erase( remove(Vk[om->getVki()].begin(), Vk[om->getVki()].end(), om->getS()), Vk[om->getVki()].end() );
+    Vk[om->getVkj()].push_back(om->getS());
+}
+
+
+void Coloration::validSwap(Swap* s){
+    // MàJ de M --> correspond à deux OneMove consécutifs
+    for(int i=0; i < G->getNbVertices(); ++i){
+	// Les sommets s et i sont voisins
+	if( G->getMatriceValue(s->getSi(), i) == 1){
+	    M[i][s->getKi()] -= 1;
+	    M[i][s->getKj()] += 1;
+	}
+	
+	if(G->getMatriceValue(s->getSj(),i) == 1){
+	    M[i][s->getKj()] -= 1;
+	    M[i][s->getKi()] += 1;
+	}
+    }
+    
+    // Mise à jour de Vk_
+    Vk[s->getKi()].erase( remove(Vk[s->getKi()].begin(), Vk[s->getKi()].end(), s->getSi()), Vk[s->getKi()].end() );
+    Vk[s->getKj()].push_back(s->getSi());
+    
+    Vk[s->getKj()].erase( remove(Vk[s->getKj()].begin(), Vk[s->getKj()].end(), s->getSj()), Vk[s->getKj()].end() );
+    Vk[s->getKi()].push_back(s->getSj());
 }

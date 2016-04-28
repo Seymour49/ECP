@@ -1,4 +1,5 @@
 FILE(REMOVE_RECURSE
+  "CMakeFiles/ecp.dir/basictabusearch.o"
   "CMakeFiles/ecp.dir/voisin.o"
   "CMakeFiles/ecp.dir/swap.o"
   "CMakeFiles/ecp.dir/onemove.o"

@@ -1,11 +1,6 @@
-#include "voisin.h"
-#include "onemove.h"
-#include "swap.h"
-#include "graphe.h"
-#include "coloration.h"
+#include "basictabusearch.h"
 
 using namespace std;
-
 
 
 int main(int argc, char **argv) {
@@ -21,17 +16,22 @@ int main(int argc, char **argv) {
     
     if ( G->tryLoadFile() ){
     
+    
       Coloration *C = new Coloration(G);
-      C->initialisation(/*floor((float)G->getNbVertices()/2)*/3);
-      C->initNeighboor();
-      //C->calculDelta();
+      C->initialisation(15);      
+      cout << *C;   
+      cout << "Eval init : "<< C->evaluate() << endl;
+      cout << "fin affichage coloration initiale" << endl;
+      BasicTabuSearch bts(*C, 20);
       
-      cout << *C;
+      Coloration *d = bts.run();
       
-      cout << "Nombre de sommets en conflits : " << C->evaluate() << endl;
+      cout << "================================"<<endl;
+      cout << *d;
       
-
+      delete(G);
       delete(C);
+      delete(d);
     
     }else{
       exit(EXIT_FAILURE);

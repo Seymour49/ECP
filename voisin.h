@@ -22,11 +22,21 @@
 
 #include <iostream>
 
+/**
+ * Cette classe représente la notion de voisin et du gain associé à 
+ * celui ci. Un voisin étant défini par rapport à un problème donné,
+ * cette classe n'implémente que le gain, le reste devant être
+ * défini dans des sous-classes.
+ * 
+ */
+
 class Voisin
 {
 public:
+    /** Constructeur et destructeur (virtuel) */
     Voisin();
     virtual ~Voisin(){}
+    
     /** Getter and setter */
     int getGain() const { return gain; }
     void setGain(int x) { gain = x; }

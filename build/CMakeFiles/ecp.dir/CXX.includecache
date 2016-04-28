@@ -6,23 +6,19 @@
 
 #IncludeRegexTransform: 
 
-/home/etudiant/projects/ECP/coloration.cpp
+/home/etudiant/projects/ECP/basictabusearch.h
 coloration.h
 /home/etudiant/projects/ECP/coloration.h
-random
--
-chrono
--
 
 /home/etudiant/projects/ECP/coloration.h
-voisin.h
-/home/etudiant/projects/ECP/voisin.h
 onemove.h
 /home/etudiant/projects/ECP/onemove.h
 swap.h
 /home/etudiant/projects/ECP/swap.h
 graphe.h
 /home/etudiant/projects/ECP/graphe.h
+cassert
+-
 exception
 -
 
@@ -46,6 +42,10 @@ cstdlib
 cmath
 -
 
+/home/etudiant/projects/ECP/main.cpp
+basictabusearch.h
+/home/etudiant/projects/ECP/basictabusearch.h
+
 /home/etudiant/projects/ECP/onemove.h
 voisin.h
 /home/etudiant/projects/ECP/voisin.h
@@ -53,8 +53,6 @@ voisin.h
 /home/etudiant/projects/ECP/swap.h
 voisin.h
 /home/etudiant/projects/ECP/voisin.h
-boost/concept_check.hpp
--
 
 /home/etudiant/projects/ECP/voisin.h
 iostream
