@@ -22,13 +22,14 @@
 
 using namespace std;
 
-BasicTabuSearch::BasicTabuSearch(Coloration& init, int prof): current(init), depth(prof){
-    tabuTenure = 7;
+BasicTabuSearch::BasicTabuSearch(Coloration* init, int prof): current(*init), depth(prof){
+    tabuTenure = 10;
     
     initTabuMat();    
 }
 
 BasicTabuSearch::~BasicTabuSearch(){
+   
     if(N.size() != 0){
 	
 	for(unsigned i=0; i<N.size(); ++i){
@@ -36,6 +37,8 @@ BasicTabuSearch::~BasicTabuSearch(){
 	}
 	N.clear();
     }
+    
+    delete(&current);
 }
 
 void BasicTabuSearch::initTabuMat(){
@@ -147,7 +150,7 @@ bool BasicTabuSearch::isForbiddenOM(OneMove* om, int iter){
 }
 
 bool BasicTabuSearch::isForbiddenS(Swap* s, int iter){
-return( (tabuMat[s->getSi()][s->getKj()] > iter) || (tabuMat[s->getSj()][s->getKi()] > iter) );
+    return( (tabuMat[s->getSi()][s->getKj()] > iter) || (tabuMat[s->getSj()][s->getKi()] > iter) );
 }
 
 
@@ -155,12 +158,11 @@ return( (tabuMat[s->getSi()][s->getKj()] > iter) || (tabuMat[s->getSj()][s->getK
 Coloration* BasicTabuSearch::run(){
     Coloration *best = new Coloration(current);
     
-    cout << *best;
-    
-    cout << "fin affichage best en début de run" << endl;
     int d=0;
     int iteration = 0;
-    
+    int bestEval;
+    unsigned indN;
+    bool chosen;
     do{
 	if(N.size() != 0){
 	    for(unsigned i=0; i < N.size(); ++i){
@@ -175,9 +177,9 @@ Coloration* BasicTabuSearch::run(){
 	sort(N.begin(),N.end(), Voisin::compareGain );
 	
 	// Sélection d'un voisin et maj TabuMat
-	bool chosen = false;
-	unsigned indN = 0;
-	int bestEval = best->evaluate();
+	chosen = false;
+	indN = 0;
+	bestEval = best->evaluate();
 	while( (chosen == false) && (indN < N.size()) ){
 	    int simul;
 	    
@@ -191,13 +193,16 @@ Coloration* BasicTabuSearch::run(){
 		cerr << "Exception: " << e.what();
 		exit(EXIT_FAILURE);
 	    }
-
-	    cout << "Simul évaluation : " << simul << ". best évaluation : " << bestEval << endl;
+	    
+	    
+// 	    cout << *N[indN];
+	    
+	    
 	    if( simul < bestEval ){
-		cout << "simul < bestEval" << endl;
+// 		cout << "simul < bestEval" << endl;
 		chosen = true;
 	    }else if( isForbidden(N[indN], iteration) == false){
-		cout << "Mouvement autorisé " << endl ;
+// 		cout << "Mouvement autorisé " << endl ;
 		chosen = true;
 	    }else{
 		
@@ -205,7 +210,7 @@ Coloration* BasicTabuSearch::run(){
 	    }
 	}
 	
-	cout << "Voisin sélectionné à l'itération " << iteration << " : " << *N[indN];
+// 	cout << "Voisin sélectionné à l'itération " << iteration << " : " << *N[indN];
 	// Le voisin choisi est N[indN], reste à mettre à jour tabuMat
 	try{
 	    if( dynamic_cast<Swap*>(N[indN]) == 0 ){
@@ -224,14 +229,18 @@ Coloration* BasicTabuSearch::run(){
 	     cerr << "Exception: " << e.what();
 	     exit(EXIT_FAILURE);
 	}
-	
+	/*
+	cout << "========================================" << endl;
+	cout << current;
+	cout << "========================================" << endl;
 	cout << "Evaluation current : " << current.evaluate() << endl;
 	cout << "Evaluation best : " << best->evaluate() << endl;
 	cout << "derniere modif : " << d << endl;
-	
+	*/
 	if( current.evaluate() < bestEval ){
-	    best = &current; 
-	    bestEval = current.evaluate();
+	    
+	    (*best) = current; 
+	    bestEval = best->evaluate();
 	    d = 0;
 	}else{
 	    ++d;

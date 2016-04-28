@@ -48,7 +48,7 @@ public:
   Graphe();
   Graphe(std::string s);
   Graphe(const Graphe& other);
-  ~Graphe();
+  virtual ~Graphe();
   
   /* Opérateur = */
   Graphe& operator=(const Graphe& other);

@@ -36,6 +36,10 @@ Coloration::Coloration(const Coloration& other){
     M = other.M;
 }
 
+Coloration::~Coloration()
+{
+}
+
 Coloration& Coloration::operator=(const Coloration& other)
 {
     if( &other != this){
@@ -43,14 +47,8 @@ Coloration& Coloration::operator=(const Coloration& other)
 	nbColor = other.nbColor;
 	Vk = other.Vk; 
 	M = other.M;
-	//N.clear();
     }
     return *this;
-}
-
-
-Coloration::~Coloration()
-{
 }
 
 ostream& Coloration::print(ostream& out)

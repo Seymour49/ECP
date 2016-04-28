@@ -36,7 +36,7 @@ class BasicTabuSearch
 {
 public:
     /** Constructeur et destructeur */
-    BasicTabuSearch(Coloration &init,int prof);
+    BasicTabuSearch(Coloration* init, int prof);
     ~BasicTabuSearch();
     
     /**
@@ -70,7 +70,7 @@ public:
     bool isForbiddenS( Swap *s, int iter);
     
 private:
-    Coloration current;
+    Coloration &current;
     int tabuTenure;
     int depth;
      std::vector<Voisin *> N;

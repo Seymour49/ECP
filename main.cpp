@@ -16,22 +16,26 @@ int main(int argc, char **argv) {
     
     if ( G->tryLoadFile() ){
     
-    
+      cout << *G;
+      cout << "***********************************" << endl;
       Coloration *C = new Coloration(G);
       C->initialisation(15);      
-      cout << *C;   
-      cout << "Eval init : "<< C->evaluate() << endl;
-      cout << "fin affichage coloration initiale" << endl;
-      BasicTabuSearch bts(*C, 20);
+
+      cout << "Coloration initiale : " << endl;
+      cout << *C;
       
-      Coloration *d = bts.run();
+      BasicTabuSearch bts(C, 10000);
+      Coloration *d = nullptr;
+      d = bts.run();
       
       cout << "================================"<<endl;
-      cout << *d;
+      cout << "Coloration finale : " << endl;
+      cout << (*d);
       
-      delete(G);
-      delete(C);
+      
+      
       delete(d);
+      delete(G);
     
     }else{
       exit(EXIT_FAILURE);

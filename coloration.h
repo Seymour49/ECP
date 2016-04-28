@@ -44,7 +44,7 @@ public:
   /** Constructeurs et destructeur */
   Coloration(Graphe* graphe);
   Coloration(const Coloration& other);
-  ~Coloration();
+  virtual ~Coloration();
   
   /** Opérateur = */
   Coloration& operator=(const Coloration& other);
