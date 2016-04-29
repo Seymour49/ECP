@@ -1,6 +1,8 @@
 # Dossier build
 build/
 
+# Fichier temporaire
+*~
 # Fichier KDevlop
 *.kdev4
 
