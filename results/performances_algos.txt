@@ -14,22 +14,24 @@ Temps exécution BasicTabuSearch()
 	
 	Les résultats présentés correspondent à l'exécution de la procédure 
 BasicTabuSearch() sur les graphes suivants :
-	- dsjc250.5 		- r250.5
-	- dsjc500.1 		- r1000.1c
-	- dsjc500.5 		- r1000.5
-	- dsjc500.9 		- dsjr500.1c
-	- dsjc1000.1 		- dsjr500.5
-	- dsjc1000.5 		- le450_25c
-	- dsjc1000.9 		- le450.25d
+	- dsjc250.5 		
+	- dsjc500.1 
+	- dsjc500.5 
+	- dsjc500.9
+	- dsjc1000.9
 	
 	avec les paramètres suivants : 
 	
 	- depth = 10000;
 	- tabuTenure = 10;
-	- nbColor = 2*bestK; bestK = nombre K minimal référencé.
 	
 Pour chaque graphe, les résultats sont présentés de la manière suivante :
 
-fichier | nbSommets | nbArcs | initial K | tmps exec | nbSommetsConflit
+fichier | nbSommets | nbArcs | initial K | tmps exec | nbSommetsConflit 
 
-dsjc250.5 | 
+dsjc250.5 | 250 | 31336 | 35 | 679 ms | 0
+dsjc250.5 | 250 | 31336 | 32 | 9726 ms| 2
+dsjc500.1 | 500 | 12458 | 13 | 31529ms| 0
+dsjc500.5 | 500 | 62624 | 60 | 15969ms| 0
+dsjc500.9 | 500 | 224874| 140| 25176ms| 0
+dsjc1000.9| 1000| 449449| 300| 32499ms| 0
