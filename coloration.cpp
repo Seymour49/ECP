@@ -113,11 +113,21 @@ int Coloration::selectVertex(vector<int> U,int color){
   return min;
 }
 
+void Coloration::clearVector(){
+  if(!(Vk.empty()) ){
+	Vk.clear();
+  }
+  if(!(M.empty())){
+      M.clear();
+  }
+}
 
 void Coloration::initialisation(int nbc)
 {
   int i;
   nbColor = nbc;
+  
+  clearVector();
   
   for(i=0; i < nbColor; ++i){
       vector<int> k;

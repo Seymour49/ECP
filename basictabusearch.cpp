@@ -24,8 +24,8 @@ using namespace std;
 
 BasicTabuSearch::BasicTabuSearch(Coloration* init, int prof): current(*init), depth(prof){
     tabuTenure = 10;
-    
-    initTabuMat();    
+    initTabuMat();
+    current.initialisation(current.getNbColor());
 }
 
 BasicTabuSearch::~BasicTabuSearch(){
@@ -38,7 +38,7 @@ BasicTabuSearch::~BasicTabuSearch(){
 	N.clear();
     }
     
-    delete(&current);
+//     delete(&current);
 }
 
 void BasicTabuSearch::initTabuMat(){
@@ -156,8 +156,8 @@ bool BasicTabuSearch::isForbiddenS(Swap* s, int iter){
 
 
 Coloration* BasicTabuSearch::run(){
-    Coloration *best = new Coloration(current);
     
+    Coloration *best = new Coloration(current);
     int d=0;
     int iteration = 0;
     int bestEval;
@@ -229,14 +229,7 @@ Coloration* BasicTabuSearch::run(){
 	     cerr << "Exception: " << e.what();
 	     exit(EXIT_FAILURE);
 	}
-	/*
-	cout << "========================================" << endl;
-	cout << current;
-	cout << "========================================" << endl;
-	cout << "Evaluation current : " << current.evaluate() << endl;
-	cout << "Evaluation best : " << best->evaluate() << endl;
-	cout << "derniere modif : " << d << endl;
-	*/
+	
 	if( current.evaluate() < bestEval ){
 	    
 	    (*best) = current; 

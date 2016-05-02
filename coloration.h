@@ -111,14 +111,14 @@ public:
   
   /**
    * Procédures de validation d'un mouvement voisin passé en paramètre
-   */
-  void validMovement(Voisin* N);
-  
+   */  
   void validOneMove(OneMove* om);
   void validSwap(Swap* s);
   
-  
-  
+  /**
+   * Procédure de nettoyage des vecteurs Vk et M
+   */
+  void clearVector();
 private:
     Graphe* G;
     int nbColor;
