@@ -1,6 +1,7 @@
+#include "iteratedtabusearch.h"
 #include "binarysearch.h"
 #include <chrono>
-
+#include <time.h>
 
 using namespace std;
 
@@ -17,42 +18,44 @@ int main(int argc, char **argv) {
     Graphe *G = new Graphe(argv[1]);
     
     if ( G->tryLoadFile() ){
+	
+	int bt_depth = 4; // TODO passage en param $
+	
+	time_t start = time(NULL);
+	
+	
 	BinarySearch BS(G,100);
 	
-	Coloration *result = BS.run();
+	Coloration *best = BS.run();
+	int kbest = best->getNbColor();
+	int kcurrent = kbest;
+	Coloration *current;
+
+	do{
+	    if( kcurrent == (kbest - bt_depth) ){
+		kcurrent = kbest - 1;
+	    }
+	    else{
+		--kcurrent ;
+	    }
+	    
+	    IteratedTabuSearch its(G,30,kcurrent,10000);
+	    current = its.run();
+	    
+	    if(current->evaluate() == 0 ){
+		(*best) = (*current);
+	    }
+
+	   
+	}while( difftime(time(NULL),start) < 300 );	// TODO Change to 3600 when finished	
 	
 	cout << *G;
 	
 	cout << "=========================" << endl;
 	
-	cout << *result;
-	
-	delete (result);
-    /*
-      Coloration *C = new Coloration(G);
-      
-      C->initialisation(atoi(argv[2]));      
-      // Déclaration du timer
-      chrono::high_resolution_clock::time_point t1 = chrono::high_resolution_clock::now();	// Timer start
-      
-      BasicTabuSearch bts(C, 10000);
-      Coloration *d = nullptr;
-      d = bts.run();
-      
-      // Fin de la partie essentielle de notre algo, on arrête le timer ici
-      chrono::high_resolution_clock::time_point t2 = chrono::high_resolution_clock::now();	// Timer fin
-	    
-      auto duration = chrono::duration_cast<chrono::milliseconds>(t2 - t1).count();
-      
-      
-      cout << "exec time : " << duration << " milliseconds. nbConflicts : " << d->evaluate() << endl;
-            
-      delete(d);
-      
-    */
+	cout << *best;	
     
-    
-      delete(G);
+	delete(G);
     
     }else{
       exit(EXIT_FAILURE);

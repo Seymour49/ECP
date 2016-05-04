@@ -119,6 +119,8 @@ public:
    * Procédure de nettoyage des vecteurs Vk et M
    */
   void clearVector();
+  
+  
 private:
     Graphe* G;
     int nbColor;

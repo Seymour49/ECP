@@ -35,3 +35,27 @@ dsjc500.1 | 500 | 12458 | 13 | 31529ms| 0
 dsjc500.5 | 500 | 62624 | 60 | 15969ms| 0
 dsjc500.9 | 500 | 224874| 140| 25176ms| 0
 dsjc1000.9| 1000| 449449| 300| 32499ms| 0
+
+
+Temps exécution BinarySearch()
+------------------------------
+	
+	Les résultats présentés correspondent à l'exécution de la procédure
+BinarySearch() sur les graphes précédents avec les paramètres suivants :
+	
+	- depth = 100
+	- tabuTenure = 10;
+	- initial bounds : 
+		- upper = |V|
+		- lower = 0;
+		
+
+Pour chaque graphe, les résultats sont présentés de la manière suivante :
+
+fichier | nbSommets | nbArcs | K_best | tmps exec  
+
+dsjc250.5 | 250 | 31336 | 34 | 2568 ms
+dsjc500.1 | 500 | 12458 | 15 | 51076ms
+dsjc500.5 | 500 | 62624 | 64 | 12083ms
+dsjc500.9 | 500 | 224874| 151| 91498ms
+dsjc1000.9| 1000| 449449| 273| 969382ms

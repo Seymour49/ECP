@@ -51,10 +51,16 @@ public:
     void initTabuMat();
     
     /**
-     * Fonction calculant l'ensembles des voisins admissibles par la solution
+     * Fonction calculant l'ensemble des voisins OneMove admissibles par la solution
      * courante.
      */
-    void initNeighboor();
+    void initNeighboorOM();
+    
+    /**
+     * Fonction calculant l'ensemble des voisins Swap admissibles par la solution
+     * courante.
+     */
+    void initNeighboorS();    
     
     /**
      * Fonction calculant le gain associé à l'ensemble des voisins admissibles

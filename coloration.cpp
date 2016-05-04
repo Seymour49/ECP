@@ -324,3 +324,4 @@ void Coloration::validSwap(Swap* s){
     Vk[s->getKj()].erase( remove(Vk[s->getKj()].begin(), Vk[s->getKj()].end(), s->getSj()), Vk[s->getKj()].end() );
     Vk[s->getKi()].push_back(s->getSj());
 }
+

@@ -57,7 +57,7 @@ void BasicTabuSearch::initTabuMat(){
 }
 
 
-void BasicTabuSearch::initNeighboor()
+void BasicTabuSearch::initNeighboorOM()
 {    
     for(int i=0; i< current.getNbColor(); ++i){
 	
@@ -81,7 +81,9 @@ void BasicTabuSearch::initNeighboor()
 	    } 
 	}
     }
-    
+}
+void BasicTabuSearch::initNeighboorS()
+{
     // Calcul des swaps
     for(int i=0; i < current.getNbColor(); ++i){
 	
@@ -172,7 +174,8 @@ Coloration* BasicTabuSearch::run(){
 	}
 	
 	//Initialisation du voisinage
-	initNeighboor();
+	initNeighboorS();
+	initNeighboorOM();
 	calculDelta();
 	sort(N.begin(),N.end(), Voisin::compareGain );
 	
