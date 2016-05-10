@@ -33,12 +33,23 @@
 class OneMove : public Voisin
 {
 public:
-    /** Constructeur */
+    /** Constructeur unique
+     * @param vertex sommet concerné
+     * @param ci couleur source
+     * @param cj couleur destination
+     */
     OneMove(int vertex, int ci, int cj);
     
-    /** Getters and setter */
+    /** Getter sur le sommet
+     */
     int getS() const { return s; }
+    
+    /** Getter sur la couleur d'origine
+     */
     int getVki() const { return vki; }
+    
+    /** Getter sur la couleur d'arrivée
+     */
     int getVkj() const { return vkj; }
 
     /** Display */

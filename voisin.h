@@ -33,22 +33,35 @@
 class Voisin
 {
 public:
-    /** Constructeur et destructeur (virtuel) */
+    /** Constructeur par défaut.
+     */
     Voisin();
+    
+    /** Destructeur virtuel
+     */
     virtual ~Voisin(){}
     
-    /** Getter and setter */
+    /** Getter sur le gain
+     * @return gain associé au voisin
+     */
     int getGain() const { return gain; }
+    
+    /** Setter sur le gain
+     * @param x valeur du gain
+     */
     void setGain(int x) { gain = x; }
     
-    /** Display */
+    /** Display
+     */
     virtual std::ostream& print( std::ostream& out) = 0;
+    
+    /** Display
+     */
     friend std::ostream& operator<<(std::ostream& out, Voisin& v){
 	return v.print(out);
     }
 
-    /**
-     * Méthode de comparaison pour tri par ordre décroissant
+    /** Méthode de comparaison pour tri par ordre croissant de gain
      */
     static bool compareGain(const Voisin* a, const Voisin* b){
 	return a->getGain() < (b)->getGain();

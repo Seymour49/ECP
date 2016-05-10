@@ -22,13 +22,40 @@
 
 #include "basictabusearch.h"
 
+/**
+ * Cette classe représente la recherche binaire permettant dans le papier 
+ * étudié de déterminer un nombre de couleur initial interessant pour ensuite
+ * effectuer une recherche tabou itérée.
+ * 
+ * Pour plus de détails, veuillez-vous reportez à la section 2.3 de l'article
+ * de référence :
+ * 
+ * http://www.info.univ-angers.fr/pub/hao/papers/LaiHaoGloverEAAI2015.pdf * 
+ * 
+ */
+
 class BinarySearch
 {
 public:
+    /** Constructeur par défaut.
+     * @param graphe Graphe concerné par l'étude de l'ECP en cours
+     * @param d profondeur de la BasicTabuSearch utilisée au cours de l'execution
+     */
     BinarySearch(Graphe* graphe, int d);
+    
+    /** Constructeur par recopie
+     * @param other référence sur la copie servant d'initialiseur
+     */
     BinarySearch(const BinarySearch& other);
+    
+    /** Destructeur 
+     */
     virtual ~BinarySearch();
     
+    /** Méthode principale de la recherche binaire dont l'algorithme est
+     * présentée dans l'article source.
+     * @return la meilleur k-coloration initiale
+     */
     Coloration* run();
 
 private:

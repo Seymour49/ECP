@@ -113,10 +113,6 @@ bool Graphe::tryLoadFile()
 
 }
 
-Graphe::Graphe(){
-}
-   
-
 Graphe::Graphe(std::string s):namefile(s){
 }
 

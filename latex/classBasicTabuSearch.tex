@@ -1,0 +1,159 @@
+\hypertarget{classBasicTabuSearch}{\section{Basic\-Tabu\-Search Class Reference}
+\label{classBasicTabuSearch}\index{Basic\-Tabu\-Search@{Basic\-Tabu\-Search}}
+}
+
+
+{\ttfamily \#include $<$basictabusearch.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classBasicTabuSearch_a30a404fa4c0c95bdbfdf9b8d9387145b}{Basic\-Tabu\-Search} (\hyperlink{classColoration}{Coloration} $\ast$init, int prof)
+\item 
+\hyperlink{classBasicTabuSearch_ad4449024a20e6609dd20884696356c8a}{$\sim$\-Basic\-Tabu\-Search} ()
+\item 
+\hyperlink{classColoration}{Coloration} $\ast$ \hyperlink{classBasicTabuSearch_a439b45b01e2fb3c39668deaabdce6945}{run} ()
+\item 
+void \hyperlink{classBasicTabuSearch_ae51343045059a6e810b962429b8928d6}{init\-Tabu\-Mat} ()
+\item 
+void \hyperlink{classBasicTabuSearch_aa64a2c376b8e8c594163c1967126bb15}{init\-Neighboor\-O\-M} ()
+\item 
+void \hyperlink{classBasicTabuSearch_ae84e184edf1ef484d53107759433613b}{init\-Neighboor\-S} ()
+\item 
+void \hyperlink{classBasicTabuSearch_a14a157e898bba846f3b00f25b7c64fe2}{calcul\-Delta} ()
+\item 
+bool \hyperlink{classBasicTabuSearch_aa88417b74f0d99d694309226306eedef}{is\-Forbidden} (\hyperlink{classVoisin}{Voisin} $\ast$N, int iter)
+\item 
+bool \hyperlink{classBasicTabuSearch_af4f4afee741e09940ea4b8c47468613a}{is\-Forbidden\-O\-M} (\hyperlink{classOneMove}{One\-Move} $\ast$om, int iter)
+\item 
+bool \hyperlink{classBasicTabuSearch_a6d5c0de432bfe36a379e0cdb52457728}{is\-Forbidden\-S} (\hyperlink{classSwap}{Swap} $\ast$s, int iter)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Cette classe représente la procédure de recherche Tabou initiale présentée au point 2.\-4.\-2 de l'article lié. Le coeur de cette classe est le méthode \hyperlink{classBasicTabuSearch_a439b45b01e2fb3c39668deaabdce6945}{run()} éxecutant la recherche selon les paramètres de l'instance et retournant un pointeur sur la meilleure coloration trouvée. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classBasicTabuSearch_a30a404fa4c0c95bdbfdf9b8d9387145b}{\index{Basic\-Tabu\-Search@{Basic\-Tabu\-Search}!Basic\-Tabu\-Search@{Basic\-Tabu\-Search}}
+\index{Basic\-Tabu\-Search@{Basic\-Tabu\-Search}!BasicTabuSearch@{Basic\-Tabu\-Search}}
+\subsubsection[{Basic\-Tabu\-Search}]{\setlength{\rightskip}{0pt plus 5cm}Basic\-Tabu\-Search\-::\-Basic\-Tabu\-Search (
+\begin{DoxyParamCaption}
+\item[{{\bf Coloration} $\ast$}]{init, }
+\item[{int}]{prof}
+\end{DoxyParamCaption}
+)}}\label{classBasicTabuSearch_a30a404fa4c0c95bdbfdf9b8d9387145b}
+Constructeur unique 
+\begin{DoxyParams}{Parameters}
+{\em init} & \hyperlink{classColoration}{Coloration} initiale de la recherche tabou \\
+\hline
+{\em prof} & profondeur de la recherche tabou \\
+\hline
+\end{DoxyParams}
+\hypertarget{classBasicTabuSearch_ad4449024a20e6609dd20884696356c8a}{\index{Basic\-Tabu\-Search@{Basic\-Tabu\-Search}!$\sim$\-Basic\-Tabu\-Search@{$\sim$\-Basic\-Tabu\-Search}}
+\index{$\sim$\-Basic\-Tabu\-Search@{$\sim$\-Basic\-Tabu\-Search}!BasicTabuSearch@{Basic\-Tabu\-Search}}
+\subsubsection[{$\sim$\-Basic\-Tabu\-Search}]{\setlength{\rightskip}{0pt plus 5cm}Basic\-Tabu\-Search\-::$\sim$\-Basic\-Tabu\-Search (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classBasicTabuSearch_ad4449024a20e6609dd20884696356c8a}
+Destructeur 
+
+\subsection{Member Function Documentation}
+\hypertarget{classBasicTabuSearch_a14a157e898bba846f3b00f25b7c64fe2}{\index{Basic\-Tabu\-Search@{Basic\-Tabu\-Search}!calcul\-Delta@{calcul\-Delta}}
+\index{calcul\-Delta@{calcul\-Delta}!BasicTabuSearch@{Basic\-Tabu\-Search}}
+\subsubsection[{calcul\-Delta}]{\setlength{\rightskip}{0pt plus 5cm}void Basic\-Tabu\-Search\-::calcul\-Delta (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classBasicTabuSearch_a14a157e898bba846f3b00f25b7c64fe2}
+Fonction calculant le gain associé à l'ensemble des voisins admissibles \hypertarget{classBasicTabuSearch_aa64a2c376b8e8c594163c1967126bb15}{\index{Basic\-Tabu\-Search@{Basic\-Tabu\-Search}!init\-Neighboor\-O\-M@{init\-Neighboor\-O\-M}}
+\index{init\-Neighboor\-O\-M@{init\-Neighboor\-O\-M}!BasicTabuSearch@{Basic\-Tabu\-Search}}
+\subsubsection[{init\-Neighboor\-O\-M}]{\setlength{\rightskip}{0pt plus 5cm}void Basic\-Tabu\-Search\-::init\-Neighboor\-O\-M (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classBasicTabuSearch_aa64a2c376b8e8c594163c1967126bb15}
+Fonction calculant l'ensemble des voisins \hyperlink{classOneMove}{One\-Move} admissibles par la solution courante. \hypertarget{classBasicTabuSearch_ae84e184edf1ef484d53107759433613b}{\index{Basic\-Tabu\-Search@{Basic\-Tabu\-Search}!init\-Neighboor\-S@{init\-Neighboor\-S}}
+\index{init\-Neighboor\-S@{init\-Neighboor\-S}!BasicTabuSearch@{Basic\-Tabu\-Search}}
+\subsubsection[{init\-Neighboor\-S}]{\setlength{\rightskip}{0pt plus 5cm}void Basic\-Tabu\-Search\-::init\-Neighboor\-S (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classBasicTabuSearch_ae84e184edf1ef484d53107759433613b}
+Fonction calculant l'ensemble des voisins \hyperlink{classSwap}{Swap} admissibles par la solution courante. \hypertarget{classBasicTabuSearch_ae51343045059a6e810b962429b8928d6}{\index{Basic\-Tabu\-Search@{Basic\-Tabu\-Search}!init\-Tabu\-Mat@{init\-Tabu\-Mat}}
+\index{init\-Tabu\-Mat@{init\-Tabu\-Mat}!BasicTabuSearch@{Basic\-Tabu\-Search}}
+\subsubsection[{init\-Tabu\-Mat}]{\setlength{\rightskip}{0pt plus 5cm}void Basic\-Tabu\-Search\-::init\-Tabu\-Mat (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classBasicTabuSearch_ae51343045059a6e810b962429b8928d6}
+Fonction d'initalisation de la matrice tabou. \hypertarget{classBasicTabuSearch_aa88417b74f0d99d694309226306eedef}{\index{Basic\-Tabu\-Search@{Basic\-Tabu\-Search}!is\-Forbidden@{is\-Forbidden}}
+\index{is\-Forbidden@{is\-Forbidden}!BasicTabuSearch@{Basic\-Tabu\-Search}}
+\subsubsection[{is\-Forbidden}]{\setlength{\rightskip}{0pt plus 5cm}bool Basic\-Tabu\-Search\-::is\-Forbidden (
+\begin{DoxyParamCaption}
+\item[{{\bf Voisin} $\ast$}]{N, }
+\item[{int}]{iter}
+\end{DoxyParamCaption}
+)}}\label{classBasicTabuSearch_aa88417b74f0d99d694309226306eedef}
+Procédure de vérification qu'un mouvement de voisinage n'est pas interdit Effectue un dynamic\-\_\-cast et appelle la fonction correspondante 
+\begin{DoxyParams}{Parameters}
+{\em N} & \hyperlink{classVoisin}{Voisin} à caster et tester \\
+\hline
+{\em iter} & iteration courante \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+resultat de la sous-\/fonction appelée 
+\end{DoxyReturn}
+\hypertarget{classBasicTabuSearch_af4f4afee741e09940ea4b8c47468613a}{\index{Basic\-Tabu\-Search@{Basic\-Tabu\-Search}!is\-Forbidden\-O\-M@{is\-Forbidden\-O\-M}}
+\index{is\-Forbidden\-O\-M@{is\-Forbidden\-O\-M}!BasicTabuSearch@{Basic\-Tabu\-Search}}
+\subsubsection[{is\-Forbidden\-O\-M}]{\setlength{\rightskip}{0pt plus 5cm}bool Basic\-Tabu\-Search\-::is\-Forbidden\-O\-M (
+\begin{DoxyParamCaption}
+\item[{{\bf One\-Move} $\ast$}]{om, }
+\item[{int}]{iter}
+\end{DoxyParamCaption}
+)}}\label{classBasicTabuSearch_af4f4afee741e09940ea4b8c47468613a}
+Procédure de vérification qu'un \hyperlink{classOneMove}{One\-Move} ne soit pas interdit 
+\begin{DoxyParams}{Parameters}
+{\em om} & \hyperlink{classOneMove}{One\-Move} à tester \\
+\hline
+{\em iter} & iteration courante de la recherche \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+( tabu\-Mat\mbox{[}om-\/$>$get\-S()\mbox{]}\mbox{[}om-\/$>$get\-Vkj()\mbox{]} $>$ iter ) 
+\end{DoxyReturn}
+\hypertarget{classBasicTabuSearch_a6d5c0de432bfe36a379e0cdb52457728}{\index{Basic\-Tabu\-Search@{Basic\-Tabu\-Search}!is\-Forbidden\-S@{is\-Forbidden\-S}}
+\index{is\-Forbidden\-S@{is\-Forbidden\-S}!BasicTabuSearch@{Basic\-Tabu\-Search}}
+\subsubsection[{is\-Forbidden\-S}]{\setlength{\rightskip}{0pt plus 5cm}bool Basic\-Tabu\-Search\-::is\-Forbidden\-S (
+\begin{DoxyParamCaption}
+\item[{{\bf Swap} $\ast$}]{s, }
+\item[{int}]{iter}
+\end{DoxyParamCaption}
+)}}\label{classBasicTabuSearch_a6d5c0de432bfe36a379e0cdb52457728}
+Procédure de vérification qu'un \hyperlink{classSwap}{Swap} ne soit pas interdit 
+\begin{DoxyParams}{Parameters}
+{\em s} & \hyperlink{classSwap}{Swap} à tester \\
+\hline
+{\em iter} & iteration courante de la recherche \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+( (tabu\-Mat\mbox{[}s-\/$>$get\-Si()\mbox{]}\mbox{[}s-\/$>$get\-Kj()\mbox{]} $>$ iter) $\vert$$\vert$ (tabu\-Mat\mbox{[}s-\/$>$get\-Sj()\mbox{]}\mbox{[}s-\/$>$get\-Ki()\mbox{]} $>$ iter) ) 
+\end{DoxyReturn}
+\hypertarget{classBasicTabuSearch_a439b45b01e2fb3c39668deaabdce6945}{\index{Basic\-Tabu\-Search@{Basic\-Tabu\-Search}!run@{run}}
+\index{run@{run}!BasicTabuSearch@{Basic\-Tabu\-Search}}
+\subsubsection[{run}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Coloration} $\ast$ Basic\-Tabu\-Search\-::run (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classBasicTabuSearch_a439b45b01e2fb3c39668deaabdce6945}
+Méthode principale de la recherche tabou basique Respecte l'algorithme décrit au point 2.\-4.\-2 de l'article lié. \begin{DoxyReturn}{Returns}
+meilleur coloration trouvée. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+basictabusearch.\-h\item 
+basictabusearch.\-cpp\end{DoxyCompactItemize}

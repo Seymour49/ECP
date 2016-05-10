@@ -1,0 +1,340 @@
+\hypertarget{classColoration}{\section{Coloration Class Reference}
+\label{classColoration}\index{Coloration@{Coloration}}
+}
+
+
+{\ttfamily \#include $<$coloration.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classColoration_a77f5ff52a790fcf817e52fb8f4b646a9}{Coloration} (\hyperlink{classGraphe}{Graphe} $\ast$graphe)
+\item 
+\hyperlink{classColoration_a5181f6ad3f6d63c1ad52ff5ee9353228}{Coloration} (const \hyperlink{classColoration}{Coloration} \&other)
+\item 
+virtual \hyperlink{classColoration_af31df0a1038ff229151acd4d88fe2da1}{$\sim$\-Coloration} ()
+\item 
+\hyperlink{classColoration}{Coloration} \& \hyperlink{classColoration_a27730d1fd674f4304e2b3ad8f069367e}{operator=} (const \hyperlink{classColoration}{Coloration} \&other)
+\item 
+int \hyperlink{classColoration_afd52a7165d471c2e34bcbea98c13eef1}{get\-Nb\-Color} () const 
+\item 
+int \hyperlink{classColoration_aa1ef4477dfb3c797afc38486f592fce6}{get\-Nb\-Vertices} () const 
+\item 
+int \hyperlink{classColoration_acc611eeebd104505c79928fef8099da6}{get\-Vki\-Size} (int i)
+\item 
+int \hyperlink{classColoration_a9b43769d5ae5c6d4102ad0a0932d51f6}{get\-Value\-Vk} (int i, int j)
+\item 
+std\-::ostream \& \hyperlink{classColoration_aff862370d4c765890a609d1abc045cb3}{print} (std\-::ostream \&out)
+\item 
+void \hyperlink{classColoration_abefa1ff9f574a2648c14f4bb4759da11}{update\-Mafter\-Insert} (int vertex, int color)
+\item 
+int \hyperlink{classColoration_a64305d2935816865c273344771f117a3}{select\-Vertex} (std\-::vector$<$ int $>$ U, int color)
+\item 
+void \hyperlink{classColoration_ab8b4ea99e7474a2dca053fa711340dc1}{initialisation} (int nbc)
+\item 
+int \hyperlink{classColoration_aca206c216d5d7bd46d391a7407dabc0c}{evaluate} ()
+\item 
+bool \hyperlink{classColoration_a0432b3075aa1856ef2ed65a3f1836a9a}{in\-Conflict} (int i, int j)
+\item 
+int \hyperlink{classColoration_a72244ae3ffa1f296f0245b84723d9cb1}{simul\-Eval\-O\-M} (\hyperlink{classOneMove}{One\-Move} $\ast$om)
+\item 
+int \hyperlink{classColoration_aad8064b03a899812cb647f36d9144be4}{simul\-Eval\-S} (\hyperlink{classSwap}{Swap} $\ast$s)
+\item 
+int \hyperlink{classColoration_ad96eae6de8105df79f5f14a4e7df3f44}{calcul\-Delta\-O\-M} (\hyperlink{classOneMove}{One\-Move} $\ast$om)
+\item 
+int \hyperlink{classColoration_a81b1294a308a39fb1561f60d0f1b5a79}{calcul\-Delta\-S} (\hyperlink{classSwap}{Swap} $\ast$s)
+\item 
+void \hyperlink{classColoration_a34b1962a13f56b9860efe66cf7ca4e58}{valid\-One\-Move} (\hyperlink{classOneMove}{One\-Move} $\ast$om)
+\item 
+void \hyperlink{classColoration_a7f66cf5cec21d5b3759a7ba48ce69f06}{valid\-Swap} (\hyperlink{classSwap}{Swap} $\ast$s)
+\item 
+void \hyperlink{classColoration_a3b633f79f54ca7a2cc34c693fba5743f}{clear\-Vector} ()
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classColoration_a1dd18fa54c9f6f6ac8578f86d3b2123a}{std\-::ostream \& {\bfseries operator$<$$<$} (std\-::ostream \&out, \hyperlink{classColoration}{Coloration} \&r)}\label{classColoration_a1dd18fa54c9f6f6ac8578f86d3b2123a}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Classe représentant une coloration équitable. Afin d'y parvenir nous utilisons un vecteur de vecteurs de sommets représentant chacun un ensemble de sommets colorés de la même couleur. Afin d'évaluer les opérations de voisinages, cette classe dispose également d'une matrice M de taille N$\ast$k (où N est le nombre de sommets et k le nombre de couleur de la coloration) représentant le nombre de sommets adjacents au sommet u de couleur j (0$<$j$<$k). 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classColoration_a77f5ff52a790fcf817e52fb8f4b646a9}{\index{Coloration@{Coloration}!Coloration@{Coloration}}
+\index{Coloration@{Coloration}!Coloration@{Coloration}}
+\subsubsection[{Coloration}]{\setlength{\rightskip}{0pt plus 5cm}Coloration\-::\-Coloration (
+\begin{DoxyParamCaption}
+\item[{{\bf Graphe} $\ast$}]{graphe}
+\end{DoxyParamCaption}
+)}}\label{classColoration_a77f5ff52a790fcf817e52fb8f4b646a9}
+Constructeur par défault. 
+\begin{DoxyParams}{Parameters}
+{\em graphe} & \hyperlink{classGraphe}{Graphe} allant être étudié \\
+\hline
+\end{DoxyParams}
+\hypertarget{classColoration_a5181f6ad3f6d63c1ad52ff5ee9353228}{\index{Coloration@{Coloration}!Coloration@{Coloration}}
+\index{Coloration@{Coloration}!Coloration@{Coloration}}
+\subsubsection[{Coloration}]{\setlength{\rightskip}{0pt plus 5cm}Coloration\-::\-Coloration (
+\begin{DoxyParamCaption}
+\item[{const {\bf Coloration} \&}]{other}
+\end{DoxyParamCaption}
+)}}\label{classColoration_a5181f6ad3f6d63c1ad52ff5ee9353228}
+Constructeur par recopie. 
+\begin{DoxyParams}{Parameters}
+{\em other} & \hyperlink{classColoration}{Coloration} source à copier $\ast$ \\
+\hline
+\end{DoxyParams}
+\hypertarget{classColoration_af31df0a1038ff229151acd4d88fe2da1}{\index{Coloration@{Coloration}!$\sim$\-Coloration@{$\sim$\-Coloration}}
+\index{$\sim$\-Coloration@{$\sim$\-Coloration}!Coloration@{Coloration}}
+\subsubsection[{$\sim$\-Coloration}]{\setlength{\rightskip}{0pt plus 5cm}Coloration\-::$\sim$\-Coloration (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{classColoration_af31df0a1038ff229151acd4d88fe2da1}
+Destructeur 
+
+\subsection{Member Function Documentation}
+\hypertarget{classColoration_ad96eae6de8105df79f5f14a4e7df3f44}{\index{Coloration@{Coloration}!calcul\-Delta\-O\-M@{calcul\-Delta\-O\-M}}
+\index{calcul\-Delta\-O\-M@{calcul\-Delta\-O\-M}!Coloration@{Coloration}}
+\subsubsection[{calcul\-Delta\-O\-M}]{\setlength{\rightskip}{0pt plus 5cm}int Coloration\-::calcul\-Delta\-O\-M (
+\begin{DoxyParamCaption}
+\item[{{\bf One\-Move} $\ast$}]{om}
+\end{DoxyParamCaption}
+)}}\label{classColoration_ad96eae6de8105df79f5f14a4e7df3f44}
+Fonction calculant le delta d'un voisin \hyperlink{classOneMove}{One\-Move} 
+\begin{DoxyParams}{Parameters}
+{\em om} & \hyperlink{classOneMove}{One\-Move} dont on souhaite calculer le delta selon la coloration actuelle \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\mbox{[}s\mbox{]}\mbox{[}Vk\mbox{[}j\mbox{]}\mbox{]} -\/ M\mbox{[}s\mbox{]}\mbox{[}Vk\mbox{[}i\mbox{]}\mbox{]}, entier 
+\end{DoxyReturn}
+\hypertarget{classColoration_a81b1294a308a39fb1561f60d0f1b5a79}{\index{Coloration@{Coloration}!calcul\-Delta\-S@{calcul\-Delta\-S}}
+\index{calcul\-Delta\-S@{calcul\-Delta\-S}!Coloration@{Coloration}}
+\subsubsection[{calcul\-Delta\-S}]{\setlength{\rightskip}{0pt plus 5cm}int Coloration\-::calcul\-Delta\-S (
+\begin{DoxyParamCaption}
+\item[{{\bf Swap} $\ast$}]{s}
+\end{DoxyParamCaption}
+)}}\label{classColoration_a81b1294a308a39fb1561f60d0f1b5a79}
+Fonction calcultant le delta d'un voisin \hyperlink{classSwap}{Swap} 
+\begin{DoxyParams}{Parameters}
+{\em s} & \hyperlink{classSwap}{Swap} dont on souhaite calculer le delta selon la coloration actuelle \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\mbox{[}v\mbox{]}\mbox{[}K(u)\mbox{]} -\/ M\mbox{[}v\mbox{]}\mbox{[}K(v)\mbox{]} + (M\mbox{[}u\mbox{]}\mbox{[}K(v)\mbox{]} -\/ M\mbox{[}u\mbox{]}\mbox{[}K(u)\mbox{]} -\/ 2$\ast$\-G\mbox{[}u\mbox{]}\mbox{[}v\mbox{]}), entier 
+\end{DoxyReturn}
+\hypertarget{classColoration_a3b633f79f54ca7a2cc34c693fba5743f}{\index{Coloration@{Coloration}!clear\-Vector@{clear\-Vector}}
+\index{clear\-Vector@{clear\-Vector}!Coloration@{Coloration}}
+\subsubsection[{clear\-Vector}]{\setlength{\rightskip}{0pt plus 5cm}void Coloration\-::clear\-Vector (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classColoration_a3b633f79f54ca7a2cc34c693fba5743f}
+Procédure de nettoyage des vecteurs Vk et M \hypertarget{classColoration_aca206c216d5d7bd46d391a7407dabc0c}{\index{Coloration@{Coloration}!evaluate@{evaluate}}
+\index{evaluate@{evaluate}!Coloration@{Coloration}}
+\subsubsection[{evaluate}]{\setlength{\rightskip}{0pt plus 5cm}int Coloration\-::evaluate (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classColoration_aca206c216d5d7bd46d391a7407dabc0c}
+Fonction d'évaluation retournant le nombre de sommets en conflits \begin{DoxyReturn}{Returns}
+nombre de sommets en conflits (i.\-e coloré de la même couleur qu'au moins un de ses voisins. 
+\end{DoxyReturn}
+\hypertarget{classColoration_afd52a7165d471c2e34bcbea98c13eef1}{\index{Coloration@{Coloration}!get\-Nb\-Color@{get\-Nb\-Color}}
+\index{get\-Nb\-Color@{get\-Nb\-Color}!Coloration@{Coloration}}
+\subsubsection[{get\-Nb\-Color}]{\setlength{\rightskip}{0pt plus 5cm}int Coloration\-::get\-Nb\-Color (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{classColoration_afd52a7165d471c2e34bcbea98c13eef1}
+Getter sur nb\-Color \begin{DoxyReturn}{Returns}
+nombre de couleur de la coloration, entier 
+\end{DoxyReturn}
+\hypertarget{classColoration_aa1ef4477dfb3c797afc38486f592fce6}{\index{Coloration@{Coloration}!get\-Nb\-Vertices@{get\-Nb\-Vertices}}
+\index{get\-Nb\-Vertices@{get\-Nb\-Vertices}!Coloration@{Coloration}}
+\subsubsection[{get\-Nb\-Vertices}]{\setlength{\rightskip}{0pt plus 5cm}int Coloration\-::get\-Nb\-Vertices (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{classColoration_aa1ef4477dfb3c797afc38486f592fce6}
+Getter sur Nb\-Vertices. Fait appel à \hyperlink{classGraphe_a12d073cd0ec41d9836986d5bc51af9ae}{Graphe\-::get\-Nb\-Vertices} \begin{DoxyReturn}{Returns}
+nombre de sommets du graphe, entier 
+\end{DoxyReturn}
+\hypertarget{classColoration_a9b43769d5ae5c6d4102ad0a0932d51f6}{\index{Coloration@{Coloration}!get\-Value\-Vk@{get\-Value\-Vk}}
+\index{get\-Value\-Vk@{get\-Value\-Vk}!Coloration@{Coloration}}
+\subsubsection[{get\-Value\-Vk}]{\setlength{\rightskip}{0pt plus 5cm}int Coloration\-::get\-Value\-Vk (
+\begin{DoxyParamCaption}
+\item[{int}]{i, }
+\item[{int}]{j}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classColoration_a9b43769d5ae5c6d4102ad0a0932d51f6}
+Getter sur Vk\mbox{[}i\mbox{]}\mbox{[}j\mbox{]} 
+\begin{DoxyParams}{Parameters}
+{\em i} & couleur du sommet à retourner \\
+\hline
+{\em j} & indice dans Vk\mbox{[}i\mbox{]} du sommet à retourner \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+identifiant du sommet d'indice j dans la couleur i 
+\end{DoxyReturn}
+\hypertarget{classColoration_acc611eeebd104505c79928fef8099da6}{\index{Coloration@{Coloration}!get\-Vki\-Size@{get\-Vki\-Size}}
+\index{get\-Vki\-Size@{get\-Vki\-Size}!Coloration@{Coloration}}
+\subsubsection[{get\-Vki\-Size}]{\setlength{\rightskip}{0pt plus 5cm}int Coloration\-::get\-Vki\-Size (
+\begin{DoxyParamCaption}
+\item[{int}]{i}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classColoration_acc611eeebd104505c79928fef8099da6}
+Getter sur Vk\mbox{[}i\mbox{]}.size() 
+\begin{DoxyParams}{Parameters}
+{\em i} & couleur dont on souhaite connaître le nombre d'éléments \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+nombre d'élements colorés de la couleur passé en paramètre, entier 
+\end{DoxyReturn}
+\hypertarget{classColoration_a0432b3075aa1856ef2ed65a3f1836a9a}{\index{Coloration@{Coloration}!in\-Conflict@{in\-Conflict}}
+\index{in\-Conflict@{in\-Conflict}!Coloration@{Coloration}}
+\subsubsection[{in\-Conflict}]{\setlength{\rightskip}{0pt plus 5cm}bool Coloration\-::in\-Conflict (
+\begin{DoxyParamCaption}
+\item[{int}]{i, }
+\item[{int}]{j}
+\end{DoxyParamCaption}
+)}}\label{classColoration_a0432b3075aa1856ef2ed65a3f1836a9a}
+Fonction retournant vrai si le sommet j de couleur i testé est en conflit 
+\begin{DoxyParams}{Parameters}
+{\em i} & couleur du sommet à étudier \\
+\hline
+{\em j} & indice dans Vk\mbox{[}i\mbox{]} du sommet à étudier \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+booléen = ( M\mbox{[}Vk\mbox{[}i\mbox{]}\mbox{[}j\mbox{]}\mbox{]}\mbox{[}i\mbox{]} != 0 ) 
+\end{DoxyReturn}
+\hypertarget{classColoration_ab8b4ea99e7474a2dca053fa711340dc1}{\index{Coloration@{Coloration}!initialisation@{initialisation}}
+\index{initialisation@{initialisation}!Coloration@{Coloration}}
+\subsubsection[{initialisation}]{\setlength{\rightskip}{0pt plus 5cm}void Coloration\-::initialisation (
+\begin{DoxyParamCaption}
+\item[{int}]{nbc}
+\end{DoxyParamCaption}
+)}}\label{classColoration_ab8b4ea99e7474a2dca053fa711340dc1}
+Méthode d'initialisation respectant la contrainte d'équité des capacités. 
+\begin{DoxyParams}{Parameters}
+{\em nbc} & nombre de couleurs avec laquelle on souhaite initialiser la coloration \\
+\hline
+\end{DoxyParams}
+\hypertarget{classColoration_a27730d1fd674f4304e2b3ad8f069367e}{\index{Coloration@{Coloration}!operator=@{operator=}}
+\index{operator=@{operator=}!Coloration@{Coloration}}
+\subsubsection[{operator=}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Coloration} \& Coloration\-::operator= (
+\begin{DoxyParamCaption}
+\item[{const {\bf Coloration} \&}]{other}
+\end{DoxyParamCaption}
+)}}\label{classColoration_a27730d1fd674f4304e2b3ad8f069367e}
+Opérateur =. 
+\begin{DoxyParams}{Parameters}
+{\em other} & \hyperlink{classColoration}{Coloration} droite de l'égalité. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classColoration_aff862370d4c765890a609d1abc045cb3}{\index{Coloration@{Coloration}!print@{print}}
+\index{print@{print}!Coloration@{Coloration}}
+\subsubsection[{print}]{\setlength{\rightskip}{0pt plus 5cm}ostream \& Coloration\-::print (
+\begin{DoxyParamCaption}
+\item[{std\-::ostream \&}]{out}
+\end{DoxyParamCaption}
+)}}\label{classColoration_aff862370d4c765890a609d1abc045cb3}
+Display \hypertarget{classColoration_a64305d2935816865c273344771f117a3}{\index{Coloration@{Coloration}!select\-Vertex@{select\-Vertex}}
+\index{select\-Vertex@{select\-Vertex}!Coloration@{Coloration}}
+\subsubsection[{select\-Vertex}]{\setlength{\rightskip}{0pt plus 5cm}int Coloration\-::select\-Vertex (
+\begin{DoxyParamCaption}
+\item[{std\-::vector$<$ int $>$}]{U, }
+\item[{int}]{color}
+\end{DoxyParamCaption}
+)}}\label{classColoration_a64305d2935816865c273344771f117a3}
+Fonction de sélection d'un sommet j à ajouter à la partition color. 
+\begin{DoxyParams}{Parameters}
+{\em U} & ensemble de sommet modifié après en avoir sélectionné un. \\
+\hline
+{\em color} & couleur dans laquelle colorer le sommet selectionné \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+sommet non assigné (€ U) qui à le moins de voisins dans Vk\mbox{[}color\mbox{]} 
+\end{DoxyReturn}
+\hypertarget{classColoration_a72244ae3ffa1f296f0245b84723d9cb1}{\index{Coloration@{Coloration}!simul\-Eval\-O\-M@{simul\-Eval\-O\-M}}
+\index{simul\-Eval\-O\-M@{simul\-Eval\-O\-M}!Coloration@{Coloration}}
+\subsubsection[{simul\-Eval\-O\-M}]{\setlength{\rightskip}{0pt plus 5cm}int Coloration\-::simul\-Eval\-O\-M (
+\begin{DoxyParamCaption}
+\item[{{\bf One\-Move} $\ast$}]{om}
+\end{DoxyParamCaption}
+)}}\label{classColoration_a72244ae3ffa1f296f0245b84723d9cb1}
+Fonction simulant l'évaluation sur la coloration courante à laquelle on applique le voisin \hyperlink{classOneMove}{One\-Move} passé en paramètre. Utilisée pour bruiter le caractère tabou d'un voisin 
+\begin{DoxyParams}{Parameters}
+{\em om} & \hyperlink{classOneMove}{One\-Move} dont on souhaite simuler l'impact \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+evaluation après simulation 
+\end{DoxyReturn}
+\hypertarget{classColoration_aad8064b03a899812cb647f36d9144be4}{\index{Coloration@{Coloration}!simul\-Eval\-S@{simul\-Eval\-S}}
+\index{simul\-Eval\-S@{simul\-Eval\-S}!Coloration@{Coloration}}
+\subsubsection[{simul\-Eval\-S}]{\setlength{\rightskip}{0pt plus 5cm}int Coloration\-::simul\-Eval\-S (
+\begin{DoxyParamCaption}
+\item[{{\bf Swap} $\ast$}]{s}
+\end{DoxyParamCaption}
+)}}\label{classColoration_aad8064b03a899812cb647f36d9144be4}
+Fonction simulant l'évaluation sur la coloration courante à laquelle on applique le voisin \hyperlink{classSwap}{Swap} passé en paramètre. Utilisée pour bruiter le caractère tabou d'un voisin 
+\begin{DoxyParams}{Parameters}
+{\em s} & \hyperlink{classSwap}{Swap} dont on souhaite simuler l'impact \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+evaluation après simulation, entier 
+\end{DoxyReturn}
+\hypertarget{classColoration_abefa1ff9f574a2648c14f4bb4759da11}{\index{Coloration@{Coloration}!update\-Mafter\-Insert@{update\-Mafter\-Insert}}
+\index{update\-Mafter\-Insert@{update\-Mafter\-Insert}!Coloration@{Coloration}}
+\subsubsection[{update\-Mafter\-Insert}]{\setlength{\rightskip}{0pt plus 5cm}void Coloration\-::update\-Mafter\-Insert (
+\begin{DoxyParamCaption}
+\item[{int}]{vertex, }
+\item[{int}]{color}
+\end{DoxyParamCaption}
+)}}\label{classColoration_abefa1ff9f574a2648c14f4bb4759da11}
+Procédure de mise à jour de M après insertion d'un sommet dans une partition 
+\begin{DoxyParams}{Parameters}
+{\em vertex} & identifiant du sommet récemment coloré \\
+\hline
+{\em color} & couleur utilisé pour colorer vertex \\
+\hline
+\end{DoxyParams}
+\hypertarget{classColoration_a34b1962a13f56b9860efe66cf7ca4e58}{\index{Coloration@{Coloration}!valid\-One\-Move@{valid\-One\-Move}}
+\index{valid\-One\-Move@{valid\-One\-Move}!Coloration@{Coloration}}
+\subsubsection[{valid\-One\-Move}]{\setlength{\rightskip}{0pt plus 5cm}void Coloration\-::valid\-One\-Move (
+\begin{DoxyParamCaption}
+\item[{{\bf One\-Move} $\ast$}]{om}
+\end{DoxyParamCaption}
+)}}\label{classColoration_a34b1962a13f56b9860efe66cf7ca4e58}
+Procédure de validation d'un voisin \hyperlink{classOneMove}{One\-Move} 
+\begin{DoxyParams}{Parameters}
+{\em om} & \hyperlink{classOneMove}{One\-Move} à appliquer sur la coloration actuelle \\
+\hline
+\end{DoxyParams}
+\hypertarget{classColoration_a7f66cf5cec21d5b3759a7ba48ce69f06}{\index{Coloration@{Coloration}!valid\-Swap@{valid\-Swap}}
+\index{valid\-Swap@{valid\-Swap}!Coloration@{Coloration}}
+\subsubsection[{valid\-Swap}]{\setlength{\rightskip}{0pt plus 5cm}void Coloration\-::valid\-Swap (
+\begin{DoxyParamCaption}
+\item[{{\bf Swap} $\ast$}]{s}
+\end{DoxyParamCaption}
+)}}\label{classColoration_a7f66cf5cec21d5b3759a7ba48ce69f06}
+Procédure de validation d'un voisin \hyperlink{classSwap}{Swap} 
+\begin{DoxyParams}{Parameters}
+{\em s} & \hyperlink{classSwap}{Swap} à appliquer sur la coloration actuelle \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+coloration.\-h\item 
+coloration.\-cpp\end{DoxyCompactItemize}

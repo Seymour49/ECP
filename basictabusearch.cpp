@@ -244,7 +244,7 @@ Coloration* BasicTabuSearch::run(){
 	
 	++iteration;
 	
-    }while( (d < depth && current.evaluate() != 0) );
+    }while( (d < depth && current.evaluate() > 0) );
     
     
     // On réinitialise tabuMat

@@ -35,44 +35,61 @@
 class BasicTabuSearch
 {
 public:
-    /** Constructeur et destructeur */
+    /** Constructeur unique
+     * @param init Coloration initiale de la recherche tabou
+     * @param prof profondeur de la recherche tabou 
+     */
     BasicTabuSearch(Coloration* init, int prof);
+    
+    /** Destructeur
+     */
     ~BasicTabuSearch();
     
-    /**
-     * Méthode principale retournant la meilleure coloration trouvée
-     * par cette recherche tabou
+    /** Méthode principale de la recherche tabou basique
+     * Respecte l'algorithme décrit au point 2.4.2 de l'article lié.
+     * @return meilleur coloration trouvée. 
      */
     Coloration* run();
     
-    /**
-     * Fonction d'initalisation de la matrice tabou ( tout à 0 )
+    /** Fonction d'initalisation de la matrice tabou.
      */
     void initTabuMat();
     
-    /**
-     * Fonction calculant l'ensemble des voisins OneMove admissibles par la solution
+    /** Fonction calculant l'ensemble des voisins OneMove admissibles par la solution
      * courante.
      */
     void initNeighboorOM();
     
-    /**
-     * Fonction calculant l'ensemble des voisins Swap admissibles par la solution
+    /** Fonction calculant l'ensemble des voisins Swap admissibles par la solution
      * courante.
      */
     void initNeighboorS();    
     
-    /**
-     * Fonction calculant le gain associé à l'ensemble des voisins admissibles
+    /** Fonction calculant le gain associé à l'ensemble des voisins admissibles
      */
     void calculDelta();
     
     
-    /**
-     * Procédures de contrôle afin de vérifier qu'un mouvement est interdit
+    /** Procédure de vérification qu'un mouvement de voisinage n'est pas interdit
+     * Effectue un dynamic_cast et appelle la fonction correspondante
+     * @param N Voisin à caster et tester
+     * @param iter iteration courante
+     * @return resultat de la sous-fonction appelée
      */
     bool isForbidden( Voisin* N, int iter);
+    
+    /** Procédure de vérification qu'un OneMove ne soit pas interdit
+     * @param om OneMove à tester
+     * @param iter iteration courante de la recherche
+     * @return ( tabuMat[om->getS()][om->getVkj()] > iter )
+     */
     bool isForbiddenOM( OneMove* om, int iter);
+    
+    /** Procédure de vérification qu'un Swap ne soit pas interdit
+     * @param s Swap à tester
+     * @param iter iteration courante de la recherche
+     * @return ( (tabuMat[s->getSi()][s->getKj()] > iter) || (tabuMat[s->getSj()][s->getKi()] > iter) )
+     */
     bool isForbiddenS( Swap *s, int iter);
     
 private:

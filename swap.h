@@ -34,13 +34,28 @@
 class Swap : public Voisin
 {
 public:
-    /** Constructeur */
+    /** Constructeur 
+     @param i sommet Si
+     @param j sommet Sj
+     @param k couleur du sommet Si
+     @param l couleur du sommet Sj
+    */
     Swap(int i, int j, int k, int l);
     
-    /** Getters and setter */
+    /** Getter sur Si
+     */
     int getSi() const { return si; }
+
+    /** Getter sur Sj
+     */
     int getSj() const { return sj; }
+    
+    /** Getter sur Ki
+     */
     int getKi() const { return ki; }
+    
+    /** Getter sur Kj
+     */
     int getKj() const { return kj; }
     
     /** Display */

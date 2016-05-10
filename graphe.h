@@ -44,18 +44,40 @@ class Graphe
 {
   
 public:
-  /* Constructeurs et destructeur */
-  Graphe();
+  /** Constructeur par défaut.
+   * @param s nom du fichier source du graphe au format DIMACS
+   */
   Graphe(std::string s);
+  
+  /** Constructeur par recopie
+   * @param other Graphe à recopier
+   */
   Graphe(const Graphe& other);
+  
+  /** Destructeur
+   */
   virtual ~Graphe();
   
-  /* Opérateur = */
+  /** Opérateur =
+   * @param other Graphe à droite de l'égalité
+   */
   Graphe& operator=(const Graphe& other);
   
-  /* Getters */
+  /** Getter sur le nom de fichier 
+   * @return nameFile
+   */
   std::string getNamefile() const { return namefile; }
+  
+  /** Getter sur le nombre de sommets du graphe
+   * @return nbVertices
+   */
   int getNbVertices() const { return nbVertices; }
+  
+  /** Getter sur la présence d'un arc entre deux sommets
+   * @param x sommet de départ
+   * @param y sommet d'arrivée
+   * @return grapheMatrice[x][y] = 1 si arc, 0 sinon
+   */
   int getMatriceValue(int x, int y) const { return (int)(grapheMatrice[x][y]); }
   
   /* Display */

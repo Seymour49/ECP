@@ -20,5 +20,4 @@
 #include "voisin.h"
 
 Voisin::Voisin(): gain(0){
-
 }

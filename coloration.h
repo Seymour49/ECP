@@ -41,18 +41,47 @@
 class Coloration
 {
 public:
-  /** Constructeurs et destructeur */
+  /** Constructeur par défault.
+   * @param graphe Graphe allant être étudié
+   */
   Coloration(Graphe* graphe);
+  
+  /** Constructeur par recopie.
+   * @param other Coloration source à copier   * 
+   */
   Coloration(const Coloration& other);
+  
+  /** Destructeur 
+   */
   virtual ~Coloration();
   
-  /** Opérateur = */
+  /** Opérateur =.
+   * @param other Coloration droite de l'égalité.
+   */
   Coloration& operator=(const Coloration& other);
   
-  /** Getters */
+  
+  /** Getter sur nbColor
+   *  @return nombre de couleur de la coloration, entier	
+   */
+  
   int getNbColor() const { return nbColor; }
+  /** Getter sur NbVertices. Fait appel à Graphe::getNbVertices
+   * @return nombre de sommets du graphe, entier
+   */
   int getNbVertices() const { return G->getNbVertices(); }
+  
+  /** Getter sur Vk[i].size()
+   * @param i couleur dont on souhaite connaître le nombre d'éléments
+   * @return nombre d'élements colorés de la couleur passé en paramètre, entier
+   */
   int getVkiSize(int i){ return Vk[i].size(); }
+  
+  /** Getter sur Vk[i][j]
+   * @param i couleur du sommet à retourner
+   * @param j indice dans Vk[i] du sommet à retourner
+   * @return identifiant du sommet d'indice j dans la couleur i
+   */
   int getValueVk(int i, int j){ assert((unsigned) i< Vk.size()); assert((unsigned) j < Vk[i].size()); return Vk[i][j]; }
   
   /** Display */
@@ -61,62 +90,77 @@ public:
       return r.print(out);
   }
   
-  /**
-   * Procédure de mise à jour de M après insertion d'un sommet vertex dans une partition color
+  /** Procédure de mise à jour de M après insertion d'un sommet dans une partition
+   * @param vertex identifiant du sommet récemment coloré
+   * @param color couleur utilisé pour colorer vertex
    */
   void updateMafterInsert(int vertex, int color);
   
-  /**
-   * Fonction de sélection d'un sommet j à ajouter à la partition color.
+  /** Fonction de sélection d'un sommet j à ajouter à la partition color.
+   * @param U ensemble de sommet modifié après en avoir sélectionné un.
+   * @param color couleur dans laquelle colorer le sommet selectionné
+   * @return sommet non assigné (€ U) qui à le moins de voisins dans Vk[color]
    */
   int selectVertex(std::vector< int > U, int color);
-  /**
-   * Méthode d'initialisation respectant la contrainte d'équité des capacités.
+  
+  /** Méthode d'initialisation respectant la contrainte d'équité des capacités.
+   * @param nbc nombre de couleurs avec laquelle on souhaite initialiser la coloration
+   * 
    */
   void initialisation(int nbc);
   
-  /**
-   * Fonction retournant le nombre de sommets en conflits
+  /** Fonction d'évaluation retournant le nombre de sommets en conflits
+   * @return nombre de sommets en conflits (i.e coloré de la même couleur
+   * qu'au moins un de ses voisins.
    */
   int evaluate();
   
-  /** Fonction retournant vrai si le sommet j de couleur i testé est en conflit, i.e 
-   * M[Vk[i][j]][i] != 0
+  /** Fonction retournant vrai si le sommet j de couleur i testé est en conflit 
+   * @param i couleur du sommet à étudier
+   * @param j indice dans Vk[i] du sommet à étudier
+   * @return booléen = ( M[Vk[i][j]][i] != 0 )
    */
   bool inConflict(int i, int j);
   
-  /**
-   * Fonction simulant l'évaluation sur la coloration courante à laquelle
+  /** Fonction simulant l'évaluation sur la coloration courante à laquelle
    * on applique le voisin OneMove passé en paramètre.
    * Utilisée pour bruiter le caractère tabou d'un voisin
+   * @param om OneMove dont on souhaite simuler l'impact
+   * @return evaluation après simulation
    */
   int simulEvalOM(OneMove* om);
   
-  /**
-   * Fonction simulant l'évaluation sur la coloration courante à laquelle
+  /** Fonction simulant l'évaluation sur la coloration courante à laquelle
    * on applique le voisin Swap passé en paramètre.
    * Utilisée pour bruiter le caractère tabou d'un voisin
+   * @param s Swap dont on souhaite simuler l'impact
+   * @return evaluation après simulation, entier
    */
   int simulEvalS(Swap* s);
   
-  /**
-   * Fonction calculant le delta d'un voisin OneMove
+  /** Fonction calculant le delta d'un voisin OneMove
+   * @param om OneMove dont on souhaite calculer le delta selon la coloration actuelle
+   * @return M[s][Vk[j]] - M[s][Vk[i]], entier
    */
   int calculDeltaOM(OneMove* om);
   
-  /**
-   * Fonction calcultant le delta d'un voisin Swap
+  /** Fonction calcultant le delta d'un voisin Swap
+   * @param s Swap dont on souhaite calculer le delta selon la coloration actuelle
+   * @return M[v][K(u)] - M[v][K(v)] + (M[u][K(v)] - M[u][K(u)] - 2*G[u][v]), entier
    */
   int calculDeltaS(Swap * s);
   
-  /**
-   * Procédures de validation d'un mouvement voisin passé en paramètre
+  /** Procédure de validation d'un voisin OneMove
+   * @param om OneMove à appliquer sur la coloration actuelle
    */  
   void validOneMove(OneMove* om);
+  
+  /** Procédure de validation d'un voisin Swap
+   * @param s Swap à appliquer sur la coloration actuelle
+   */
   void validSwap(Swap* s);
   
-  /**
-   * Procédure de nettoyage des vecteurs Vk et M
+  /** Procédure de nettoyage des vecteurs Vk et M
    */
   void clearVector();
   

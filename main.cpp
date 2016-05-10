@@ -18,6 +18,7 @@ int main(int argc, char **argv) {
     Graphe *G = new Graphe(argv[1]);
     
     if ( G->tryLoadFile() ){
+
 	
 	int bt_depth = 4; // TODO passage en param $
 	
@@ -27,10 +28,11 @@ int main(int argc, char **argv) {
 	BinarySearch BS(G,100);
 	
 	Coloration *best = BS.run();
+	cout << "fin initial BS" << endl;
 	int kbest = best->getNbColor();
 	int kcurrent = kbest;
 	Coloration *current;
-
+    
 	do{
 	    if( kcurrent == (kbest - bt_depth) ){
 		kcurrent = kbest - 1;
@@ -46,8 +48,8 @@ int main(int argc, char **argv) {
 		(*best) = (*current);
 	    }
 
-	   
-	}while( difftime(time(NULL),start) < 300 );	// TODO Change to 3600 when finished	
+	   delete(current);
+	}while( difftime(time(NULL),start) < 600);	// TODO Change to 3600 when finished	
 	
 	cout << *G;
 	
@@ -55,6 +57,7 @@ int main(int argc, char **argv) {
 	
 	cout << *best;	
     
+	delete(best);
 	delete(G);
     
     }else{

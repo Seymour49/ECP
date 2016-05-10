@@ -96,7 +96,6 @@ void Coloration::updateMafterInsert(int vertex, int color){
 
 }
 
-// return min = sommet non assigné (€ U) qui à le moins de voisins dans Vk[i]
 int Coloration::selectVertex(vector<int> U,int color){
   
   int min = U.at(0);
@@ -195,18 +194,12 @@ bool Coloration::inConflict(int i, int j){
     return ( M[Vk[i][j]][i]  != 0 ) ;
 }
 
-/**
- * Retourne M[s][Vk[j]] - M[s][Vk[i]]
- */
 int Coloration::calculDeltaOM(OneMove* om){
     
     int result = M[om->getS()][om->getVkj()] - M[om->getS()][om->getVki()];
     return result;
 }
 
-/**
- * Soit swap(u,v), retourne M[v][K(u)] - M[v][K(v)] + (M[u][K(v)] - M[u][K(u)] - 2*G[u][v])
- */
 int Coloration::calculDeltaS(Swap* s){
     
     int result = M[s->getSj()][s->getKi()] - M[s->getSj()][s->getKj()];

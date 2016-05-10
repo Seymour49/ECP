@@ -19,6 +19,8 @@
 
 #include "iteratedtabusearch.h"
 #include <random>
+#include <chrono>
+
 
 using namespace std;
 
@@ -38,9 +40,13 @@ IteratedTabuSearch::~IteratedTabuSearch(){
 
 
 Coloration* IteratedTabuSearch::perturbate(Coloration* current){
+    	
+    size_t seed = chrono::system_clock::now().time_since_epoch().count();
+	
+    srand(seed);
     // Tirage d'un nombre aléatoire 
-    srand(time(NULL));
     int random = rand()% 100;
+    cout << "random proba : " << random << endl;
     Coloration *perturbated;
     if(random < 30){
 	perturbated = directedPerturbation(current);
@@ -53,18 +59,62 @@ Coloration* IteratedTabuSearch::perturbate(Coloration* current){
 }
 
 Coloration* IteratedTabuSearch::randomPertubation(Coloration* current){
+
     Coloration* result = new Coloration(*current);
     
-    cout << *result;
+    // nombre de perturbations à effectuer
+    int pertubationLimit = floor(  (float)result->getNbVertices() * 0.3 );
     
+    // déclarations des variables aléatoires nécessaires
+    int rand1, rand2, rand3, rand4;
+    size_t seed;
+    
+    // déclarations des variables d'accès nécessaires
+    int color1, color2;
+    // vecteur nécéssaire à la sélection aléatoire de deux couleurs différentes
+    vector<int> V;
+    for(int i=0; i < result->getNbColor(); ++i){
+	V.push_back(i);
+    }
+  
+    for(int cpt = 0; cpt < pertubationLimit; ++cpt){
+	    
+	// On mélange V
+	seed = chrono::system_clock::now().time_since_epoch().count();
+	srand(seed);
+	shuffle(V.begin(),V.end(),default_random_engine(seed));	
+	
+	rand1 = rand()% result->getNbColor();
+	rand2 = rand()%(result->getNbColor() - 1);
+	
+	color1 = V.at(rand1);
+	
+	// déplacement de la couleur choisie en dernière position
+	V.at(rand1) = V.at(V.size()-1);
+	V.at(V.size()-1) = color1;
+	
+	color2 = V.at(rand2);
+	cout << "nbColor : " << result->getNbColor() << endl;
+	cout << "color : " << color1 << ";" << color2 << endl;
+	cout << "sizes : " << result->getVkiSize(color1) << ";" << result->getVkiSize(color2) << endl;
+ 	rand3 = rand()%(result->getVkiSize(color1));
+	rand4 = rand()%(result->getVkiSize(color2));
+	
+	Swap swap(result->getValueVk(color1,rand3),result->getValueVk(color2,rand4),color1,color2);
+	result->validSwap(&swap);
+	
+		
+    }
+    cout << "ici aussi" << endl;
+        
     return result;
 }
 
 
 Coloration* IteratedTabuSearch::directedPerturbation(Coloration* current){
     Coloration* result = new Coloration(*current);
-    
-    cout << *result;
+
+    cout << "TODO implementation" << endl;
     
     return result;
 }
@@ -77,10 +127,14 @@ Coloration* IteratedTabuSearch::run(){
     current = bts.run();
     
     int cpt = 0;
-    
-    //do{
+    cout << *current;
+    cout << "==================================" << endl;
+    do{
+	
 	Coloration* prime;
 	prime = perturbate(current);
+	
+	cout << "fin de la perturbation " << endl;
 	BasicTabuSearch bts2(prime,depth);
 	Coloration* second = bts2.run();
 	
@@ -94,7 +148,8 @@ Coloration* IteratedTabuSearch::run(){
 	
 	delete(prime);
 	delete(second);
-//    }while( (cpt != beta) || (current->evaluate() != 0) ); 
+	
+    }while( (cpt < beta) && (current->evaluate() > 0) ); 
     
     return current;
 }
