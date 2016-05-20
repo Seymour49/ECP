@@ -4,6 +4,11 @@
 #include <time.h>
 
 using namespace std;
+/**
+ * Ce
+ * 
+ * 
+ */ 
 
 
 int main(int argc, char **argv) {
@@ -28,7 +33,6 @@ int main(int argc, char **argv) {
 	BinarySearch BS(G,100);
 	
 	Coloration *best = BS.run();
-	cout << "fin initial BS" << endl;
 	int kbest = best->getNbColor();
 	int kcurrent = kbest;
 	Coloration *current;
@@ -41,15 +45,15 @@ int main(int argc, char **argv) {
 		--kcurrent ;
 	    }
 	    
-	    IteratedTabuSearch its(G,30,kcurrent,10000);
+	    IteratedTabuSearch its(G,30,kcurrent,100);
 	    current = its.run();
 	    
 	    if(current->evaluate() == 0 ){
 		(*best) = (*current);
 	    }
-
+	    cout << "Fin ITS avec " << kcurrent << "color" << endl;
 	   delete(current);
-	}while( difftime(time(NULL),start) < 600);	// TODO Change to 3600 when finished	
+	}while( difftime(time(NULL),start) < 30);	// TODO Change to 3600 when finished	
 	
 	cout << *G;
 	

@@ -102,9 +102,7 @@ Coloration équitable d'un graphe
 	Nous pourrions également travailleur sur deux vecteurs différents représentant chacun
 	un voisinage.
 	De nombreuses autres implémentations sont possibles et nous reviendrons dessus si le 
-	temps nous le permet.
-	Nous choisirons dans un premier temps de travailler sur un seul vecteur d'éléments voisins.
-	
+	temps nous le permet.	
 	De plus, la recherche tabou présentée utilisant une stratégie de sélection du meilleur
 	améliorant,nous ajouterons à chacun des voisins le score de gain qui lui est associé.
 	Nous présenterons le calcul de ce gain dans la prochaine section.
@@ -135,8 +133,7 @@ Coloration équitable d'un graphe
 		  int Kj;
 	      };
 	      
-	    vector< oneMove *> N1;
-	    vector< swap *> N2;
+	    vector<Voisin *> N = N1 Union N2;
 	  
 	Calcul du gain
 	--------------
@@ -252,5 +249,32 @@ Coloration équitable d'un graphe
 	}
 	
 	
+	Aspiration
+	----------
+	    L'aspiration consiste lorsqu'un mouvement est interdit par la matrice Tabu a le selectionné
+	quand même s'il conduit à une solution meilleure que la meilleure actuellement déterminée.
+	Pour faire cette vérification de manière peu coûteuse, nous utiliserons l'algorithme suivant.
+	Littéralement, nous vérifions pour chaque sommet s'il est voisin avec le sommet impliqué dans le
+	mouvement. Si oui, nous vérifions les éventuelles correspondances entre couleur et modifions
+	le résultat en conséquence. Par exemple, pour un voisin de type OneMove :
+	
+	    int result = 0;
+	    for(int i=0; i < nbColor; ++i){
+		for(unsigned j=0; j < Vk[i].size(); ++j){
+		    
+		    if( (G->getMatriceValue(Vk[i][j],om->getS()) == 1) && (i == om->getVkj()) ){
+			// Pas besoin de test car on ferait (M[.][.] + 1) != 0 --> Tautologie car M[][] >=0
+			++result;
+		    }
+		    else if( (G->getMatriceValue(Vk[i][j],om->getS()) == 1) && (i == om->getVki()) ){
+			result += ( (M[Vk[i][j]][i]-1) != 0 ); 
+		    }
+		    else{
+			result += ( M[Vk[i][j]][i] != 0);
+		    }   
+		}
+	    }
+	    return result;
+	    
 	Gestion de la tabu tenure et de la profondeur de la recherche
 	-------------------------------------------------------------

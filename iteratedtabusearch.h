@@ -21,6 +21,11 @@
 #define ITERATEDTABUSEARCH_H
 
 #include "basictabusearch.h"
+#include "onemove.h"
+#include "swap.h"
+#include <random>
+#include <chrono>
+#include <exception>
 
 class IteratedTabuSearch
 {
@@ -34,17 +39,55 @@ public:
     /**
      * Fonction déterminant si la perturbation sera aléatoire ou dirigée.
      */
-    Coloration* perturbate(Coloration* current);
+    void perturbate(Coloration* prime);
     
     /*
      * Perturbation aléatoire
      */
-    Coloration* randomPertubation(Coloration* current);
+    void randomPertubation(Coloration* prime);
     
     /*
      * Perturbation dirigée
      */
-    Coloration* directedPerturbation(Coloration* current);
+    void directedPerturbation(Coloration* prime);
+    
+    /** Fonction initialisant le voisinage de la solution passée
+     * en paramètre dans le vecteur également passé en paramètre
+     * @param current Coloration dont on souhaite calculer le voisinage
+     * @param Neighboor Vecteur de voisins allant contenir le résultat
+     */
+    void initNeighboor(Coloration* current, std::vector<Voisin *> *Neighboor);
+    
+    /** Fonction calculant le gain associé à l'ensemble des voisins
+     * du vecteur passé en paramètre
+     * @param current Coloration source du calcul
+     * @param Neighboor vecteur de voisins dont on souhaite calculer le gain
+     */
+    void calculDelta(Coloration* current, std::vector< Voisin* > Neighboor);
+    
+    /** Fonction booléenne appelant la sous-fonctions
+     * correspondant au type de voisin passé en paramètre
+     * @param Neighboor voisin à tester, voisin*
+     * @param iteration iteration courante, entier
+     * @param tabuMat matrice tabu sur laquelle effectuer la vérification, vector<vector<int>>
+     */
+    bool isForbidden(Voisin* Neighboor, int iter, std::vector<std::vector<int> >&tabuMat);
+    
+    /** Fonction booléenne vérifiant la validité d'un voisin OneMove
+     * @param om voisin à tester, OneMove*
+     * @param iteration iteration courante, entier
+     * @param tabuMat matrice tabu sur laquelle effectuer la vérification, vector<vector<int>>
+     */
+    bool isForbiddenOM(OneMove* om, int iter, std::vector< std::vector< int > >& tabuMat);
+    
+    /** Fonction booléenne vérifiant la validité d'un voisin OneMove
+     * @param s voisin à tester, Swap*
+     * @param iteration iteration courante, entier
+     * @param tabuMat matrice tabu sur laquelle effectuer la vérification, vector<vector<int>>
+     */
+    bool isForbiddenS(Swap* s, int iter, std::vector<std::vector<int> >&tabuMat);
+        
+
 private:
     Graphe* G;
     int beta;

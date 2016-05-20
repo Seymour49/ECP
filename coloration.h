@@ -164,6 +164,32 @@ public:
    */
   void clearVector();
   
+  /** Fonction booléenne testant si deux sommets sont voisins.
+   * @param dep sommet départ
+   * @param arr sommet arrivée
+   * @return vrai si les sommets sont adjacents, faux sinon 
+   */
+  bool areAdjacent(int dep, int arr);
+  
+  /** Fonction ajoutant 1 à la case concernée dans M.
+   * @param i sommet i concerné
+   * @param ki couleur ki concernée
+   */
+  void increaseM(int i, int ki);
+  
+  /** Fonction retirant 1 à la case concernée dans M.
+   * @param i sommet i concerné
+   * @param ki couleur ki concernée
+   */
+  void decreaseM(int i, int ki);
+ 
+  /** Fonction déplaçcant le sommet si de la couleur
+   * ki vers la couleur kj
+   * @param si identifiant du sommet à déplacer
+   * @param ki couleur de départ
+   * @param kj couleur d'arrivée
+   */
+  void moveM(int si, int ki, int kj);
   
 private:
     Graphe* G;

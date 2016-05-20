@@ -18,8 +18,6 @@
  */
 
 #include "iteratedtabusearch.h"
-#include <random>
-#include <chrono>
 
 
 using namespace std;
@@ -39,31 +37,27 @@ IteratedTabuSearch::~IteratedTabuSearch(){
 }
 
 
-Coloration* IteratedTabuSearch::perturbate(Coloration* current){
+void IteratedTabuSearch::perturbate(Coloration* prime){
     	
     size_t seed = chrono::system_clock::now().time_since_epoch().count();
 	
     srand(seed);
     // Tirage d'un nombre aléatoire 
     int random = rand()% 100;
-    cout << "random proba : " << random << endl;
-    Coloration *perturbated;
-    if(random < 30){
-	perturbated = directedPerturbation(current);
+   
+    if(random < 100){
+	directedPerturbation(prime);
     }
     else{
-	perturbated = randomPertubation(current);
+	randomPertubation(prime);
     }
     
-    return perturbated;
 }
 
-Coloration* IteratedTabuSearch::randomPertubation(Coloration* current){
-
-    Coloration* result = new Coloration(*current);
+void IteratedTabuSearch::randomPertubation(Coloration* prime){
     
     // nombre de perturbations à effectuer
-    int pertubationLimit = floor(  (float)result->getNbVertices() * 0.3 );
+    int pertubationLimit = floor(  (float)prime->getNbVertices() * 0.3 );
     
     // déclarations des variables aléatoires nécessaires
     int rand1, rand2, rand3, rand4;
@@ -73,7 +67,7 @@ Coloration* IteratedTabuSearch::randomPertubation(Coloration* current){
     int color1, color2;
     // vecteur nécéssaire à la sélection aléatoire de deux couleurs différentes
     vector<int> V;
-    for(int i=0; i < result->getNbColor(); ++i){
+    for(int i=0; i < prime->getNbColor(); ++i){
 	V.push_back(i);
     }
   
@@ -84,8 +78,8 @@ Coloration* IteratedTabuSearch::randomPertubation(Coloration* current){
 	srand(seed);
 	shuffle(V.begin(),V.end(),default_random_engine(seed));	
 	
-	rand1 = rand()% result->getNbColor();
-	rand2 = rand()%(result->getNbColor() - 1);
+	rand1 = rand()% prime->getNbColor();
+	rand2 = rand()%(prime->getNbColor() - 1);
 	
 	color1 = V.at(rand1);
 	
@@ -94,29 +88,232 @@ Coloration* IteratedTabuSearch::randomPertubation(Coloration* current){
 	V.at(V.size()-1) = color1;
 	
 	color2 = V.at(rand2);
-	cout << "nbColor : " << result->getNbColor() << endl;
-	cout << "color : " << color1 << ";" << color2 << endl;
-	cout << "sizes : " << result->getVkiSize(color1) << ";" << result->getVkiSize(color2) << endl;
- 	rand3 = rand()%(result->getVkiSize(color1));
-	rand4 = rand()%(result->getVkiSize(color2));
 	
-	Swap swap(result->getValueVk(color1,rand3),result->getValueVk(color2,rand4),color1,color2);
-	result->validSwap(&swap);
+ 	rand3 = rand()%(prime->getVkiSize(color1));
+	rand4 = rand()%(prime->getVkiSize(color2));
 	
-		
+	Swap swap(prime->getValueVk(color1,rand3),prime->getValueVk(color2,rand4),color1,color2);
+	prime->validSwap(&swap);
+	
     }
-    cout << "ici aussi" << endl;
         
-    return result;
 }
 
 
-Coloration* IteratedTabuSearch::directedPerturbation(Coloration* current){
-    Coloration* result = new Coloration(*current);
+void IteratedTabuSearch::directedPerturbation(Coloration* prime){
+    
+    // Variables
+    int pertubationLimit = 50;
+    bool chosen;
+    int bestEval;
+    unsigned ind;
+    int tabuTenure;
+    vector<Voisin *> Neighboor;
+    // vector<Voisin> Neighboor;
+    
+    vector<vector<int> >tabuMat;    
+    for(int i=0; i < prime->getNbVertices(); ++i){
+	vector<int> k;
+	for(int j=0;j<prime->getNbColor(); ++j){
+	    k.push_back(0);
+	}
+	tabuMat.push_back(k);
+    }   
+    
+    // Boucle principale
+    for(int iter=0; iter < pertubationLimit; ++iter){
+	
+	if( Neighboor.size() > 0){
+	    for(unsigned l=0; l < Neighboor.size(); ++l){
+		delete(Neighboor[l]);
+	    }
+	    Neighboor.clear();
+	}
+	
+	// Initialisation du voisinage
+	initNeighboor(prime, &Neighboor);
+	calculDelta(prime, Neighboor);
+	sort(Neighboor.begin(),Neighboor.end(), Voisin::compareGain );
 
-    cout << "TODO implementation" << endl;
+	chosen = false;
+	ind = 0;
+	bestEval = prime->evaluate();
+	
+	while( (chosen == false) && (ind < Neighboor.size()) ){
+	    int simul;
+	    
+	    if( isForbidden(Neighboor[ind], iter, tabuMat) == false) {
+		chosen = true;
+	    }else{
+		
+		try{ 
+		    if( dynamic_cast<OneMove*>(Neighboor[ind]) == 0){
+			simul = prime->simulEvalS(dynamic_cast<Swap*>(Neighboor[ind]) );
+		    }else{
+			simul = prime->simulEvalOM(dynamic_cast<OneMove*>(Neighboor[ind]));
+		    }		
+		}catch(exception &e){
+		    cerr << "Exception : " << e.what();
+		    exit(EXIT_FAILURE);
+		}
+		if( simul < bestEval ){
+		    chosen = true;
+		}else{
+		    ind++;
+		}
+	    }	    
+	}
+	
+	// Maj tabuTenure et solution courante
+	tabuTenure = rand()% 10 + 20;
+	
+	try{
+	    // Dynamic_cast
+	    if( dynamic_cast<OneMove*>(Neighboor[ind]) == 0){
+		Swap* s = dynamic_cast<Swap*>(Neighboor[ind]);
+		tabuMat[s->getSi()][s->getKi()] = iter + tabuTenure;
+		tabuMat[s->getSj()][s->getKj()] = iter + tabuTenure;
+		
+		// Mise à jour de M
+		for(int i=0; i< prime->getNbVertices();++i){
+		    if( prime->areAdjacent(s->getSi(),i) ){
+			prime->decreaseM(i,s->getKi());
+			prime->increaseM(i,s->getKj());
+		    }
+		    
+		    if( prime->areAdjacent(s->getSj(),i) ){
+			prime->decreaseM(i,s->getKj());
+			prime->increaseM(i,s->getKi());
+		    }
+		}
+		// Déplacement des sommets
+		prime->moveM(s->getSi(), s->getKi(), s->getKj());
+		prime->moveM(s->getSj(), s->getKj(), s->getKi());
+		
+	    }else{
+		OneMove* om = dynamic_cast<OneMove*>(Neighboor[ind]);
+		tabuMat[om->getS()][om->getVki()] = iter + tabuTenure;
+		
+		// Mise à jour de M
+		for(int i=0; i< prime->getNbVertices();++i){
+		    if( prime->areAdjacent(om->getS(),i) ){
+			prime->decreaseM(i,om->getVki());
+			prime->increaseM(i,om->getVkj());
+		    }
+		}
+		// Déplacement du sommet
+		prime->moveM(om->getS(), om->getVki(), om->getVkj());
+	    }
+	    
+	}catch(exception &e){
+	    cerr << "Exception : " << e.what();
+	    exit(EXIT_FAILURE);
+	}
+		
+    }
+
+    if( Neighboor.size() > 0){
+	for(unsigned l=0; l < Neighboor.size(); ++l){
+	    delete(Neighboor[l]);
+	}
+	Neighboor.clear();
+    }
+}
+
+void IteratedTabuSearch::initNeighboor(Coloration* current, std::vector< Voisin* >* Neighboor){
+   
+    int debugSwap = 0;
+    int debugOM = 0;
+    
+    for(int i=0; i < current->getNbColor(); ++i){
+	for(int j=0; j < current->getVkiSize(i); ++j){
+	    
+	    // Calcul des swaps
+	    for(int k = i+1; k < current->getNbColor(); ++k){
+		for(int l=0; l < current->getVkiSize(k); ++l){
+		    
+		    if( (current->inConflict(k,l) || current->inConflict(i,j)) ){
+			Voisin *s;
+			
+			if(current->getValueVk(i,j) < current->getValueVk(k,l) ){
+			    s = new Swap(current->getValueVk(i,j), current->getValueVk(k,l), i, k);
+			}else{
+			    s = new Swap(current->getValueVk(k,l), current->getValueVk(i,j), k, i);
+			}
+			Neighboor->push_back(s);
+			++debugSwap;
+		    }
+		}
+	    }
+	    
+	    // Calcul des OneMoves
+	    if( current->inConflict(i,j) ){
+		int top = ceil( (float)current->getNbVertices()/current->getNbColor() );
+		int bot = floor( (float)current->getNbVertices()/current->getNbColor() );
+		
+		for(int k=0; k < current->getNbColor(); ++k){
+		    if( top != bot ){
+			if(current->getVkiSize(i) == top ){
+			    
+			    if(current->getVkiSize(k) == bot ){
+				Voisin* om = new OneMove(current->getValueVk(i,j),i,k);
+				Neighboor->push_back(om);
+				++debugOM;
+			    }
+			}
+		    }
+		}
+	    }
+	}
+    }
+    
+//     cout << "DEBUG : Neighboor a " << debugOM << " OM et " << debugSwap << " swaps." << endl;
+
+}
+
+void IteratedTabuSearch::calculDelta(Coloration* current, std::vector< Voisin* > Neighboor){
+    
+    int gain = 0;
+    for(unsigned i=0; i < Neighboor.size(); ++i){
+	try{
+	    // Dynamic_cast
+	    if( dynamic_cast<OneMove*>(Neighboor[i]) == 0 ){
+		gain = current->calculDeltaS(dynamic_cast<Swap*>(Neighboor[i]));
+	    }else{
+		gain = current->calculDeltaOM(dynamic_cast<OneMove*>(Neighboor[i]));
+	    }
+	    Neighboor[i]->setGain(gain);
+	}catch(exception &e){
+	    cerr << "Exception : " << e.what();
+	    exit(EXIT_FAILURE);
+	}
+    }
+}
+
+bool IteratedTabuSearch::isForbidden(Voisin* Neighboor, int iter, vector< vector< int > >& tabuMat){
+    bool result;
+    try{
+	// Dynamic_cast
+	if( dynamic_cast<OneMove*>(Neighboor) == 0){
+	    result = isForbiddenS(dynamic_cast<Swap*>(Neighboor),iter,tabuMat);
+	}else{
+	    result = isForbiddenOM(dynamic_cast<OneMove*>(Neighboor),iter,tabuMat);
+	}
+    }catch(exception &e){
+	cerr << "Exception : " << e.what();
+	exit(EXIT_FAILURE);
+    }
     
     return result;
+}
+
+bool IteratedTabuSearch::isForbiddenOM(OneMove* om, int iter, vector< vector< int > >& tabuMat){
+    return ( tabuMat[om->getS()][om->getVkj()] > iter );
+}
+
+bool IteratedTabuSearch::isForbiddenS(Swap* s, int iter, vector< vector< int > >& tabuMat){
+    return (	tabuMat[s->getSi()][s->getKj()] > iter ||
+		tabuMat[s->getSj()][s->getKi()] > iter );
 }
 
 
@@ -127,14 +324,11 @@ Coloration* IteratedTabuSearch::run(){
     current = bts.run();
     
     int cpt = 0;
-    cout << *current;
-    cout << "==================================" << endl;
     do{
 	
-	Coloration* prime;
-	prime = perturbate(current);
+	Coloration* prime = new Coloration(*current);
+	perturbate(prime);
 	
-	cout << "fin de la perturbation " << endl;
 	BasicTabuSearch bts2(prime,depth);
 	Coloration* second = bts2.run();
 	

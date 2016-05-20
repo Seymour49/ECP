@@ -208,6 +208,7 @@ int Coloration::calculDeltaS(Swap* s){
 }
 
 int Coloration::simulEvalOM(OneMove* om){
+    /*
     vector< vector<int> >M_ = M;
     vector< vector<int> > Vk_ = Vk;
     
@@ -236,9 +237,56 @@ int Coloration::simulEvalOM(OneMove* om){
     }
     
     return result;
+    
+    */
+    
+    int result = 0;
+    for(int i=0; i < nbColor; ++i){
+	for(unsigned j=0; j < Vk[i].size(); ++j){
+	    
+	    if( (G->getMatriceValue(Vk[i][j],om->getS()) == 1) && (i == om->getVkj()) ){
+		// Pas besoin de test car on ferait (M[.][.] + 1) != 0 --> Tautologie 
+		++result;
+	    }
+	    else if( (G->getMatriceValue(Vk[i][j],om->getS()) == 1) && (i == om->getVki()) ){
+		result += ( (M[Vk[i][j]][i]-1) != 0 ); 
+	    }
+	    else{
+		result += ( M[Vk[i][j]][i] != 0);
+	    }   
+	}
+    }
+    return result;
 }
 
 int Coloration::simulEvalS(Swap* s){
+    int result = 0;
+    
+    for(int i=0; i< nbColor; ++i){
+	for(unsigned j=0; j < Vk[i].size(); ++j){
+	    
+	    if( (G->getMatriceValue(Vk[i][j],s->getSi()) == 1) && (i == s->getKj()) ){
+		// Pas besoin de tester M !=0
+		++result;
+	    }else if( (G->getMatriceValue(Vk[i][j],s->getSi()) == 1) && (i == s->getKi()) ){
+		result += (int)( (M[Vk[i][j]][i]-1) != 0);
+	    }
+	    else{
+		result += (int)( M[Vk[i][j]][i] != 0 );
+	    }
+	    
+	    if( (G->getMatriceValue(Vk[i][j],s->getSj()) == 1) && ( i == s->getKi()) ){
+		++result;
+	    }else if( (G->getMatriceValue(Vk[i][j],s->getSj()) == 1) && ( i == s->getKj()) ){
+		result += (int)( (M[Vk[i][j]][i] -1) != 0 );
+	    }
+	    else{
+		result += (int)( M[Vk[i][j]][i] != 0);
+	    }
+	}
+    }
+     return result;
+    /*
     vector< vector<int> >M_ = M;
     vector< vector<int> > Vk_ = Vk;
     
@@ -276,6 +324,7 @@ int Coloration::simulEvalS(Swap* s){
     }
     
     return result;
+    */
 }
 
 void Coloration::validOneMove(OneMove* om){
@@ -284,8 +333,8 @@ void Coloration::validOneMove(OneMove* om){
     for(int i = 0; i < G->getNbVertices(); ++i){
 	
 	if(G->getMatriceValue(om->getS(),i) == 1){
-	    M[i][om->getVki()] -= 1;
 	    M[i][om->getVkj()] += 1;
+	    M[i][om->getVki()] -= 1;
 	}
     }
     
@@ -300,17 +349,17 @@ void Coloration::validSwap(Swap* s){
     for(int i=0; i < G->getNbVertices(); ++i){
 	// Les sommets s et i sont voisins
 	if( G->getMatriceValue(s->getSi(), i) == 1){
-	    M[i][s->getKi()] -= 1;
 	    M[i][s->getKj()] += 1;
+	    M[i][s->getKi()] -= 1;
 	}
 	
 	if(G->getMatriceValue(s->getSj(),i) == 1){
-	    M[i][s->getKj()] -= 1;
 	    M[i][s->getKi()] += 1;
+	    M[i][s->getKj()] -= 1;
 	}
     }
     
-    // Mise à jour de Vk_
+    // Mise à jour de Vk
     Vk[s->getKi()].erase( remove(Vk[s->getKi()].begin(), Vk[s->getKi()].end(), s->getSi()), Vk[s->getKi()].end() );
     Vk[s->getKj()].push_back(s->getSi());
     
@@ -318,3 +367,19 @@ void Coloration::validSwap(Swap* s){
     Vk[s->getKi()].push_back(s->getSj());
 }
 
+bool Coloration::areAdjacent(int dep, int arr){
+    return ( G->getMatriceValue(dep,arr) == 1);
+}
+
+void Coloration::decreaseM(int i, int ki){
+    M[i][ki] -= 1;
+}
+
+void Coloration::increaseM(int i, int ki){
+    M[i][ki] += 1;
+}
+
+void Coloration::moveM(int si, int ki, int kj){
+    Vk[ki].erase( remove(Vk[ki].begin(), Vk[ki].end(), si), Vk[ki].end() );
+    Vk[kj].push_back(si);
+}

@@ -186,30 +186,27 @@ Coloration* BasicTabuSearch::run(){
 	while( (chosen == false) && (indN < N.size()) ){
 	    int simul;
 	    
-	    try{
-		if( dynamic_cast<OneMove*>(N[indN]) == 0 ){
-		    simul = current.simulEvalS(dynamic_cast<Swap*>(N[indN]));
-		}else{
-		    simul = current.simulEvalOM(dynamic_cast<OneMove*>(N[indN]));
-		}
-	    }catch(exception &e){
-		cerr << "Exception: " << e.what();
-		exit(EXIT_FAILURE);
+	    if( isForbidden(N[indN], iteration) == false ){
+		chosen = true;
 	    }
+	    else{
 	    
+		try{
+		    if( dynamic_cast<OneMove*>(N[indN]) == 0 ){
+			simul = current.simulEvalS(dynamic_cast<Swap*>(N[indN]));
+		    }else{
+			simul = current.simulEvalOM(dynamic_cast<OneMove*>(N[indN]));
+		    }
+		}catch(exception &e){
+		    cerr << "Exception: " << e.what();
+		    exit(EXIT_FAILURE);
+		}
 	    
-// 	    cout << *N[indN];
-	    
-	    
-	    if( simul < bestEval ){
-// 		cout << "simul < bestEval" << endl;
-		chosen = true;
-	    }else if( isForbidden(N[indN], iteration) == false){
-// 		cout << "Mouvement autorisé " << endl ;
-		chosen = true;
-	    }else{
-		
-		++indN;
+		if( simul < bestEval ){
+		    chosen = true;
+		}else{
+		    ++indN;
+		}
 	    }
 	}
 	
