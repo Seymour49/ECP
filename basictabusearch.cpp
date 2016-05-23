@@ -22,10 +22,40 @@
 
 using namespace std;
 
-BasicTabuSearch::BasicTabuSearch(Coloration* init, int prof): current(*init), depth(prof){
-    tabuTenure = 10;
+BasicTabuSearch::BasicTabuSearch(Coloration* init, int prof, int maxT): 
+current(*init), depth(prof), maxTenure(maxT){
     initTabuMat();
     current.initialisation(current.getNbColor());
+    
+    // Initialisation de ttPeriod et ttValue pour règle3 gestion tabutenure
+    int values[] = {1,2,1,4,1,2,1,8,1,2,1,4,1,2,1};
+    ttValue.assign(values, values+15);
+    
+    for(unsigned i=0; i < 15; ++i){
+	ttValue[i] *= (maxTenure/8);
+    }
+    ttPeriod.push_back(1);
+    for(unsigned i=1; i < 15; ++i){
+	ttPeriod.push_back(ttPeriod[i-1] + 3*ttValue[i]);
+    }
+}
+
+BasicTabuSearch::BasicTabuSearch(Coloration* init, int prof, int maxT,double rt): 
+current(*init), depth(prof), maxTenure(maxT),remainingTime(rt){
+    initTabuMat();
+    current.initialisation(current.getNbColor());
+    
+    // Initialisation de ttPeriod et ttValue pour règle3 gestion tabutenure
+    int values[] = {1,2,1,4,1,2,1,8,1,2,1,4,1,2,1};
+    ttValue.assign(values, values+15);
+    
+    for(unsigned i=0; i < 15; ++i){
+	ttValue[i] *= (maxTenure/8);
+    }
+    ttPeriod.push_back(1);
+    for(unsigned i=1; i < 15; ++i){
+	ttPeriod.push_back(ttPeriod[i-1] + 3*ttValue[i]);
+    }
 }
 
 BasicTabuSearch::~BasicTabuSearch(){
@@ -161,11 +191,18 @@ Coloration* BasicTabuSearch::run(){
     
     Coloration *best = new Coloration(current);
     int d=0;
+    int period = 0;
+    int p =0;
     int iteration = 0;
     int bestEval;
     unsigned indN;
     bool chosen;
+    int tabuTenure;
+    
+    time_t start = time(NULL);
+    
     do{
+	
 	if(N.size() != 0){
 	    for(unsigned i=0; i < N.size(); ++i){
 		delete(N[i]);
@@ -210,7 +247,32 @@ Coloration* BasicTabuSearch::run(){
 	    }
 	}
 	
-// 	cout << "Voisin sélectionné à l'itération " << iteration << " : " << *N[indN];
+	// Mise à jour dynamique de la tabuTenure
+	if( iteration < (10000/3)){
+	    // Règle 1 : tt = C0 + rand() % C1
+	    tabuTenure = 5 + rand() % 5;	    
+	}
+	else if( iteration < (10000*2/3) ){
+	    // Règle 2 : tt = alpha * |C(s)| + rand()%beta
+	    int cs = current.evaluate();
+	    tabuTenure = 0.9*cs + rand()% 5;
+	}
+	else{
+	    // Règle 3 : voir papier
+	    if(p < ttPeriod[period] ){
+		++p;
+	    }else{
+		
+		if(period == 14){
+		    period = 0;
+		}else{
+		    ++period;
+		}
+		p = 0;
+	    }
+	    tabuTenure = ttValue[period];
+	    
+	}
 	// Le voisin choisi est N[indN], reste à mettre à jour tabuMat
 	try{
 	    if( dynamic_cast<Swap*>(N[indN]) == 0 ){
@@ -241,7 +303,7 @@ Coloration* BasicTabuSearch::run(){
 	
 	++iteration;
 	
-    }while( (d < depth && current.evaluate() > 0) );
+    }while( (d < depth && current.evaluate() > 0) || (difftime(time(NULL),start) < remainingTime) );
     
     
     // On réinitialise tabuMat

@@ -30,7 +30,7 @@
 class IteratedTabuSearch
 {
 public:
-    IteratedTabuSearch(Graphe* graphe, int b , int k, int d);
+    IteratedTabuSearch(Graphe* graphe, int b , int k, int d,double rt);
     IteratedTabuSearch(const IteratedTabuSearch& other);
     virtual ~IteratedTabuSearch();
     
@@ -95,6 +95,9 @@ private:
     int depth;
     // TODO Ajouter randomProba en paramètre de classe
     Coloration s;
+    
+    // Gestion de la timeLine
+    double remainingTime;
 };
 
 #endif // ITERATEDTABUSEARCH_H

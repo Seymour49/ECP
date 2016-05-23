@@ -21,6 +21,7 @@
 #define BASICTABUSEARCH_H
 
 #include "coloration.h"
+#include <chrono>
 
 /**
  * Cette classe représente la procédure de recherche Tabou initiale
@@ -35,12 +36,17 @@
 class BasicTabuSearch
 {
 public:
-    /** Constructeur unique
+    /** Constructeur sans timeLine (binarysearch)
      * @param init Coloration initiale de la recherche tabou
      * @param prof profondeur de la recherche tabou 
      */
-    BasicTabuSearch(Coloration* init, int prof);
-    
+    BasicTabuSearch(Coloration* init, int prof, int maxT);
+
+    /** Constructeur avec timeLine
+     * @param init Coloration initiale de la recherche tabou
+     * @param prof profondeur de la recherche tabou 
+     */
+    BasicTabuSearch(Coloration* init, int prof, int maxT,double rt);    
     /** Destructeur
      */
     ~BasicTabuSearch();
@@ -94,10 +100,15 @@ public:
     
 private:
     Coloration &current;
-    int tabuTenure;
     int depth;
+    int maxTenure;
      std::vector<Voisin *> N;
      std::vector< std::vector<int> > tabuMat;
+     std::vector<int> ttPeriod;
+     std::vector<int> ttValue;
+     
+     // Gestion de la timeLine
+     double remainingTime;
 };
 
 #endif // BASICTABUSEARCH_H

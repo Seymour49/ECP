@@ -111,7 +111,7 @@ public:
   
   /** Fonction d'évaluation retournant le nombre de sommets en conflits
    * @return nombre de sommets en conflits (i.e coloré de la même couleur
-   * qu'au moins un de ses voisins.
+   * qu'au moins un de ses voisins).
    */
   int evaluate();
   

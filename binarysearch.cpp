@@ -42,23 +42,20 @@ Coloration* BinarySearch::run(){
     
     while( upper > (lower + 1) ){
 	k = floor( (float)(upper+lower)/2.0);
-	cout << k << endl;
 	s.initialisation(k);
 	
-	BasicTabuSearch bts(&s,depth);
+	BasicTabuSearch bts(&s,depth,80);
 	Coloration *d;
 	d = bts.run();
 	
 	if(d->evaluate() == 0 ){
 	    (*best) = (*d);
 	    upper = k;
-	    cout << "=====Amélioration=====" << endl;
 	}else{
-	    
-	    cout << "=====Pas amélioration=====" << endl;
 	    lower = k;
 	}
 	delete(d);
+	
     }
 
     return best;

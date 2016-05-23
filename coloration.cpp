@@ -54,8 +54,6 @@ Coloration& Coloration::operator=(const Coloration& other)
 ostream& Coloration::print(ostream& out)
 {
   unsigned i,j;
-//   out << *G ;
-  out << "Coloration" << endl;
   out << " Partitions  : " << endl;
   for(i = 0; i < Vk.size(); ++i){
     out << "Vk[" << i << "] :";
@@ -75,13 +73,15 @@ ostream& Coloration::print(ostream& out)
 	out << endl;
   }
   out << endl;
-  
-  out << "Sommets en conflit :";
-  for(i=0; i < Vk.size(); ++i){
-      for(j = 0; j < Vk[i].size(); ++j){
-	  if(inConflict(i,j))
+
+  out << "Sommet en conflits :" ;
+  for(i=0; i< Vk.size(); ++i){
+    for(j=0; j < Vk[i].size(); ++j){
+	
+	if( inConflict(Vk[i][j],j) ){
 	    out << " " << Vk[i][j];
-      }
+	}
+    }
   }
   out << endl;
   return out;

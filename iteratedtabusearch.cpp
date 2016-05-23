@@ -22,15 +22,15 @@
 
 using namespace std;
 
-IteratedTabuSearch::IteratedTabuSearch(Graphe* graphe, int b , int k, int d):
-G(graphe), beta(b),nbColor(k),depth(d),s(G){
+IteratedTabuSearch::IteratedTabuSearch(Graphe* graphe, int b , int k, int d,double rt):
+G(graphe), beta(b),nbColor(k),depth(d),s(G),remainingTime(rt){
     
     s.initialisation(nbColor);
 }
 
 IteratedTabuSearch::IteratedTabuSearch(const IteratedTabuSearch& other):
 G(other.G), beta(other.beta), nbColor(other.nbColor), depth(other.depth),
-s(other.G){
+s(other.G),remainingTime(other.remainingTime){
 }
 
 IteratedTabuSearch::~IteratedTabuSearch(){
@@ -38,19 +38,20 @@ IteratedTabuSearch::~IteratedTabuSearch(){
 
 
 void IteratedTabuSearch::perturbate(Coloration* prime){
-    	
+    /*
     size_t seed = chrono::system_clock::now().time_since_epoch().count();
 	
     srand(seed);
     // Tirage d'un nombre aléatoire 
     int random = rand()% 100;
    
-    if(random < 100){
+    if(random < 0){
 	directedPerturbation(prime);
     }
     else{
+	*/
 	randomPertubation(prime);
-    }
+//     }
     
 }
 
@@ -103,7 +104,7 @@ void IteratedTabuSearch::randomPertubation(Coloration* prime){
 void IteratedTabuSearch::directedPerturbation(Coloration* prime){
     
     // Variables
-    int pertubationLimit = 50;
+    int pertubationLimit = 5000;
     bool chosen;
     int bestEval;
     unsigned ind;
@@ -139,7 +140,7 @@ void IteratedTabuSearch::directedPerturbation(Coloration* prime){
 	ind = 0;
 	bestEval = prime->evaluate();
 	
-	while( (chosen == false) && (ind < Neighboor.size()) ){
+	while( (chosen == false) && (ind < Neighboor.size()-1) ){
 	    int simul;
 	    
 	    if( isForbidden(Neighboor[ind], iter, tabuMat) == false) {
@@ -161,11 +162,11 @@ void IteratedTabuSearch::directedPerturbation(Coloration* prime){
 		}else{
 		    ind++;
 		}
-	    }	    
+	    }
 	}
 	
 	// Maj tabuTenure et solution courante
-	tabuTenure = rand()% 10 + 20;
+	tabuTenure = rand()% 1000 + 2000;
 	
 	try{
 	    // Dynamic_cast
@@ -221,9 +222,6 @@ void IteratedTabuSearch::directedPerturbation(Coloration* prime){
 }
 
 void IteratedTabuSearch::initNeighboor(Coloration* current, std::vector< Voisin* >* Neighboor){
-   
-    int debugSwap = 0;
-    int debugOM = 0;
     
     for(int i=0; i < current->getNbColor(); ++i){
 	for(int j=0; j < current->getVkiSize(i); ++j){
@@ -241,7 +239,6 @@ void IteratedTabuSearch::initNeighboor(Coloration* current, std::vector< Voisin*
 			    s = new Swap(current->getValueVk(k,l), current->getValueVk(i,j), k, i);
 			}
 			Neighboor->push_back(s);
-			++debugSwap;
 		    }
 		}
 	    }
@@ -258,7 +255,6 @@ void IteratedTabuSearch::initNeighboor(Coloration* current, std::vector< Voisin*
 			    if(current->getVkiSize(k) == bot ){
 				Voisin* om = new OneMove(current->getValueVk(i,j),i,k);
 				Neighboor->push_back(om);
-				++debugOM;
 			    }
 			}
 		    }
@@ -266,8 +262,6 @@ void IteratedTabuSearch::initNeighboor(Coloration* current, std::vector< Voisin*
 	    }
 	}
     }
-    
-//     cout << "DEBUG : Neighboor a " << debugOM << " OM et " << debugSwap << " swaps." << endl;
 
 }
 
@@ -319,17 +313,20 @@ bool IteratedTabuSearch::isForbiddenS(Swap* s, int iter, vector< vector< int > >
 
 Coloration* IteratedTabuSearch::run(){
     
-    BasicTabuSearch bts(&s,depth);
+    BasicTabuSearch bts(&s,depth,80);
     Coloration *current;
     current = bts.run();
     
     int cpt = 0;
+    time_t start = time(NULL);
+    double remainingT;
+    
     do{
-	
+	remainingT = remainingTime - difftime(time(NULL),start);
 	Coloration* prime = new Coloration(*current);
 	perturbate(prime);
 	
-	BasicTabuSearch bts2(prime,depth);
+	BasicTabuSearch bts2(prime,depth,80,remainingT);
 	Coloration* second = bts2.run();
 	
 	if(second->evaluate() < current->evaluate() ){
@@ -343,7 +340,7 @@ Coloration* IteratedTabuSearch::run(){
 	delete(prime);
 	delete(second);
 	
-    }while( (cpt < beta) && (current->evaluate() > 0) ); 
+    }while( ((cpt < beta) && (current->evaluate() > 0)) || (difftime(time(NULL),start) < remainingTime) ); 
     
     return current;
 }
