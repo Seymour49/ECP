@@ -53,9 +53,14 @@ public:
     
     /** Méthode principale de la recherche tabou basique
      * Respecte l'algorithme décrit au point 2.4.2 de l'article lié.
-     * @return meilleur coloration trouvée. 
+     * @return meilleure coloration trouvée. 
      */
     Coloration* run();
+    
+    /** Méthode run sans timeline (binarysearch)
+     * @return meilleure coloration trouvée
+     */
+    Coloration* runwithoutTL();
     
     /** Fonction d'initalisation de la matrice tabou.
      */

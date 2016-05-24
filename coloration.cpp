@@ -74,16 +74,6 @@ ostream& Coloration::print(ostream& out)
   }
   out << endl;
 
-  out << "Sommet en conflits :" ;
-  for(i=0; i< Vk.size(); ++i){
-    for(j=0; j < Vk[i].size(); ++j){
-	
-	if( inConflict(Vk[i][j],j) ){
-	    out << " " << Vk[i][j];
-	}
-    }
-  }
-  out << endl;
   return out;
   
 }

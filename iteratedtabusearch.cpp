@@ -315,7 +315,7 @@ Coloration* IteratedTabuSearch::run(){
     
     BasicTabuSearch bts(&s,depth,80);
     Coloration *current;
-    current = bts.run();
+    current = bts.runwithoutTL();
     
     int cpt = 0;
     time_t start = time(NULL);
@@ -340,7 +340,7 @@ Coloration* IteratedTabuSearch::run(){
 	delete(prime);
 	delete(second);
 	
-    }while( ((cpt < beta) && (current->evaluate() > 0)) || (difftime(time(NULL),start) < remainingTime) ); 
+    }while( (cpt < beta) && (current->evaluate() > 0) && (difftime(time(NULL),start) < remainingTime) ); 
     
     return current;
 }

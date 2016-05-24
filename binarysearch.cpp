@@ -46,7 +46,7 @@ Coloration* BinarySearch::run(){
 	
 	BasicTabuSearch bts(&s,depth,80);
 	Coloration *d;
-	d = bts.run();
+	d = bts.runwithoutTL();
 	
 	if(d->evaluate() == 0 ){
 	    (*best) = (*d);

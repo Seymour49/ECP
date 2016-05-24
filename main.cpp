@@ -42,9 +42,9 @@ int main(int argc, char **argv) {
 	
 	cout << "Fin de la recherche binaire, kbest = " << kbest << endl;
 	
-	Coloration *current;
 	double remainingTime;
 	do{
+	    Coloration *current;
 	    
 	    remainingTime = totalTime - difftime(time(NULL),start);
 	    if( kcurrent == (kbest - bt_depth) ){
@@ -89,9 +89,10 @@ int main(int argc, char **argv) {
 	delete(best);	
 	delete(G);
     
+    
     }else{
       exit(EXIT_FAILURE);
-    }    
+    }
     cout << "Goood Jooob Guy !" << endl;    
 
     return 0;

@@ -201,6 +201,128 @@ Coloration* BasicTabuSearch::run(){
     
     time_t start = time(NULL);
     
+    do{	
+	
+	if(N.size() != 0){
+	    for(unsigned i=0; i < N.size(); ++i){
+		delete(N[i]);
+	    }
+	    N.clear();
+	}
+	//Initialisation du voisinage
+	initNeighboorS();
+	initNeighboorOM();
+	calculDelta();
+	sort(N.begin(),N.end(), Voisin::compareGain );
+	
+	// Sélection d'un voisin et maj TabuMat
+	chosen = false;
+	indN = 0;
+	bestEval = best->evaluate();
+	while( (chosen == false) && (indN < N.size()-1) ){
+	    int simul;
+	    
+	    if( isForbidden(N[indN], iteration) == false ){
+		chosen = true;
+	    }
+	    else{
+	    
+		try{
+		    if( dynamic_cast<OneMove*>(N[indN]) == 0 ){
+			simul = current.simulEvalS(dynamic_cast<Swap*>(N[indN]));
+		    }else{
+			simul = current.simulEvalOM(dynamic_cast<OneMove*>(N[indN]));
+		    }
+		}catch(exception &e){
+		    cerr << "Exception: " << e.what();
+		    exit(EXIT_FAILURE);
+		}
+	    
+		if( simul < bestEval ){
+		    chosen = true;
+		}else{
+		    ++indN;
+		}
+	    }
+	}
+	
+	// Mise à jour dynamique de la tabuTenure
+	if( iteration < (10000/3)){
+	    // Règle 1 : tt = C0 + rand() % C1
+	    tabuTenure = 5 + rand() % 5;	    
+	}
+	else if( iteration < (10000*2/3) ){
+	    // Règle 2 : tt = alpha * |C(s)| + rand()%beta
+	    int cs = current.evaluate();
+	    tabuTenure = 0.9*cs + rand()% 5;
+	}
+	else{
+	    // Règle 3 : voir papier
+	    if(p < ttPeriod[period] ){
+		++p;
+	    }else{
+		
+		if(period == 14){
+		    period = 0;
+		}else{
+		    ++period;
+		}
+		p = 0;
+	    }
+	    tabuTenure = ttValue[period];
+	    
+	}
+	// Le voisin choisi est N[indN], reste à mettre à jour tabuMat
+	try{
+	    if( dynamic_cast<Swap*>(N[indN]) == 0 ){
+		// OneMove
+		OneMove * om = dynamic_cast<OneMove*>(N[indN]);
+		tabuMat[om->getS()][om->getVki()] = iteration + tabuTenure;
+		current.validOneMove(om);
+		
+	    }else{
+		Swap* s = dynamic_cast<Swap*>(N[indN]);
+		tabuMat[s->getSi()][s->getKi()] = iteration + tabuTenure;
+		tabuMat[s->getSj()][s->getKj()] = iteration + tabuTenure;
+		current.validSwap(s);
+	    }
+	}catch(exception &e){
+	     cerr << "Exception: " << e.what();
+	     exit(EXIT_FAILURE);
+	}
+	
+	if( current.evaluate() < bestEval ){
+	    
+	    (*best) = current; 
+	    bestEval = best->evaluate();
+	    d = 0;
+	}else{
+	    ++d;
+	}
+	
+	++iteration;
+	
+    }while( (d < depth && current.evaluate() > 0) && (difftime(time(NULL),start) < remainingTime) );
+    
+    
+    // On réinitialise tabuMat
+    initTabuMat();
+    return best;
+	
+}
+
+Coloration* BasicTabuSearch::runwithoutTL()
+{
+    Coloration *best = new Coloration(current);
+    int d=0;
+    int period = 0;
+    int p =0;
+    int iteration = 0;
+    int bestEval;
+    unsigned indN;
+    bool chosen;
+    int tabuTenure;
+    
     do{
 	
 	if(N.size() != 0){
@@ -303,7 +425,7 @@ Coloration* BasicTabuSearch::run(){
 	
 	++iteration;
 	
-    }while( (d < depth && current.evaluate() > 0) || (difftime(time(NULL),start) < remainingTime) );
+    }while( (d < depth && current.evaluate() > 0) );
     
     
     // On réinitialise tabuMat
