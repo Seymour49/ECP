@@ -1,8 +1,14 @@
 # Dossier build
 build/
+tests/
 
 # Fichier temporaire
 *~
+
+# Dossiers documentations
+latex/
+html/
+
 # Fichier KDevlop
 *.kdev4
 

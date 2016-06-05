@@ -38,7 +38,7 @@ IteratedTabuSearch::~IteratedTabuSearch(){
 
 
 void IteratedTabuSearch::perturbate(Coloration* prime){
-    /*
+    
     size_t seed = chrono::system_clock::now().time_since_epoch().count();
 	
     srand(seed);
@@ -49,9 +49,9 @@ void IteratedTabuSearch::perturbate(Coloration* prime){
 	directedPerturbation(prime);
     }
     else{
-	*/
+	
 	randomPertubation(prime);
-//     }
+    }
     
 }
 
@@ -104,13 +104,12 @@ void IteratedTabuSearch::randomPertubation(Coloration* prime){
 void IteratedTabuSearch::directedPerturbation(Coloration* prime){
     
     // Variables
-    int pertubationLimit = 5000;
+    int pertubationLimit = 500;
     bool chosen;
     int bestEval;
     unsigned ind;
     int tabuTenure;
     vector<Voisin *> Neighboor;
-    // vector<Voisin> Neighboor;
     
     vector<vector<int> >tabuMat;    
     for(int i=0; i < prime->getNbVertices(); ++i){
@@ -132,7 +131,44 @@ void IteratedTabuSearch::directedPerturbation(Coloration* prime){
 	}
 	
 	// Initialisation du voisinage
-	initNeighboor(prime, &Neighboor);
+	for(int i=0; i < prime->getNbColor(); ++i){
+	    for(int j=0; j < prime->getVkiSize(i); ++j){
+		
+		// calcul des swaps
+		for(int k = i+1; k < prime->getNbColor(); ++k){
+		    for(int l=0; l < prime->getVkiSize(k); ++l){
+			
+			if( (prime->inConflict(k,l) || prime->inConflict(i,j)) ){
+			    Voisin *s;
+			    
+			    if(prime->getValueVk(i,j) < prime->getValueVk(k,l) ){
+				s = new Swap(prime->getValueVk(i,j), prime->getValueVk(k,l), i, k);
+			    }
+			    else{
+				s = new Swap(prime->getValueVk(k,l), prime->getValueVk(i,j), k, i);
+			    }
+			    Neighboor.push_back(s);
+			}
+			
+		    }
+		}
+		
+		// Calcul des OneMoves
+		if(prime->inConflict(i,j) ){
+		    int top = ceil( (float)prime->getNbVertices()/prime->getNbColor() );
+		    int bot = floor( (float)prime->getNbVertices()/prime->getNbColor() );
+		    
+		    for( int m=0; m < prime->getNbColor(); ++m){
+			if( top != bot ){
+			    if( prime->getVkiSize(i) == top && prime->getVkiSize(m) == bot){
+				Voisin* om = new OneMove(prime->getValueVk(i,j),i,m);
+				Neighboor.push_back(om);
+			    }
+			}
+		    }
+		}
+	    }	    
+	}
 	calculDelta(prime, Neighboor);
 	sort(Neighboor.begin(),Neighboor.end(), Voisin::compareGain );
 
@@ -218,10 +254,12 @@ void IteratedTabuSearch::directedPerturbation(Coloration* prime){
 	    delete(Neighboor[l]);
 	}
 	Neighboor.clear();
+	
     }
+
 }
 
-void IteratedTabuSearch::initNeighboor(Coloration* current, std::vector< Voisin* >* Neighboor){
+void IteratedTabuSearch::initNeighboor(Coloration* current, std::vector< Voisin* > Neighboor){
     
     for(int i=0; i < current->getNbColor(); ++i){
 	for(int j=0; j < current->getVkiSize(i); ++j){
@@ -238,7 +276,7 @@ void IteratedTabuSearch::initNeighboor(Coloration* current, std::vector< Voisin*
 			}else{
 			    s = new Swap(current->getValueVk(k,l), current->getValueVk(i,j), k, i);
 			}
-			Neighboor->push_back(s);
+			Neighboor.push_back(s);
 		    }
 		}
 	    }
@@ -254,7 +292,7 @@ void IteratedTabuSearch::initNeighboor(Coloration* current, std::vector< Voisin*
 			    
 			    if(current->getVkiSize(k) == bot ){
 				Voisin* om = new OneMove(current->getValueVk(i,j),i,k);
-				Neighboor->push_back(om);
+				Neighboor.push_back(om);
 			    }
 			}
 		    }
@@ -313,12 +351,12 @@ bool IteratedTabuSearch::isForbiddenS(Swap* s, int iter, vector< vector< int > >
 
 Coloration* IteratedTabuSearch::run(){
     
-    BasicTabuSearch bts(&s,depth,80);
+    time_t start = time(NULL);
+    BasicTabuSearch bts(&s,depth,80,remainingTime);
     Coloration *current;
-    current = bts.runwithoutTL();
+    current = bts.run();
     
     int cpt = 0;
-    time_t start = time(NULL);
     double remainingT;
     
     do{

@@ -56,7 +56,7 @@ public:
      * @param current Coloration dont on souhaite calculer le voisinage
      * @param Neighboor Vecteur de voisins allant contenir le résultat
      */
-    void initNeighboor(Coloration* current, std::vector<Voisin *> *Neighboor);
+    void initNeighboor(Coloration* current, std::vector< Voisin* > Neighboor);
     
     /** Fonction calculant le gain associé à l'ensemble des voisins
      * du vecteur passé en paramètre

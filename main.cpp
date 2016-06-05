@@ -30,63 +30,71 @@ int main(int argc, char **argv) {
 
 	
 	int bt_depth = 4; // TODO passage en param $
-	
-	time_t start = time(NULL);
-	
-	cout << "Début de la recherche binaire" << endl;
-	BinarySearch BS(G,100);
-	Coloration *best = BS.run();
-	
-	int kbest = best->getNbColor();
-	int kcurrent = kbest;
-	
-	cout << "Fin de la recherche binaire, kbest = " << kbest << endl;
-	
-	double remainingTime;
-	do{
-	    Coloration *current;
+
+// 	for(int compteur=0; compteur < 5;++compteur)
 	    
-	    remainingTime = totalTime - difftime(time(NULL),start);
-	    if( kcurrent == (kbest - bt_depth) ){
-		kcurrent = kbest - 1;
+	    time_t start = time(NULL);
+	    
+	    
+	    cout << "Début de la recherche binaire" << endl;
+	    BinarySearch BS(G,100);
+	    Coloration *best = BS.run();
+	    
+	    int kbest = best->getNbColor();
+	    int kcurrent = kbest;
+	    
+	    cout << "Fin de la recherche binaire, kbest = " << kbest <<". remainingTime : " << totalTime-difftime(time(NULL),start) << endl;
+
+	    double remainingTime;
+	    
+	    do{
+		Coloration *current;
+		
+		remainingTime = totalTime - difftime(time(NULL),start);
+		if( kcurrent == (kbest - bt_depth) || kcurrent == 2 ){
+		    kcurrent = kbest - 1;
+		}else{
+		    --kcurrent;
+		}
+		IteratedTabuSearch its(G,30,kcurrent,100000,remainingTime);
+		current = its.run();
+		
+		cout << "Fin ITS avec " << kcurrent << "color";
+		if(current->evaluate() == 0 ){
+		    (*best) = (*current);
+		    kbest = current->getNbColor();
+		    cout << " avec succes." ;
+		}
+		cout << " remainingTime : " << totalTime-difftime(time(NULL),start) << endl;
+		
+	    delete(current);
+	    }while( difftime(time(NULL),start) < totalTime);
+	    
+
+	    // Création du fichier de sortie avec le timestamp
+	    ostringstream oss;
+	    oss << start;
+	    string instanceName = argv[1];
+	    instanceName = instanceName.substr(13,instanceName.length()-1);
+	    string resFileName = "../results/"+oss.str()+"_"+instanceName;
+	    ofstream file(resFileName);
+	    
+	    cout << "Fin de la recherche locale itérée, résultat consultable dans " + resFileName << endl;
+
+	    if(!file){
+		cerr << "Erreur de création du fichier" << endl;
 	    }
 	    else{
-		--kcurrent ;
+		file << " Execution de l'algoritme BITS sur le fichier " + instanceName << endl;
+		file << "=====================================================================" << endl;
+		file << *best;
+		cout << "Ecriture réussie" << endl;
 	    }
+
 	    
-	    IteratedTabuSearch its(G,30,kcurrent,25000,remainingTime);
-	    current = its.run();
+	    delete(best);	
 	    
-	    if(current->evaluate() == 0 ){
-		(*best) = (*current);
-		kbest = current->getNbColor();
-	    }
-	    cout << "Fin ITS avec " << kcurrent << "color" << endl;
-	   delete(current);
-	}while( difftime(time(NULL),start) < totalTime);
-	
-
-	// Création du fichier de sortie avec le timestamp
-	ostringstream oss;
-	oss << start;
-	string instanceName = argv[1];
-	instanceName = instanceName.substr(13,instanceName.length()-1);
-	string resFileName = "../results/"+oss.str()+"_"+instanceName;
-	ofstream file(resFileName);
-	
-	cout << "Fin de la recherche locale itérée, résultat consultable dans " + resFileName << endl;
-
-	if(!file){
-	    cerr << "Erreur de création du fichier" << endl;
-	}
-	else{
-	    file << " Execution de l'algoritme BITS sur le fichier " + instanceName << endl;
-	    file << "=====================================================================" << endl;
-	    file << *best;
-	    cout << "Ecriture réussie" << endl;
-	}
-
-	delete(best);	
+// 	}
 	delete(G);
     
     
