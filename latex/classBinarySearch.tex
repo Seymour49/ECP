@@ -1,0 +1,81 @@
+\hypertarget{classBinarySearch}{\section{Binary\-Search Class Reference}
+\label{classBinarySearch}\index{Binary\-Search@{Binary\-Search}}
+}
+
+
+{\ttfamily \#include $<$binarysearch.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classBinarySearch_a189641a6509564e762d4910efa5ff234}{Binary\-Search} (\hyperlink{classGraphe}{Graphe} $\ast$graphe, int d)
+\item 
+\hyperlink{classBinarySearch_a580de16a971e9cc0721bfe4ad438034e}{Binary\-Search} (const \hyperlink{classBinarySearch}{Binary\-Search} \&other)
+\item 
+virtual \hyperlink{classBinarySearch_a2b99e8ebae410b1af5456456f806f86f}{$\sim$\-Binary\-Search} ()
+\item 
+\hyperlink{classColoration}{Coloration} $\ast$ \hyperlink{classBinarySearch_a8c4be01a34f8a443889466a77fa4c437}{run} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Cette classe représente la recherche binaire permettant dans le papier étudié de déterminer un nombre de couleur initial interessant pour ensuite effectuer une recherche tabou itérée.
+
+Pour plus de détails, veuillez-\/vous reportez à la section 2.\-3 de l'article de référence \-:
+
+\href{http://www.info.univ-angers.fr/pub/hao/papers/LaiHaoGloverEAAI2015.pdf}{\tt http\-://www.\-info.\-univ-\/angers.\-fr/pub/hao/papers/\-Lai\-Hao\-Glover\-E\-A\-A\-I2015.\-pdf} $\ast$ 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classBinarySearch_a189641a6509564e762d4910efa5ff234}{\index{Binary\-Search@{Binary\-Search}!Binary\-Search@{Binary\-Search}}
+\index{Binary\-Search@{Binary\-Search}!BinarySearch@{Binary\-Search}}
+\subsubsection[{Binary\-Search}]{\setlength{\rightskip}{0pt plus 5cm}Binary\-Search\-::\-Binary\-Search (
+\begin{DoxyParamCaption}
+\item[{{\bf Graphe} $\ast$}]{graphe, }
+\item[{int}]{d}
+\end{DoxyParamCaption}
+)}}\label{classBinarySearch_a189641a6509564e762d4910efa5ff234}
+Constructeur par défaut. 
+\begin{DoxyParams}{Parameters}
+{\em graphe} & \hyperlink{classGraphe}{Graphe} concerné par l'étude de l'E\-C\-P en cours \\
+\hline
+{\em d} & profondeur de la \hyperlink{classBasicTabuSearch}{Basic\-Tabu\-Search} utilisée au cours de l'execution \\
+\hline
+\end{DoxyParams}
+\hypertarget{classBinarySearch_a580de16a971e9cc0721bfe4ad438034e}{\index{Binary\-Search@{Binary\-Search}!Binary\-Search@{Binary\-Search}}
+\index{Binary\-Search@{Binary\-Search}!BinarySearch@{Binary\-Search}}
+\subsubsection[{Binary\-Search}]{\setlength{\rightskip}{0pt plus 5cm}Binary\-Search\-::\-Binary\-Search (
+\begin{DoxyParamCaption}
+\item[{const {\bf Binary\-Search} \&}]{other}
+\end{DoxyParamCaption}
+)}}\label{classBinarySearch_a580de16a971e9cc0721bfe4ad438034e}
+Constructeur par recopie 
+\begin{DoxyParams}{Parameters}
+{\em other} & référence sur la copie servant d'initialiseur \\
+\hline
+\end{DoxyParams}
+\hypertarget{classBinarySearch_a2b99e8ebae410b1af5456456f806f86f}{\index{Binary\-Search@{Binary\-Search}!$\sim$\-Binary\-Search@{$\sim$\-Binary\-Search}}
+\index{$\sim$\-Binary\-Search@{$\sim$\-Binary\-Search}!BinarySearch@{Binary\-Search}}
+\subsubsection[{$\sim$\-Binary\-Search}]{\setlength{\rightskip}{0pt plus 5cm}Binary\-Search\-::$\sim$\-Binary\-Search (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{classBinarySearch_a2b99e8ebae410b1af5456456f806f86f}
+Destructeur 
+
+\subsection{Member Function Documentation}
+\hypertarget{classBinarySearch_a8c4be01a34f8a443889466a77fa4c437}{\index{Binary\-Search@{Binary\-Search}!run@{run}}
+\index{run@{run}!BinarySearch@{Binary\-Search}}
+\subsubsection[{run}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Coloration} $\ast$ Binary\-Search\-::run (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classBinarySearch_a8c4be01a34f8a443889466a77fa4c437}
+Méthode principale de la recherche binaire dont l'algorithme est présentée dans l'article source. \begin{DoxyReturn}{Returns}
+la meilleur k-\/coloration initiale 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+binarysearch.\-h\item 
+binarysearch.\-cpp\end{DoxyCompactItemize}

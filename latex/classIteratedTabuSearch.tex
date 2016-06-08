@@ -1,0 +1,133 @@
+\hypertarget{classIteratedTabuSearch}{\section{Iterated\-Tabu\-Search Class Reference}
+\label{classIteratedTabuSearch}\index{Iterated\-Tabu\-Search@{Iterated\-Tabu\-Search}}
+}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classIteratedTabuSearch_a6bee2ea80a7e2e75781b059c32f9befb}{{\bfseries Iterated\-Tabu\-Search} (\hyperlink{classGraphe}{Graphe} $\ast$graphe, int b, int k, int d, double rt)}\label{classIteratedTabuSearch_a6bee2ea80a7e2e75781b059c32f9befb}
+
+\item 
+\hypertarget{classIteratedTabuSearch_adf8b9a7b53b2c696e435140ff2b030d1}{{\bfseries Iterated\-Tabu\-Search} (const \hyperlink{classIteratedTabuSearch}{Iterated\-Tabu\-Search} \&other)}\label{classIteratedTabuSearch_adf8b9a7b53b2c696e435140ff2b030d1}
+
+\item 
+\hypertarget{classIteratedTabuSearch_a4c1498ec384fee4efd53cabf6a26e8c2}{\hyperlink{classColoration}{Coloration} $\ast$ {\bfseries run} ()}\label{classIteratedTabuSearch_a4c1498ec384fee4efd53cabf6a26e8c2}
+
+\item 
+void \hyperlink{classIteratedTabuSearch_a4e611b28f46f046ada3ea38f8397ec53}{perturbate} (\hyperlink{classColoration}{Coloration} $\ast$prime)
+\item 
+\hypertarget{classIteratedTabuSearch_a475254474fe7d255207818bb30e1d064}{void {\bfseries random\-Pertubation} (\hyperlink{classColoration}{Coloration} $\ast$prime)}\label{classIteratedTabuSearch_a475254474fe7d255207818bb30e1d064}
+
+\item 
+\hypertarget{classIteratedTabuSearch_aedcf5ba09e5d4b4c8e8a393b10daa651}{void {\bfseries directed\-Perturbation} (\hyperlink{classColoration}{Coloration} $\ast$prime)}\label{classIteratedTabuSearch_aedcf5ba09e5d4b4c8e8a393b10daa651}
+
+\item 
+void \hyperlink{classIteratedTabuSearch_a29d81ae224f2197028ea2e9123a4ccaf}{init\-Neighboor} (\hyperlink{classColoration}{Coloration} $\ast$current, std\-::vector$<$ \hyperlink{classVoisin}{Voisin} $\ast$ $>$ Neighboor)
+\item 
+void \hyperlink{classIteratedTabuSearch_a62cced18d98054d880e32b84210bb78b}{calcul\-Delta} (\hyperlink{classColoration}{Coloration} $\ast$current, std\-::vector$<$ \hyperlink{classVoisin}{Voisin} $\ast$ $>$ Neighboor)
+\item 
+bool \hyperlink{classIteratedTabuSearch_a172b9a095a199cce3db7c3536d774d3c}{is\-Forbidden} (\hyperlink{classVoisin}{Voisin} $\ast$Neighboor, int iter, std\-::vector$<$ std\-::vector$<$ int $>$ $>$ \&tabu\-Mat)
+\item 
+bool \hyperlink{classIteratedTabuSearch_a55789ed9cb641a8cfeb56bbe3e6d12ce}{is\-Forbidden\-O\-M} (\hyperlink{classOneMove}{One\-Move} $\ast$om, int iter, std\-::vector$<$ std\-::vector$<$ int $>$ $>$ \&tabu\-Mat)
+\item 
+bool \hyperlink{classIteratedTabuSearch_a15c39398f2bb21371beee1542512cb97}{is\-Forbidden\-S} (\hyperlink{classSwap}{Swap} $\ast$s, int iter, std\-::vector$<$ std\-::vector$<$ int $>$ $>$ \&tabu\-Mat)
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classIteratedTabuSearch_a62cced18d98054d880e32b84210bb78b}{\index{Iterated\-Tabu\-Search@{Iterated\-Tabu\-Search}!calcul\-Delta@{calcul\-Delta}}
+\index{calcul\-Delta@{calcul\-Delta}!IteratedTabuSearch@{Iterated\-Tabu\-Search}}
+\subsubsection[{calcul\-Delta}]{\setlength{\rightskip}{0pt plus 5cm}void Iterated\-Tabu\-Search\-::calcul\-Delta (
+\begin{DoxyParamCaption}
+\item[{{\bf Coloration} $\ast$}]{current, }
+\item[{std\-::vector$<$ {\bf Voisin} $\ast$ $>$}]{Neighboor}
+\end{DoxyParamCaption}
+)}}\label{classIteratedTabuSearch_a62cced18d98054d880e32b84210bb78b}
+Fonction calculant le gain associé à l'ensemble des voisins du vecteur passé en paramètre 
+\begin{DoxyParams}{Parameters}
+{\em current} & \hyperlink{classColoration}{Coloration} source du calcul \\
+\hline
+{\em Neighboor} & vecteur de voisins dont on souhaite calculer le gain \\
+\hline
+\end{DoxyParams}
+\hypertarget{classIteratedTabuSearch_a29d81ae224f2197028ea2e9123a4ccaf}{\index{Iterated\-Tabu\-Search@{Iterated\-Tabu\-Search}!init\-Neighboor@{init\-Neighboor}}
+\index{init\-Neighboor@{init\-Neighboor}!IteratedTabuSearch@{Iterated\-Tabu\-Search}}
+\subsubsection[{init\-Neighboor}]{\setlength{\rightskip}{0pt plus 5cm}void Iterated\-Tabu\-Search\-::init\-Neighboor (
+\begin{DoxyParamCaption}
+\item[{{\bf Coloration} $\ast$}]{current, }
+\item[{std\-::vector$<$ {\bf Voisin} $\ast$ $>$}]{Neighboor}
+\end{DoxyParamCaption}
+)}}\label{classIteratedTabuSearch_a29d81ae224f2197028ea2e9123a4ccaf}
+Fonction initialisant le voisinage de la solution passée en paramètre dans le vecteur également passé en paramètre 
+\begin{DoxyParams}{Parameters}
+{\em current} & \hyperlink{classColoration}{Coloration} dont on souhaite calculer le voisinage \\
+\hline
+{\em Neighboor} & Vecteur de voisins allant contenir le résultat \\
+\hline
+\end{DoxyParams}
+\hypertarget{classIteratedTabuSearch_a172b9a095a199cce3db7c3536d774d3c}{\index{Iterated\-Tabu\-Search@{Iterated\-Tabu\-Search}!is\-Forbidden@{is\-Forbidden}}
+\index{is\-Forbidden@{is\-Forbidden}!IteratedTabuSearch@{Iterated\-Tabu\-Search}}
+\subsubsection[{is\-Forbidden}]{\setlength{\rightskip}{0pt plus 5cm}bool Iterated\-Tabu\-Search\-::is\-Forbidden (
+\begin{DoxyParamCaption}
+\item[{{\bf Voisin} $\ast$}]{Neighboor, }
+\item[{int}]{iter, }
+\item[{std\-::vector$<$ std\-::vector$<$ int $>$ $>$ \&}]{tabu\-Mat}
+\end{DoxyParamCaption}
+)}}\label{classIteratedTabuSearch_a172b9a095a199cce3db7c3536d774d3c}
+Fonction booléenne appelant la sous-\/fonctions correspondant au type de voisin passé en paramètre 
+\begin{DoxyParams}{Parameters}
+{\em Neighboor} & voisin à tester, voisin$\ast$ \\
+\hline
+{\em iteration} & iteration courante, entier \\
+\hline
+{\em tabu\-Mat} & matrice tabu sur laquelle effectuer la vérification, vector$<$vector$<$int$>$$>$ \\
+\hline
+\end{DoxyParams}
+\hypertarget{classIteratedTabuSearch_a55789ed9cb641a8cfeb56bbe3e6d12ce}{\index{Iterated\-Tabu\-Search@{Iterated\-Tabu\-Search}!is\-Forbidden\-O\-M@{is\-Forbidden\-O\-M}}
+\index{is\-Forbidden\-O\-M@{is\-Forbidden\-O\-M}!IteratedTabuSearch@{Iterated\-Tabu\-Search}}
+\subsubsection[{is\-Forbidden\-O\-M}]{\setlength{\rightskip}{0pt plus 5cm}bool Iterated\-Tabu\-Search\-::is\-Forbidden\-O\-M (
+\begin{DoxyParamCaption}
+\item[{{\bf One\-Move} $\ast$}]{om, }
+\item[{int}]{iter, }
+\item[{std\-::vector$<$ std\-::vector$<$ int $>$ $>$ \&}]{tabu\-Mat}
+\end{DoxyParamCaption}
+)}}\label{classIteratedTabuSearch_a55789ed9cb641a8cfeb56bbe3e6d12ce}
+Fonction booléenne vérifiant la validité d'un voisin \hyperlink{classOneMove}{One\-Move} 
+\begin{DoxyParams}{Parameters}
+{\em om} & voisin à tester, One\-Move$\ast$ \\
+\hline
+{\em iteration} & iteration courante, entier \\
+\hline
+{\em tabu\-Mat} & matrice tabu sur laquelle effectuer la vérification, vector$<$vector$<$int$>$$>$ \\
+\hline
+\end{DoxyParams}
+\hypertarget{classIteratedTabuSearch_a15c39398f2bb21371beee1542512cb97}{\index{Iterated\-Tabu\-Search@{Iterated\-Tabu\-Search}!is\-Forbidden\-S@{is\-Forbidden\-S}}
+\index{is\-Forbidden\-S@{is\-Forbidden\-S}!IteratedTabuSearch@{Iterated\-Tabu\-Search}}
+\subsubsection[{is\-Forbidden\-S}]{\setlength{\rightskip}{0pt plus 5cm}bool Iterated\-Tabu\-Search\-::is\-Forbidden\-S (
+\begin{DoxyParamCaption}
+\item[{{\bf Swap} $\ast$}]{s, }
+\item[{int}]{iter, }
+\item[{std\-::vector$<$ std\-::vector$<$ int $>$ $>$ \&}]{tabu\-Mat}
+\end{DoxyParamCaption}
+)}}\label{classIteratedTabuSearch_a15c39398f2bb21371beee1542512cb97}
+Fonction booléenne vérifiant la validité d'un voisin \hyperlink{classOneMove}{One\-Move} 
+\begin{DoxyParams}{Parameters}
+{\em s} & voisin à tester, Swap$\ast$ \\
+\hline
+{\em iteration} & iteration courante, entier \\
+\hline
+{\em tabu\-Mat} & matrice tabu sur laquelle effectuer la vérification, vector$<$vector$<$int$>$$>$ \\
+\hline
+\end{DoxyParams}
+\hypertarget{classIteratedTabuSearch_a4e611b28f46f046ada3ea38f8397ec53}{\index{Iterated\-Tabu\-Search@{Iterated\-Tabu\-Search}!perturbate@{perturbate}}
+\index{perturbate@{perturbate}!IteratedTabuSearch@{Iterated\-Tabu\-Search}}
+\subsubsection[{perturbate}]{\setlength{\rightskip}{0pt plus 5cm}void Iterated\-Tabu\-Search\-::perturbate (
+\begin{DoxyParamCaption}
+\item[{{\bf Coloration} $\ast$}]{prime}
+\end{DoxyParamCaption}
+)}}\label{classIteratedTabuSearch_a4e611b28f46f046ada3ea38f8397ec53}
+Fonction déterminant si la perturbation sera aléatoire ou dirigée. 
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+iteratedtabusearch.\-h\item 
+iteratedtabusearch.\-cpp\end{DoxyCompactItemize}
