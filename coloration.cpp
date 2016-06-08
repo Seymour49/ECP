@@ -198,37 +198,6 @@ int Coloration::calculDeltaS(Swap* s){
 }
 
 int Coloration::simulEvalOM(OneMove* om){
-    /*
-    vector< vector<int> >M_ = M;
-    vector< vector<int> > Vk_ = Vk;
-    
-    // Application du voisin
-    for(int i=0; i < G->getNbVertices(); ++i){
-	// Les sommets s et i sont voisins
-	if( G->getMatriceValue(om->getS(), i) == 1){
-	    M_[i][om->getVki()] -= 1;
-	    M_[i][om->getVkj()] += 1;
-	}
-    }
-    
-    // Mise à jour de Vk_
-    Vk_[om->getVki()].erase( remove(Vk_[om->getVki()].begin(), Vk_[om->getVki()].end(), om->getS()), Vk_[om->getVki()].end() );
-    Vk_[om->getVkj()].push_back(om->getS());
-    
-    // Evaluation de Vk_ vis à vis de M_
-    int result = 0;
-    
-    for(unsigned i=0; i < Vk_.size(); ++i){
-    
-	for(unsigned j=0; j < Vk_[i].size(); ++j){
-	
-	    result += (int)(M_[Vk_[i][j]][i]  != 0);
-	}
-    }
-    
-    return result;
-    
-    */
     
     int result = 0;
     for(int i=0; i < nbColor; ++i){
@@ -276,45 +245,6 @@ int Coloration::simulEvalS(Swap* s){
 	}
     }
      return result;
-    /*
-    vector< vector<int> >M_ = M;
-    vector< vector<int> > Vk_ = Vk;
-    
-    
-    // Application du voisin --> correspond à deux OneMove consécutifs
-    for(int i=0; i < G->getNbVertices(); ++i){
-	// Les sommets s et i sont voisins
-	if( G->getMatriceValue(s->getSi(), i) == 1){
-	    M_[i][s->getKi()] -= 1;
-	    M_[i][s->getKj()] += 1;
-	}
-	
-	if(G->getMatriceValue(s->getSj(),i) == 1){
-	    M_[i][s->getKj()] -= 1;
-	    M_[i][s->getKi()] += 1;
-	}
-    }
-    
-    // Mise à jour de Vk_
-    Vk_[s->getKi()].erase( remove(Vk_[s->getKi()].begin(), Vk_[s->getKi()].end(), s->getSi()), Vk_[s->getKi()].end() );
-    Vk_[s->getKj()].push_back(s->getSi());
-    
-    Vk_[s->getKj()].erase( remove(Vk_[s->getKj()].begin(), Vk_[s->getKj()].end(), s->getSj()), Vk_[s->getKj()].end() );
-    Vk_[s->getKi()].push_back(s->getSj());
-    
-    // Evaluation de Vk_ vis à de M_
-    int result = 0;
-    
-    for(unsigned i=0; i < Vk_.size(); ++i){
-    
-	for(unsigned j=0; j < Vk_[i].size(); ++j){
-	
-	    result += (int)(M_[Vk_[i][j]][i]  != 0);
-	}
-    }
-    
-    return result;
-    */
 }
 
 void Coloration::validOneMove(OneMove* om){

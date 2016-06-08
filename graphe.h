@@ -33,9 +33,9 @@
 /**
  * Cette classe représente un graphe dont le fichier source 
  * (format DIMACS) est passé en paramètre au constructeur.
- * Une matrice de booléens taille N*N (où N est le nombre de 
+ * Une matrice G de booléens taille N*N (où N est le nombre de 
  * sommets est créée pour représenter ce graphe.
- * Ainsi M[u][v] = 1 ssi (u,v) € E (ensemble d'arcs)
+ * Ainsi G[u][v] = 1 ssi (u,v) € E (ensemble d'arcs)
  * 		   0 sinon.
  * 
  */

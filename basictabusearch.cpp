@@ -67,8 +67,6 @@ BasicTabuSearch::~BasicTabuSearch(){
 	}
 	N.clear();
     }
-    
-//     delete(&current);
 }
 
 void BasicTabuSearch::initTabuMat(){
@@ -130,7 +128,7 @@ void BasicTabuSearch::initNeighboorS()
 			    s =  new Swap(current.getValueVk(i,j),current.getValueVk(k,l), i, k);
 			}else{
 			    s = new Swap(current.getValueVk(k,l),current.getValueVk(i,j), k, i);
-			}			
+			}
 			N.push_back(s);
 		    }
 		}		
@@ -184,8 +182,6 @@ bool BasicTabuSearch::isForbiddenOM(OneMove* om, int iter){
 bool BasicTabuSearch::isForbiddenS(Swap* s, int iter){
     return( (tabuMat[s->getSi()][s->getKj()] > iter) || (tabuMat[s->getSj()][s->getKi()] > iter) );
 }
-
-
 
 Coloration* BasicTabuSearch::run(){
     
@@ -428,7 +424,6 @@ Coloration* BasicTabuSearch::runwithoutTL()
 	++iteration;
 	
     }while( (d < depth && current.evaluate() > 0) );
-    
     
     // On réinitialise tabuMat
     initTabuMat();

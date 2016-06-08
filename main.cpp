@@ -7,8 +7,11 @@
 
 using namespace std;
 /**
- * Ce
+ * Ce programme implémente l'algorithme BITS décrit dans l'article
+ * cosigné par MMr. Xiangjing Lai, Jin-Kao Hao et Fred Glover et 
+ * disponible à l'adresse suivante :
  * 
+ * http://www.info.univ-angers.fr/pub/hao/papers/LaiHaoGloverEAAI2015.pdf
  * 
  */ 
 
@@ -28,76 +31,69 @@ int main(int argc, char **argv) {
     
     if ( G->tryLoadFile() ){
 
+	int bt_depth = 4;
+	    
+	time_t start = time(NULL);
+		
+	cout << "Début de la recherche binaire" << endl;
+	BinarySearch BS(G,100);
+	Coloration *best = BS.run();
 	
-	int bt_depth = 4; // TODO passage en param $
-
-// 	for(int compteur=0; compteur < 5;++compteur)
+	int kbest = best->getNbColor();
+	int kcurrent = kbest;
+	cout << "Fin de la recherche binaire, kbest = " << kbest <<". remainingTime : " << totalTime-difftime(time(NULL),start) << endl;
+	
+	double remainingTime;
+	
+	do{
+	    Coloration *current;
+	    remainingTime = totalTime - difftime(time(NULL),start);
 	    
-	    time_t start = time(NULL);
+	    if( kcurrent == (kbest - bt_depth) || kcurrent == 2 ){
+		kcurrent = kbest - 1;
+	    }else{
+		--kcurrent;
+	    }
 	    
+	    IteratedTabuSearch its(G,30,kcurrent,100000,remainingTime);
+	    current = its.run();
+	    cout << "Fin ITS avec " << kcurrent << "colors";
 	    
-	    cout << "Début de la recherche binaire" << endl;
-	    BinarySearch BS(G,100);
-	    Coloration *best = BS.run();
+	    if(current->evaluate() == 0 ){
+		(*best) = (*current);
+		kbest = current->getNbColor();
+		cout << " avec succes" ;
+	    }
+	    cout << ". RemainingTime : " << totalTime-difftime(time(NULL),start) << endl;
 	    
-	    int kbest = best->getNbColor();
-	    int kcurrent = kbest;
-	    
-	    cout << "Fin de la recherche binaire, kbest = " << kbest <<". remainingTime : " << totalTime-difftime(time(NULL),start) << endl;
-
-	    double remainingTime;
-	    
-	    do{
-		Coloration *current;
-		
-		remainingTime = totalTime - difftime(time(NULL),start);
-		if( kcurrent == (kbest - bt_depth) || kcurrent == 2 ){
-		    kcurrent = kbest - 1;
-		}else{
-		    --kcurrent;
-		}
-		IteratedTabuSearch its(G,30,kcurrent,100000,remainingTime);
-		current = its.run();
-		
-		cout << "Fin ITS avec " << kcurrent << "color";
-		if(current->evaluate() == 0 ){
-		    (*best) = (*current);
-		    kbest = current->getNbColor();
-		    cout << " avec succes." ;
-		}
-		cout << " remainingTime : " << totalTime-difftime(time(NULL),start) << endl;
-		
 	    delete(current);
-	    }while( difftime(time(NULL),start) < totalTime);
-	    
+	}while( difftime(time(NULL),start) < totalTime);
+	
 
-	    // Création du fichier de sortie avec le timestamp
-	    ostringstream oss;
-	    oss << start;
-	    string instanceName = argv[1];
-	    instanceName = instanceName.substr(13,instanceName.length()-1);
-	    string resFileName = "../results/"+oss.str()+"_"+instanceName;
-	    ofstream file(resFileName);
-	    
-	    cout << "Fin de la recherche locale itérée, résultat consultable dans " + resFileName << endl;
+	// Création du fichier de sortie avec le timestamp
+	ostringstream oss;
+	oss << start;
+	string instanceName = argv[1];
+	instanceName = instanceName.substr(13,instanceName.length()-1);
+	string resFileName = "../results/"+oss.str()+"_"+instanceName;
+	ofstream file(resFileName);
+	
+	cout << "Fin de la recherche locale itérée, résultat consultable dans " + resFileName << endl;
 
-	    if(!file){
-		cerr << "Erreur de création du fichier" << endl;
-	    }
-	    else{
-		file << " Execution de l'algoritme BITS sur le fichier " + instanceName << endl;
-		file << "=====================================================================" << endl;
-		file << *best;
-		cout << "Ecriture réussie" << endl;
-	    }
+	if(!file){
+	    cerr << "Erreur de création du fichier" << endl;
+	}
+	else{
+	    file << " Execution de l'algoritme BITS sur le fichier " + instanceName << endl;
+	    file << "=====================================================================" << endl;
+	    file << *best;
+	    cout << "Ecriture réussie" << endl;
+	}
 
-	    
-	    delete(best);	
-	    
-// 	}
+	delete(best);	
+    
 	delete(G);
-    
-    
+
     }else{
       exit(EXIT_FAILURE);
     }

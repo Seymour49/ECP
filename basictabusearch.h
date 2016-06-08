@@ -21,7 +21,6 @@
 #define BASICTABUSEARCH_H
 
 #include "coloration.h"
-#include <chrono>
 
 /**
  * Cette classe représente la procédure de recherche Tabou initiale

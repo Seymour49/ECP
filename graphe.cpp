@@ -83,15 +83,14 @@ bool Graphe::tryLoadFile()
 	  }
 	  // La ligne est une ligne de paramètre nous donnant le nombre de sommets et d'arcs
 	  else if(line.substr(0,1) == "p"){
-	      line = line.substr(6,line.size()-6);
-	      string tmp = line.substr(0,line.find_first_of(" "));
-	      nbVertices = atoi(tmp.c_str());
+	      vector<string>& tokens = explode(line);
+	      nbVertices = atoi(tokens[2].c_str());
 	      
 	      initMatrice();
 	      
 	  }else{
 	      vector<string>& tokens = explode(line);
-	      /* tokens[0] : caractère de controle
+		/* tokens[0] : caractère de controle
 		* tokens[1] : id du sommet source
 		* tokens[2] : id du sommet destination
 		*/
