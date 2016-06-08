@@ -1,8 +1,7 @@
 #Equitable Coloring Problem using BITS algorithm
 
 ECP est un algorithme de recherche locale ayant	pour but de résoudre le 
-problème de coloration équitable sur différents graphes présents dans   
-la littérature.								
+problème de coloration équitable sur différents graphes présents dans la littérature.								
 Dans un premier temps, nous implémenterons l'algorithme décrit dans	
 l'article "Backtracking Based Iterated Tabu Search for Equitable 	
 Coloring" disponible à l'adresse :					
