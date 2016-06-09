@@ -105,7 +105,7 @@ void IteratedTabuSearch::randomPertubation(Coloration* prime){
 void IteratedTabuSearch::directedPerturbation(Coloration* prime){
     
     // Variables
-    int pertubationLimit = 500;
+    int pertubationLimit = 5000;
     bool chosen;
     int bestEval;
     unsigned ind;
