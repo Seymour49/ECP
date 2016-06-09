@@ -249,7 +249,7 @@ void IteratedTabuSearch::directedPerturbation(Coloration* prime){
 	    cerr << "Exception : " << e.what();
 	    exit(EXIT_FAILURE);
 	}
-		
+	++iter;	
     }
 
     if( Neighboor.size() > 0){
