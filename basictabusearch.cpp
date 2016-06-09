@@ -215,76 +215,78 @@ Coloration* BasicTabuSearch::run(){
 	chosen = false;
 	indN = 0;
 	bestEval = best->evaluate();
-	while( (chosen == false) && (indN < N.size()-1) ){
-	    int simul;
+	if( N.size() != 0 ){
+	    while( (chosen == false) && (indN < N.size()-1) ){
+		int simul;
+		
+		if( isForbidden(N[indN], iteration) == false ){
+		    chosen = true;
+		}
+		else{
+		
+		    try{
+			if( dynamic_cast<OneMove*>(N[indN]) == 0 ){
+			    simul = current.simulEvalS(dynamic_cast<Swap*>(N[indN]));
+			}else{
+			    simul = current.simulEvalOM(dynamic_cast<OneMove*>(N[indN]));
+			}
+		    }catch(exception &e){
+			cerr << "Exception: " << e.what();
+			exit(EXIT_FAILURE);
+		    }
+		
+		    if( simul < bestEval ){
+			chosen = true;
+		    }else{
+			++indN;
+		    }
+		}
+	    }
 	    
-	    if( isForbidden(N[indN], iteration) == false ){
-		chosen = true;
+	    // Mise à jour dynamique de la tabuTenure
+	    if( iteration < (100000/3)){
+		// Règle 1 : tt = C0 + rand() % C1
+		tabuTenure = 5 + rand() % 5;	    
+	    }
+	    else if( iteration < (100000*2/3) ){
+		// Règle 2 : tt = alpha * |C(s)| + rand()%beta
+		int cs = current.evaluate();
+		tabuTenure = 0.9*cs + rand()% 5;
 	    }
 	    else{
-	    
-		try{
-		    if( dynamic_cast<OneMove*>(N[indN]) == 0 ){
-			simul = current.simulEvalS(dynamic_cast<Swap*>(N[indN]));
+		// Règle 3 : voir papier
+		if(p < ttPeriod[period] ){
+		    ++p;
+		}else{
+		    
+		    if(period == 14){
+			period = 0;
 		    }else{
-			simul = current.simulEvalOM(dynamic_cast<OneMove*>(N[indN]));
+			++period;
 		    }
-		}catch(exception &e){
-		    cerr << "Exception: " << e.what();
-		    exit(EXIT_FAILURE);
+		    p = 0;
 		}
-	    
-		if( simul < bestEval ){
-		    chosen = true;
-		}else{
-		    ++indN;
-		}
-	    }
-	}
-	
-	// Mise à jour dynamique de la tabuTenure
-	if( iteration < (100000/3)){
-	    // Règle 1 : tt = C0 + rand() % C1
-	    tabuTenure = 5 + rand() % 5;	    
-	}
-	else if( iteration < (100000*2/3) ){
-	    // Règle 2 : tt = alpha * |C(s)| + rand()%beta
-	    int cs = current.evaluate();
-	    tabuTenure = 0.9*cs + rand()% 5;
-	}
-	else{
-	    // Règle 3 : voir papier
-	    if(p < ttPeriod[period] ){
-		++p;
-	    }else{
+		tabuTenure = ttValue[period];
 		
-		if(period == 14){
-		    period = 0;
+	    }
+	    // Le voisin choisi est N[indN], reste à mettre à jour tabuMat
+	    try{
+		if( dynamic_cast<Swap*>(N[indN]) == 0 ){
+		    // OneMove
+		    OneMove * om = dynamic_cast<OneMove*>(N[indN]);
+		    tabuMat[om->getS()][om->getVki()] = iteration + tabuTenure;
+		    current.validOneMove(om);
+		    
 		}else{
-		    ++period;
+		    Swap* s = dynamic_cast<Swap*>(N[indN]);
+		    tabuMat[s->getSi()][s->getKi()] = iteration + tabuTenure;
+		    tabuMat[s->getSj()][s->getKj()] = iteration + tabuTenure;
+		    current.validSwap(s);
 		}
-		p = 0;
+	    }catch(exception &e){
+		cerr << "Exception: " << e.what();
+		exit(EXIT_FAILURE);
 	    }
-	    tabuTenure = ttValue[period];
-	    
-	}
-	// Le voisin choisi est N[indN], reste à mettre à jour tabuMat
-	try{
-	    if( dynamic_cast<Swap*>(N[indN]) == 0 ){
-		// OneMove
-		OneMove * om = dynamic_cast<OneMove*>(N[indN]);
-		tabuMat[om->getS()][om->getVki()] = iteration + tabuTenure;
-		current.validOneMove(om);
-		
-	    }else{
-		Swap* s = dynamic_cast<Swap*>(N[indN]);
-		tabuMat[s->getSi()][s->getKi()] = iteration + tabuTenure;
-		tabuMat[s->getSj()][s->getKj()] = iteration + tabuTenure;
-		current.validSwap(s);
-	    }
-	}catch(exception &e){
-	     cerr << "Exception: " << e.what();
-	     exit(EXIT_FAILURE);
 	}
 	
 	if( current.evaluate() < bestEval ){

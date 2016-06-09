@@ -87,7 +87,7 @@ bool Graphe::tryLoadFile()
 	      nbVertices = atoi(tokens[2].c_str());
 	      
 	      initMatrice();
-	      
+	      delete(&tokens);
 	  }else{
 	      vector<string>& tokens = explode(line);
 		/* tokens[0] : caractère de controle

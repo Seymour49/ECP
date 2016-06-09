@@ -45,11 +45,12 @@ void IteratedTabuSearch::perturbate(Coloration* prime){
     // Tirage d'un nombre aléatoire 
     int random = rand()% 100;
    
-    if(random < 0){
+    if(random < 30){
+	cout << "Perturbation dirigée." << endl;
 	directedPerturbation(prime);
     }
     else{
-	
+	cout << "Perturbation aléatoire." << endl;
 	randomPertubation(prime);
     }
     
@@ -121,7 +122,9 @@ void IteratedTabuSearch::directedPerturbation(Coloration* prime){
     }   
     
     // Boucle principale
-    for(int iter=0; iter < pertubationLimit; ++iter){
+    int iter = 0;
+    while(iter < pertubationLimit && prime->evaluate() != 0){
+//     for(int iter=0; iter < pertubationLimit; ++iter){
 	
 	if( Neighboor.size() > 0){
 	    for(unsigned l=0; l < Neighboor.size(); ++l){
